@@ -47,4 +47,35 @@ class AuthService {
       Components.showSnackBar(context, e.toString());
     }
   }
+
+  void signInUser({
+    required BuildContext context,
+    required String email,
+    required String password,
+  }) async {
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/api/signin'),
+        body: {
+          "email": email,
+          "password": password,
+        },
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+
+      httpErrorHandle(
+          response: res,
+          context: context,
+          onSuccess: () {
+            Components.showSnackBar(
+              context,
+              "SignIn successfull",
+            );
+          });
+    } catch (e) {
+      Components.showSnackBar(context, e.toString());
+    }
+  }
 }

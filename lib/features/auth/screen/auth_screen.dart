@@ -44,6 +44,14 @@ class _AuthScreenState extends State<AuthScreen> {
     );
   }
 
+  void signInUser() {
+    authService.signInUser(
+      context: context,
+      email: _emailC.text,
+      password: _passwordC.text,
+    );
+  }
+
   @override
   void dispose() {
     super.dispose();
@@ -118,7 +126,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         SizedBox(height: context.height10),
                         CustomButton(
                           text: AppString.signUp,
-                          onTap: (){
+                          onTap: () {
                             if (_signUpFKey.currentState!.validate()) {
                               signUpUser();
                             }
@@ -169,7 +177,11 @@ class _AuthScreenState extends State<AuthScreen> {
                         SizedBox(height: context.height10),
                         CustomButton(
                           text: AppString.signIn,
-                          onTap: () {},
+                          onTap: () {
+                            if (_signInFKey.currentState!.validate()) {
+                              signInUser();
+                            }
+                          },
                         )
                       ],
                     ),
