@@ -9,7 +9,7 @@ void httpErrorHandle({
   required BuildContext context,
   required VoidCallback onSuccess,
 }) {
-  switch (response.hashCode) {
+  switch (response.statusCode) {
     case 200:
       onSuccess();
       break;
