@@ -75,9 +75,9 @@ class AuthService {
       );
 
       httpErrorHandle(
-          response: res,
-          context: context,
-          onSuccess: () async {
+        response: res,
+        context: context,
+        onSuccess: () async {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           Provider.of<UserProvider>(context, listen: false).setUser(res.body);
           await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
@@ -86,7 +86,44 @@ class AuthService {
             Routers.homeScreen,
             (route) => false,
           );
-        },);
+        },
+      );
+    } catch (e) {
+      Components.showSnackBar(context, e.toString());
+    }
+  }
+
+  void getUserData(
+    BuildContext context,
+  ) async {
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('x-auth-token');
+      if (token == null) {
+        prefs.setString('x-auth-token', '');
+      }
+
+      http.Response tokenRes = await http.post(
+        Uri.parse('/tokenIsValid'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': token!,
+        },
+      );
+
+      bool response = jsonDecode(tokenRes.body);
+
+      if (response == true) {
+        http.Response userRes = await http.get(
+          Uri.parse('$uri/'),
+          headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': token,
+        },
+          );
+          var userProvider = Provider.of<UserProvider>(context, listen: false);
+          userProvider.setUser(userRes.body);
+      }
     } catch (e) {
       Components.showSnackBar(context, e.toString());
     }
