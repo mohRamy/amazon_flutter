@@ -9,37 +9,38 @@ import 'features/auth/screen/auth_screen.dart';
 import 'routes.dart';
 
 class Amazon extends StatefulWidget {
-  const Amazon({super.key});
+  const Amazon({Key? key}) : super(key: key);
 
   @override
   State<Amazon> createState() => _AmazonState();
 }
 
 class _AmazonState extends State<Amazon> {
-  AuthService authService = AuthService();
+  final AuthService authService = AuthService();
 
   @override
   void initState() {
-    authService.getUserData(context);
     super.initState();
+    authService.getUserData(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Amazon',
       debugShowCheckedModeBanner: false,
+      title: 'Amazon Clone',
       theme: ThemeData(
         scaffoldBackgroundColor: GlobalVariables.backgroundColor,
         colorScheme: const ColorScheme.light(
           primary: GlobalVariables.secondaryColor,
         ),
         appBarTheme: const AppBarTheme(
-          elevation: 0.0,
+          elevation: 0,
           iconTheme: IconThemeData(
             color: Colors.black,
           ),
         ),
+        useMaterial3: true, // can remove this line
       ),
       onGenerateRoute: (settings) => AppRoutes.onGenerateroute(settings),
       home: Provider.of<UserProvider>(context).user.token.isNotEmpty
