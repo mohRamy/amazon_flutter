@@ -1,12 +1,13 @@
 import 'dart:io';
 
-import 'package:amazon_flutter/common/widgets/custom_button.dart';
-import 'package:amazon_flutter/common/widgets/custom_textfield.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
+import '../../../common/picker/picker.dart';
 import '../../../common/utils/constants/global_variables.dart';
+import '../../../common/widgets/custom_button.dart';
+import '../../../common/widgets/custom_textfield.dart';
 
 class AddProductScreen extends StatefulWidget {
   static const String routeName = '/add-product';
@@ -17,11 +18,11 @@ class AddProductScreen extends StatefulWidget {
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
-  final TextEditingController productNameC = TextEditingController();
-  final TextEditingController descriptionC = TextEditingController();
-  final TextEditingController priceC = TextEditingController();
-  final TextEditingController quantityC = TextEditingController();
-  // final AdminServices adminServices = AdminServices();
+  final TextEditingController productNameController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
+  final TextEditingController priceController = TextEditingController();
+  final TextEditingController quantityController = TextEditingController();
+  //final AdminServices adminServices = AdminServices();
 
   String category = 'Mobiles';
   List<File> images = [];
@@ -30,10 +31,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
   @override
   void dispose() {
     super.dispose();
-    productNameC.dispose();
-    descriptionC.dispose();
-    priceC.dispose();
-    quantityC.dispose();
+    productNameController.dispose();
+    descriptionController.dispose();
+    priceController.dispose();
+    quantityController.dispose();
   }
 
   List<String> productCategories = [
@@ -58,12 +59,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
   //   }
   // }
 
-  // void selectImages() async {
-  //   var res = await pickImages();
-  //   setState(() {
-  //     images = res;
-  //   });
-  // }
+  void selectImages() async {
+    var res = await pickImages();
+    setState(() {
+      images = res;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +112,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                         ),
                       )
                     : GestureDetector(
-                        onTap: (){},
+                        onTap: selectImages,
                         child: DottedBorder(
                           borderType: BorderType.RRect,
                           radius: const Radius.circular(10),
@@ -145,23 +146,23 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       ),
                 const SizedBox(height: 30),
                 CustomTextField(
-                  controller: productNameC,
+                  controller: productNameController,
                   hintText: 'Product Name',
                 ),
                 const SizedBox(height: 10),
                 CustomTextField(
-                  controller: descriptionC,
+                  controller: descriptionController,
                   hintText: 'Description',
                   maxLines: 7,
                 ),
                 const SizedBox(height: 10),
                 CustomTextField(
-                  controller: priceC,
+                  controller: priceController,
                   hintText: 'Price',
                 ),
                 const SizedBox(height: 10),
                 CustomTextField(
-                  controller: quantityC,
+                  controller: quantityController,
                   hintText: 'Quantity',
                 ),
                 const SizedBox(height: 10),
@@ -187,8 +188,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 CustomButton(
                   text: 'Sell',
                   onTap: (){},
+                  //sellProduct,
                 ),
-                const SizedBox(height: 10),
               ],
             ),
           ),
