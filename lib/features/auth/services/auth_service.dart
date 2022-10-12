@@ -83,7 +83,7 @@ class AuthService {
           await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
           Navigator.pushNamedAndRemoveUntil(
             context,
-            Routers.homeScreen,
+            Routers.bottombar,
             (route) => false,
           );
         },
@@ -97,7 +97,7 @@ class AuthService {
   void getUserData(
     BuildContext context,
   ) async {
-    
+    try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       String? token = prefs.getString('x-auth-token');
 
@@ -127,6 +127,8 @@ class AuthService {
         var userProvider = Provider.of<UserProvider>(context, listen: false);
         userProvider.setUser(userRes.body);
       }
-    
+    } catch (e) {
+      Components.showSnackBar(context, e.toString());
+    }
   }
 }

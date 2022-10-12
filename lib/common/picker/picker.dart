@@ -58,3 +58,12 @@ Future<File?> pickVideoFromCamera(BuildContext context) async {
   }
   return video;
 }
+
+pickImages() {
+  List<File> images = [];
+  try {
+    
+  } catch (e) {
+    debugPrint(e.toString());
+  }
+}

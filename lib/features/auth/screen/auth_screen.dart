@@ -125,7 +125,6 @@ class _AuthScreenState extends State<AuthScreen> {
                         ),
                         SizedBox(height: context.height10),
                         CustomButton(
-                          color: Colors.blue,
                           text: AppString.signUp,
                           onTap: () {
                             if (_signUpFKey.currentState!.validate()) {
@@ -177,7 +176,6 @@ class _AuthScreenState extends State<AuthScreen> {
                         ),
                         SizedBox(height: context.height10),
                         CustomButton(
-                          color: Colors.blue,
                           text: AppString.signIn,
                           onTap: () {
                             if (_signInFKey.currentState!.validate()) {
