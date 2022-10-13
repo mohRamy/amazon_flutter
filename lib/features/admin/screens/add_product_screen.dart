@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:amazon_flutter/features/admin/services/admin_services.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -18,11 +19,11 @@ class AddProductScreen extends StatefulWidget {
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
-  final TextEditingController productNameController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
-  final TextEditingController priceController = TextEditingController();
-  final TextEditingController quantityController = TextEditingController();
-  //final AdminServices adminServices = AdminServices();
+  final TextEditingController _productNameC = TextEditingController();
+  final TextEditingController _descriptionC = TextEditingController();
+  final TextEditingController _priceC = TextEditingController();
+  final TextEditingController _quantityC = TextEditingController();
+  final AdminServices adminServices = AdminServices();
 
   String category = 'Mobiles';
   List<File> images = [];
@@ -31,10 +32,10 @@ class _AddProductScreenState extends State<AddProductScreen> {
   @override
   void dispose() {
     super.dispose();
-    productNameController.dispose();
-    descriptionController.dispose();
-    priceController.dispose();
-    quantityController.dispose();
+    _productNameC.dispose();
+    _descriptionC.dispose();
+    _priceC.dispose();
+    _quantityC.dispose();
   }
 
   List<String> productCategories = [
@@ -44,6 +45,20 @@ class _AddProductScreenState extends State<AddProductScreen> {
     'Books',
     'Fashion'
   ];
+
+  void sellProduct() {
+    if (_addProductFormKey.currentState!.validate() && images.isNotEmpty) {
+      adminServices.sellProduct(
+      context: context,
+      name: _productNameC.text,
+      description: _descriptionC.text,
+      price: double.parse(_priceC.text),
+      quantity: double.parse(_quantityC.text),
+      category: category,
+      images: images,
+    );
+    }
+  }
 
   // void sellProduct() {
   //   if (_addProductFormKey.currentState!.validate() && images.isNotEmpty) {
@@ -146,23 +161,23 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       ),
                 const SizedBox(height: 30),
                 CustomTextField(
-                  controller: productNameController,
+                  controller: _productNameC,
                   hintText: 'Product Name',
                 ),
                 const SizedBox(height: 10),
                 CustomTextField(
-                  controller: descriptionController,
+                  controller: _descriptionC,
                   hintText: 'Description',
                   maxLines: 7,
                 ),
                 const SizedBox(height: 10),
                 CustomTextField(
-                  controller: priceController,
+                  controller: _priceC,
                   hintText: 'Price',
                 ),
                 const SizedBox(height: 10),
                 CustomTextField(
-                  controller: quantityController,
+                  controller: _quantityC,
                   hintText: 'Quantity',
                 ),
                 const SizedBox(height: 10),
@@ -187,8 +202,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 const SizedBox(height: 10),
                 CustomButton(
                   text: 'Sell',
-                  onTap: (){},
-                  //sellProduct,
+                  onTap: sellProduct,
+                  
                 ),
               ],
             ),

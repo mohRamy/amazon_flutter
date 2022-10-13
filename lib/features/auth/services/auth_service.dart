@@ -41,7 +41,7 @@ class AuthService {
       );
 
       httpErrorHandle(
-        response: res,
+        res: res,
         context: context,
         onSuccess: () {
           Components.showSnackBar(
@@ -75,7 +75,7 @@ class AuthService {
       );
 
       httpErrorHandle(
-        response: res,
+        res: res,
         context: context,
         onSuccess: () async {
           SharedPreferences prefs = await SharedPreferences.getInstance();

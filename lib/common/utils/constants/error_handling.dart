@@ -5,21 +5,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 void httpErrorHandle({
-  required http.Response response,
+  required http.Response res,
   required BuildContext context,
   required VoidCallback onSuccess,
 }) {
-  switch (response.statusCode) {
+  switch (res.statusCode) {
     case 200:
       onSuccess();
       break;
     case 400:
-    Components.showSnackBar(context, jsonDecode(response.body)['msg']);
+    Components.showSnackBar(context, jsonDecode(res.body)['msg']);
     break;
     case 500:
-    Components.showSnackBar(context, jsonDecode(response.body)['error']);
+    Components.showSnackBar(context, jsonDecode(res.body)['error']);
     break;
     default:
-    Components.showSnackBar(context, response.body);
+    Components.showSnackBar(context, res.body);
   }
 }
