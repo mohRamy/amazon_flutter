@@ -11,7 +11,6 @@ import '../../../common/widgets/custom_button.dart';
 import '../../../common/widgets/custom_textfield.dart';
 
 class AddProductScreen extends StatefulWidget {
-  static const String routeName = '/add-product';
   const AddProductScreen({Key? key}) : super(key: key);
 
   @override
@@ -49,30 +48,16 @@ class _AddProductScreenState extends State<AddProductScreen> {
   void sellProduct() {
     if (_addProductFormKey.currentState!.validate() && images.isNotEmpty) {
       adminServices.sellProduct(
-      context: context,
-      name: _productNameC.text,
-      description: _descriptionC.text,
-      price: double.parse(_priceC.text),
-      quantity: double.parse(_quantityC.text),
-      category: category,
-      images: images,
-    );
+        context: context,
+        name: _productNameC.text,
+        description: _descriptionC.text,
+        price: double.parse(_priceC.text),
+        quantity: double.parse(_quantityC.text),
+        category: category,
+        images: images,
+      );
     }
   }
-
-  // void sellProduct() {
-  //   if (_addProductFormKey.currentState!.validate() && images.isNotEmpty) {
-  //     adminServices.sellProduct(
-  //       context: context,
-  //       name: productNameController.text,
-  //       description: descriptionController.text,
-  //       price: double.parse(priceController.text),
-  //       quantity: double.parse(quantityController.text),
-  //       category: category,
-  //       images: images,
-  //     );
-  //   }
-  // }
 
   void selectImages() async {
     var res = await pickImages();
@@ -203,7 +188,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 CustomButton(
                   text: 'Sell',
                   onTap: sellProduct,
-                  
                 ),
               ],
             ),

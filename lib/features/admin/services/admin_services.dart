@@ -98,4 +98,32 @@ class AdminServices {
     }
     return productList;
   }
+
+  // delete product
+  void deleteProduct({
+    required BuildContext context,
+    required ProductModel product,
+    required VoidCallback onSuccess,
+  }) async {
+    var userProvider = Provider.of<UserProvider>(context);
+    try {
+      http.Response res = await http.post(
+        Uri.parse('$uri/admin/delete-product'),
+        body: jsonEncode({"id": product.id},),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+      );
+      httpErrorHandle(
+        res: res,
+        context: context,
+        onSuccess: () {
+          onSuccess();
+        },
+      );
+    } catch (e) {
+      Components.showSnackBar(context, e.toString());
+    }
+  }
 }

@@ -11,7 +11,7 @@ class Routers {
   static const String authScreen = '/authscreen';
   static const String bottombar = '/bottombar';
   static const String homeScreen = '/homescreen';
-  static const String addProductScreen = '/ddproductscreen';
+  static const String addProductScreen = '/addproductscreen';
 }
 
 class AppRoutes {
