@@ -31,10 +31,10 @@ class _PostsScreenState extends State<PostsScreen> {
     Navigator.pushNamed(context, Routers.addProductScreen);
   }
 
-  void deleteProduct(ProductModel productModel, int index) {
+  void deleteProduct(ProductModel product, int index) {
     adminServices.deleteProduct(
       context: context,
-      product: productModel,
+      product: product,
       onSuccess: (){
         products!.removeAt(index);
         setState(() {

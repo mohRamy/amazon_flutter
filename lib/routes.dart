@@ -1,6 +1,8 @@
 import 'package:amazon_flutter/common/widgets/bottom_bar.dart';
 import 'package:amazon_flutter/features/admin/screens/add_product_screen.dart';
+import 'package:amazon_flutter/features/home/screen/category_deals_screen.dart';
 import 'package:amazon_flutter/features/home/screen/home_screen.dart';
+import 'package:flutter/foundation.dart';
 
 import 'common/utils/app_strings.dart';
 import 'features/auth/screen/auth_screen.dart';
@@ -8,10 +10,12 @@ import 'package:flutter/material.dart';
 
 class Routers {
   static const String initialRoute = '/';
-  static const String authScreen = '/authscreen';
-  static const String bottombar = '/bottombar';
-  static const String homeScreen = '/homescreen';
-  static const String addProductScreen = '/addproductscreen';
+  static const String authScreen = '/auth';
+  static const String bottombar = '/bottom-bar';
+  static const String homeScreen = '/home';
+  static const String addProductScreen = '/add-products';
+  static const String categoryDeals = '/category-deals';
+
 }
 
 class AppRoutes {
@@ -32,6 +36,11 @@ class AppRoutes {
         case Routers.addProductScreen:
         return MaterialPageRoute(
           builder: (context) => const AddProductScreen(),
+        );
+        case Routers.categoryDeals:
+        String category = routeSettings.arguments as String; 
+        return MaterialPageRoute(
+          builder: (context) => CategoryDealsScreen(category: category),
         );
       default:
         return undefinedRoute();

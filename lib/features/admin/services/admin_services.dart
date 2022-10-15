@@ -105,7 +105,7 @@ class AdminServices {
     required ProductModel product,
     required VoidCallback onSuccess,
   }) async {
-    var userProvider = Provider.of<UserProvider>(context);
+    var userProvider = Provider.of<UserProvider>(context, listen: false);
     try {
       http.Response res = await http.post(
         Uri.parse('$uri/admin/delete-product'),
