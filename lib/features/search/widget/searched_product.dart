@@ -19,10 +19,8 @@ class SearchedProduct extends StatelessWidget {
     }
     return Column(
       children: [
-        Container(
-          margin: const EdgeInsets.symmetric(
-            horizontal: 10,
-          ),
+        SizedBox(
+          
           child: Row(
             children: [
               Image.network(
@@ -85,6 +83,7 @@ class SearchedProduct extends StatelessWidget {
             ],
           ),
         ),
+        const SizedBox(height: 15.0,),
       ],
     );
   }

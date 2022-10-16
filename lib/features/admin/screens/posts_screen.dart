@@ -28,7 +28,7 @@ class _PostsScreenState extends State<PostsScreen> {
   }
 
   void navigateToAddProduct() {
-    Navigator.pushNamed(context, Routers.addProductScreen);
+    Navigator.pushNamed(context, Routers.addProduct);
   }
 
   void deleteProduct(ProductModel product, int index) {

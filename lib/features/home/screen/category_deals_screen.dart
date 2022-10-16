@@ -1,10 +1,10 @@
 import 'package:amazon_flutter/common/widgets/loader.dart';
 import 'package:amazon_flutter/features/home/services/home_services.dart';
-import 'package:amazon_flutter/models/product.dart';
 import 'package:amazon_flutter/routes.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/utils/constants/global_variables.dart';
+import '../../../models/product.dart';
 
 class CategoryDealsScreen extends StatefulWidget {
   static const String routeName = '/category-deals';
@@ -88,7 +88,7 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
                         onTap: () {
                           Navigator.pushNamed(
                             context,
-                            Routers.categoryDeals,
+                            Routers.productDetail,
                             arguments: product,
                           );
                         },
@@ -128,7 +128,7 @@ class _CategoryDealsScreenState extends State<CategoryDealsScreen> {
                         ),
                       );
                     },
-                  ):Container(),
+                  ) : Container(),
                 ),
               ],
             ),
