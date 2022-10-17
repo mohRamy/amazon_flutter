@@ -1,6 +1,6 @@
-import 'package:amazon_flutter/common/widgets/bottom_bar.dart';
-import 'package:amazon_flutter/features/auth/services/auth_service.dart';
-import 'package:amazon_flutter/provider/user_provider.dart';
+import 'common/widgets/bottom_bar.dart';
+import 'features/auth/services/auth_service.dart';
+import 'provider/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

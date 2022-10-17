@@ -1,5 +1,5 @@
-import 'package:amazon_flutter/features/account/screen/account_screen.dart';
-import 'package:amazon_flutter/features/home/screen/home_screen.dart';
+import '../../features/account/screen/account_screen.dart';
+import '../../features/home/screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart';
 

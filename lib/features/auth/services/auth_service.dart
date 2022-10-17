@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:amazon_flutter/provider/user_provider.dart';
+import '../../../provider/user_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

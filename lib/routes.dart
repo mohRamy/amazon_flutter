@@ -1,10 +1,10 @@
-import 'package:amazon_flutter/common/widgets/bottom_bar.dart';
-import 'package:amazon_flutter/features/admin/screens/add_product_screen.dart';
-import 'package:amazon_flutter/features/home/screen/category_deals_screen.dart';
-import 'package:amazon_flutter/features/home/screen/home_screen.dart';
-import 'package:amazon_flutter/features/product_details/screens/product_details_screen.dart';
-import 'package:amazon_flutter/features/search/screens/search_screen.dart';
-import 'package:amazon_flutter/models/product.dart';
+import 'common/widgets/bottom_bar.dart';
+import 'features/admin/screens/add_product_screen.dart';
+import 'features/home/screen/category_deals_screen.dart';
+import 'features/home/screen/home_screen.dart';
+import 'features/product_details/screens/product_details_screen.dart';
+import 'features/search/screens/search_screen.dart';
+import 'models/product.dart';
 import 'package:flutter/foundation.dart';
 
 import 'common/utils/app_strings.dart';

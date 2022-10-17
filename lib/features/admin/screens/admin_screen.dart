@@ -1,6 +1,6 @@
-import 'package:amazon_flutter/features/admin/screens/analtyics_screen.dart';
-import 'package:amazon_flutter/features/admin/screens/orders_screen.dart';
-import 'package:amazon_flutter/features/admin/screens/posts_screen.dart';
+import 'analtyics_screen.dart';
+import 'orders_screen.dart';
+import 'posts_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/utils/constants/global_variables.dart';

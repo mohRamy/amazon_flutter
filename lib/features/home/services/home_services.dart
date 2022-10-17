@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:amazon_flutter/models/product.dart';
+import '../../../models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;

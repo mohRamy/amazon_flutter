@@ -1,7 +1,7 @@
-import 'package:amazon_flutter/common/widgets/loader.dart';
-import 'package:amazon_flutter/features/admin/models/sales.dart';
-import 'package:amazon_flutter/features/admin/services/admin_services.dart';
-import 'package:amazon_flutter/features/admin/widgets/category_products_chart.dart';
+import '../../../common/widgets/loader.dart';
+import '../models/sales.dart';
+import '../services/admin_services.dart';
+import '../widgets/category_products_chart.dart';
 import 'package:flutter/material.dart';
 
 class AnalyticsScreen extends StatefulWidget {

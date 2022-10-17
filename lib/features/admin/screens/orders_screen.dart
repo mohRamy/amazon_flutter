@@ -1,6 +1,6 @@
-import 'package:amazon_flutter/common/widgets/loader.dart';
-import 'package:amazon_flutter/features/account/widgets/single_product.dart';
-import 'package:amazon_flutter/features/admin/services/admin_services.dart';
+import '../../../common/widgets/loader.dart';
+import '../../account/widgets/single_product.dart';
+import '../services/admin_services.dart';
 import 'package:flutter/material.dart';
 
 class OrdersScreen extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:amazon_flutter/features/admin/services/admin_services.dart';
+import '../services/admin_services.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';

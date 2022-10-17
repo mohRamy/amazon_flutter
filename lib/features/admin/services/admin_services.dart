@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:amazon_flutter/common/utils/components/components.dart';
-import 'package:amazon_flutter/common/utils/constants/error_handling.dart';
-import 'package:amazon_flutter/common/utils/constants/global_variables.dart';
-import 'package:amazon_flutter/models/product.dart';
-import 'package:amazon_flutter/provider/user_provider.dart';
+import '../../../common/utils/components/components.dart';
+import '../../../common/utils/constants/error_handling.dart';
+import '../../../common/utils/constants/global_variables.dart';
+import '../../../models/product.dart';
+import '../../../provider/user_provider.dart';
 import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;

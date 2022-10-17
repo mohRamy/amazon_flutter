@@ -1,8 +1,8 @@
-import 'package:amazon_flutter/common/widgets/loader.dart';
-import 'package:amazon_flutter/features/home/widgets/address_box.dart';
-import 'package:amazon_flutter/features/search/services/search_services.dart';
-import 'package:amazon_flutter/models/product.dart';
-import 'package:amazon_flutter/routes.dart';
+import '../../../common/widgets/loader.dart';
+import '../../home/widgets/address_box.dart';
+import '../services/search_services.dart';
+import '../../../models/product.dart';
+import '../../../routes.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/utils/constants/global_variables.dart';

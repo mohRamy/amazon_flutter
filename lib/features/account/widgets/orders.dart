@@ -1,4 +1,4 @@
-import 'package:amazon_flutter/features/account/widgets/single_product.dart';
+import 'single_product.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/utils/constants/global_variables.dart';

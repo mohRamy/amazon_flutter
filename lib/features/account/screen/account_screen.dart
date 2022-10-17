@@ -1,4 +1,4 @@
-import 'package:amazon_flutter/features/account/widgets/top_buttons.dart';
+import '../widgets/top_buttons.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/utils/constants/global_variables.dart';

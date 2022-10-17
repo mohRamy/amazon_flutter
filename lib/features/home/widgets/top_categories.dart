@@ -1,4 +1,4 @@
-import 'package:amazon_flutter/routes.dart';
+import '../../../routes.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/utils/constants/global_variables.dart';

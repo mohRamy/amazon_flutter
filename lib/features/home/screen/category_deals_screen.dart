@@ -1,6 +1,6 @@
-import 'package:amazon_flutter/common/widgets/loader.dart';
-import 'package:amazon_flutter/features/home/services/home_services.dart';
-import 'package:amazon_flutter/routes.dart';
+import '../../../common/widgets/loader.dart';
+import '../services/home_services.dart';
+import '../../../routes.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/utils/constants/global_variables.dart';
