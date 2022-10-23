@@ -71,7 +71,7 @@ class HomeServices {
         context: context,
         onSuccess: () {
           product = ProductModel.fromJson(res.body);
-        }, 
+        },
       );
     } catch (e) {
       Components.showSnackBar(context, e.toString());
