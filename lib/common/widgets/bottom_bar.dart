@@ -1,8 +1,12 @@
+import 'package:amazon_flutter/features/cart/screens/cart_screen.dart';
+import 'package:provider/provider.dart';
+
 import '../../features/account/screen/account_screen.dart';
 import '../../features/home/screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart';
 
+import '../../provider/user_provider.dart';
 import '../utils/constants/global_variables.dart';
 
 class BottomBar extends StatefulWidget {
@@ -20,7 +24,7 @@ class _BottomBarState extends State<BottomBar> {
   List<Widget> pages = [
     const HomeScreen(),
     const AccountScreen(),
-    const Scaffold(),
+    const CartScreen(),
   ];
 
   void updatePage(int page) {
@@ -31,6 +35,7 @@ class _BottomBarState extends State<BottomBar> {
 
   @override
   Widget build(BuildContext context) {
+    final userCartLen = context.watch<UserProvider>().user.cart.length;
 
     return Scaffold(
       body: pages[_page],
@@ -97,7 +102,8 @@ class _BottomBarState extends State<BottomBar> {
                 ),
               ),
               child: Badge(
-                
+                badgeContent: Text(userCartLen.toString()),
+                badgeColor: Colors.white,
                 elevation: 0.0,
                 child: const Icon(
                 Icons.shopping_cart_outlined,

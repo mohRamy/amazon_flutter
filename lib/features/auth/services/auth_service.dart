@@ -30,6 +30,7 @@ class AuthService {
         address: '',
         type: '',
         token: '',
+        cart: [],
       );
 
       http.Response res = await http.post(
@@ -79,7 +80,7 @@ class AuthService {
         context: context,
         onSuccess: () async {
           SharedPreferences prefs = await SharedPreferences.getInstance();
-          Provider.of<UserProvider>(context, listen: false).setUser(res.body);
+          Provider.of<UserProvider>(context, listen: false).setUserFromJson(res.body);
           await prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
           Navigator.pushNamedAndRemoveUntil(
             context,
@@ -125,7 +126,7 @@ class AuthService {
         );
 
         var userProvider = Provider.of<UserProvider>(context, listen: false);
-        userProvider.setUser(userRes.body);
+        userProvider.setUserFromJson(userRes.body);
       }
     } catch (e) {
       Components.showSnackBar(context, e.toString());
