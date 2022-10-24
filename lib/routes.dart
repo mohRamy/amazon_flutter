@@ -1,3 +1,5 @@
+import 'package:amazon_flutter/features/address/screens/address_screen.dart';
+
 import 'common/widgets/bottom_bar.dart';
 import 'features/admin/screens/add_product_screen.dart';
 import 'features/home/screen/category_deals_screen.dart';
@@ -5,7 +7,6 @@ import 'features/home/screen/home_screen.dart';
 import 'features/product_details/screens/product_details_screen.dart';
 import 'features/search/screens/search_screen.dart';
 import 'models/product.dart';
-import 'package:flutter/foundation.dart';
 
 import 'common/utils/app_strings.dart';
 import 'features/auth/screen/auth_screen.dart';
@@ -20,6 +21,8 @@ class Routers {
   static const String categoryDeals = '/category-deals';
   static const String search = '/search';
   static const String productDetail = '/product-detail';
+  static const String address = '/address';
+
 }
 
 class AppRoutes {
@@ -55,6 +58,11 @@ class AppRoutes {
         var product = routeSettings.arguments as ProductModel;
         return MaterialPageRoute(
           builder: (context) => ProductDetailScreen(product: product),
+        );
+        case Routers.address:
+        String totalAmount = routeSettings.arguments as String; 
+        return MaterialPageRoute(
+          builder: (context) => AddressScreen(totalAmount: totalAmount),
         );
       default:
         return undefinedRoute();

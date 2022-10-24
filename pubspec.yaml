@@ -45,6 +45,7 @@ dependencies:
   http: ^0.13.5
   image_picker: ^0.8.5+3
   internet_connection_checker: ^0.0.1+4
+  pay: ^1.0.11
   provider: ^6.0.3
   shared_preferences: null
 
@@ -65,6 +66,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/gpay.json
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
