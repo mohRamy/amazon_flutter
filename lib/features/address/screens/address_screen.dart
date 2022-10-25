@@ -2,13 +2,13 @@ import 'package:amazon_flutter/common/utils/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:pay/pay.dart';
 import 'package:provider/provider.dart';
+import 'package:amazon_flutter/common/widgets/custom_textfield.dart';
 
 import '../../../common/utils/constants/global_variables.dart';
-import '../../../common/widgets/custom_textfield.dart';
 import '../../../provider/user_provider.dart';
+import '../services/address_services.dart';
 
 class AddressScreen extends StatefulWidget {
-  static const String routeName = '/address';
   final String totalAmount;
   const AddressScreen({
     Key? key,
@@ -20,15 +20,15 @@ class AddressScreen extends StatefulWidget {
 }
 
 class _AddressScreenState extends State<AddressScreen> {
-  final TextEditingController flatBuildingC = TextEditingController();
-  final TextEditingController areaC = TextEditingController();
-  final TextEditingController pincodeC = TextEditingController();
-  final TextEditingController cityC = TextEditingController();
+  final TextEditingController flatBuildingController = TextEditingController();
+  final TextEditingController areaController = TextEditingController();
+  final TextEditingController pincodeController = TextEditingController();
+  final TextEditingController cityController = TextEditingController();
   final _addressFormKey = GlobalKey<FormState>();
 
   String addressToBeUsed = "";
   List<PaymentItem> paymentItems = [];
-  //final AddressServices addressServices = AddressServices();
+  final AddressServices addressServices = AddressServices();
 
   @override
   void initState() {
@@ -45,28 +45,62 @@ class _AddressScreenState extends State<AddressScreen> {
   @override
   void dispose() {
     super.dispose();
-    flatBuildingC.dispose();
-    areaC.dispose();
-    pincodeC.dispose();
-    cityC.dispose();
+    flatBuildingController.dispose();
+    areaController.dispose();
+    pincodeController.dispose();
+    cityController.dispose();
   }
 
-  void onApplePayResult(res) {}
+  void onApplePayResult(res) {
+    if (Provider.of<UserProvider>(context, listen: false)
+        .user
+        .address
+        .isEmpty) {
+      addressServices.saveUserAddress(
+          context: context, address: addressToBeUsed);
+    }
+  }
 
-  void onGooglePayResult(res) {}
+  void onGooglePayResult(res) {
+    if (Provider.of<UserProvider>(context, listen: false)
+        .user
+        .address
+        .isEmpty) {
+      addressServices.saveUserAddress(
+          context: context, address: addressToBeUsed);
+    }
+    addressServices.placeOrder(
+        context: context,
+        address: addressToBeUsed,
+        totalSum: widget.totalAmount);
+  }
+
+  void onGooglePayResul() {
+    if (Provider.of<UserProvider>(context, listen: false)
+        .user
+        .address
+        .isEmpty) {
+      addressServices.saveUserAddress(
+          context: context, address: addressToBeUsed);
+    }
+    addressServices.placeOrder(
+        context: context,
+        address: addressToBeUsed,
+        totalSum: widget.totalAmount);
+  }
 
   void payPressed(String addressFromProvider) {
     addressToBeUsed = "";
 
-    bool isForm = flatBuildingC.text.isNotEmpty ||
-        areaC.text.isNotEmpty ||
-        pincodeC.text.isNotEmpty ||
-        cityC.text.isNotEmpty;
+    bool isForm = flatBuildingController.text.isNotEmpty ||
+        areaController.text.isNotEmpty ||
+        pincodeController.text.isNotEmpty ||
+        cityController.text.isNotEmpty;
 
     if (isForm) {
       if (_addressFormKey.currentState!.validate()) {
         addressToBeUsed =
-            '${flatBuildingC.text}, ${areaC.text}, ${cityC.text} - ${pincodeC.text}';
+            '${flatBuildingController.text}, ${areaController.text}, ${cityController.text} - ${pincodeController.text}';
       } else {
         throw Exception('Please enter all the values!');
       }
@@ -132,22 +166,22 @@ class _AddressScreenState extends State<AddressScreen> {
                 child: Column(
                   children: [
                     CustomTextField(
-                      controller: flatBuildingC,
+                      controller: flatBuildingController,
                       hintText: 'Flat, House no, Building',
                     ),
                     const SizedBox(height: 10),
                     CustomTextField(
-                      controller: areaC,
+                      controller: areaController,
                       hintText: 'Area, Street',
                     ),
                     const SizedBox(height: 10),
                     CustomTextField(
-                      controller: pincodeC,
+                      controller: pincodeController,
                       hintText: 'Pincode',
                     ),
                     const SizedBox(height: 10),
                     CustomTextField(
-                      controller: cityC,
+                      controller: cityController,
                       hintText: 'Town/City',
                     ),
                     const SizedBox(height: 10),
@@ -177,6 +211,10 @@ class _AddressScreenState extends State<AddressScreen> {
                 loadingIndicator: const Center(
                   child: CircularProgressIndicator(),
                 ),
+              ),
+              ElevatedButton(
+                onPressed: onGooglePayResul,
+                child: const Text('Bay With GPay'),
               ),
             ],
           ),
