@@ -48,6 +48,7 @@ dependencies:
   pay: ^1.0.11
   provider: ^6.0.3
   shared_preferences: null
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0

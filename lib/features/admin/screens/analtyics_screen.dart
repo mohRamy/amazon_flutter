@@ -1,7 +1,8 @@
-import '../../../common/widgets/loader.dart';
-import '../models/sales.dart';
-import '../services/admin_services.dart';
-import '../widgets/category_products_chart.dart';
+import 'package:amazon_flutter/common/widgets/loader.dart';
+import 'package:amazon_flutter/features/admin/models/sales.dart';
+import 'package:amazon_flutter/features/admin/services/admin_services.dart';
+import 'package:amazon_flutter/features/admin/widgets/category_products_chart.dart';
+import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 
 class AnalyticsScreen extends StatefulWidget {
@@ -12,22 +13,22 @@ class AnalyticsScreen extends StatefulWidget {
 }
 
 class _AnalyticsScreenState extends State<AnalyticsScreen> {
-  // final AdminServices adminServices = AdminServices();
+  final AdminServices adminServices = AdminServices();
   int? totalSales;
   List<Sales>? earnings;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   getEarnings();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    getEarnings();
+  }
 
-  // getEarnings() async {
-  //   var earningData = await adminServices.getEarnings(context);
-  //   totalSales = earningData['totalEarnings'];
-  //   earnings = earningData['sales'];
-  //   setState(() {});
-  // }
+  getEarnings() async {
+    var earningData = await adminServices.getEarnings(context);
+    totalSales = earningData['totalEarnings'];
+    earnings = earningData['sales'];
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,17 +43,17 @@ class _AnalyticsScreenState extends State<AnalyticsScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              // SizedBox(
-              //   height: 250,
-              //   child: CategoryProductsChart(seriesList: [
-              //     charts.Series(
-              //       id: 'Sales',
-              //       data: earnings!,
-              //       domainFn: (Sales sales, _) => sales.label,
-              //       measureFn: (Sales sales, _) => sales.earning,
-              //     ),
-              //   ]),
-              // )
+              SizedBox(
+                height: 250,
+                child: CategoryProductsChart(seriesList: [
+                  charts.Series(
+                    id: 'Sales',
+                    data: earnings!,
+                    domainFn: (Sales sales, _) => sales.label,
+                    measureFn: (Sales sales, _) => sales.earning,
+                  ),
+                ]),
+              )
             ],
           );
   }

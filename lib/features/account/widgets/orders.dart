@@ -1,4 +1,8 @@
-import 'single_product.dart';
+import 'package:amazon_flutter/common/widgets/loader.dart';
+import 'package:amazon_flutter/features/account/services/account_services.dart';
+import 'package:amazon_flutter/features/account/widgets/single_product.dart';
+import 'package:amazon_flutter/models/order.dart';
+import 'package:amazon_flutter/routes.dart';
 import 'package:flutter/material.dart';
 
 import '../../../common/utils/constants/global_variables.dart';
@@ -11,21 +15,25 @@ class Orders extends StatefulWidget {
 }
 
 class _OrdersState extends State<Orders> {
+  List<OrderModel>? orders;
+  final AccountServices accountServices = AccountServices();
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   fetchOrders();
-  // }
+  @override
+  void initState() {
+    super.initState();
+    fetchOrders();
+  }
 
-  // void fetchOrders() async {
-  //   orders = await accountServices.fetchMyOrders(context: context);
-  //   setState(() {});
-  // }
+  void fetchOrders() async {
+    orders = await accountServices.fetchMyOrders(context: context);
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
+    return orders == null
+        ? const Loader()
+        : Column(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -65,20 +73,19 @@ class _OrdersState extends State<Orders> {
                 ),
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: 10,
+                  itemCount: orders!.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
-                        // Navigator.pushNamed(
-                        //   context,
-                        //   OrderDetailScreen.routeName,
-                        //   arguments: orders![index],
-                        // );
+                        Navigator.pushNamed(
+                          context,
+                          Routers.orderDetail,
+                          arguments: orders![index],
+                        );
                       },
-                      child: const SingleProduct(
-                        image: 'assets/images/appliances.jpeg',
+                      child: SingleProduct(
+                        image: orders![index].products[0].images[0],
                       ),
-                      
                     );
                   },
                 ),

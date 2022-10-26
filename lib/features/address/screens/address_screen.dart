@@ -59,6 +59,11 @@ class _AddressScreenState extends State<AddressScreen> {
       addressServices.saveUserAddress(
           context: context, address: addressToBeUsed);
     }
+    addressServices.placeOrder(
+      context: context,
+      address: addressToBeUsed,
+      totalSum: double.parse(widget.totalAmount),
+    );
   }
 
   void onGooglePayResult(res) {
@@ -70,12 +75,32 @@ class _AddressScreenState extends State<AddressScreen> {
           context: context, address: addressToBeUsed);
     }
     addressServices.placeOrder(
-        context: context,
-        address: addressToBeUsed,
-        totalSum: widget.totalAmount);
+      context: context,
+      address: addressToBeUsed,
+      totalSum: double.parse(widget.totalAmount),
+    );
   }
 
-  void onGooglePayResul() {
+  void onGooglePayResul(String addressFromProvider) {
+    addressToBeUsed = "";
+
+    bool isForm = flatBuildingController.text.isNotEmpty ||
+        areaController.text.isNotEmpty ||
+        pincodeController.text.isNotEmpty ||
+        cityController.text.isNotEmpty;
+
+    if (isForm) {
+      if (_addressFormKey.currentState!.validate()) {
+        addressToBeUsed =
+            '${flatBuildingController.text}, ${areaController.text}, ${cityController.text} - ${pincodeController.text}';
+      } else {
+        throw Exception('Please enter all the values!');
+      }
+    } else if (addressFromProvider.isNotEmpty) {
+      addressToBeUsed = addressFromProvider;
+    } else {
+      Components.showSnackBar(context, 'ERROR');
+    }
     if (Provider.of<UserProvider>(context, listen: false)
         .user
         .address
@@ -84,9 +109,10 @@ class _AddressScreenState extends State<AddressScreen> {
           context: context, address: addressToBeUsed);
     }
     addressServices.placeOrder(
-        context: context,
-        address: addressToBeUsed,
-        totalSum: widget.totalAmount);
+      context: context,
+      address: addressToBeUsed,
+      totalSum: double.parse(widget.totalAmount),
+    );
   }
 
   void payPressed(String addressFromProvider) {
@@ -213,7 +239,7 @@ class _AddressScreenState extends State<AddressScreen> {
                 ),
               ),
               ElevatedButton(
-                onPressed: onGooglePayResul,
+                onPressed:()=> onGooglePayResul(address),
                 child: const Text('Bay With GPay'),
               ),
             ],

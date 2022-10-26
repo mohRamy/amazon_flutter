@@ -9,7 +9,7 @@ class TopCategories extends StatelessWidget {
   void navigateToCategoryPage(BuildContext context, String category) {
     Navigator.pushNamed(
       context,
-      Routers.categoryDeals,
+      Routers.categoryDeal,
       arguments: category,
     );
   }

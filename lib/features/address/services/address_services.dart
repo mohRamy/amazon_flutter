@@ -15,21 +15,21 @@ import '../../../provider/user_provider.dart';
 
 class AddressServices{
   void saveUserAddress({
-  required BuildContext context,
-  required String address,
+    required BuildContext context,
+    required String address,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-    try {
 
+    try {
       http.Response res = await http.post(
         Uri.parse('$uri/api/save-user-address'),
-        body: jsonEncode({
-          "address": address,
-        }),
-        headers: <String, String>{
+        headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
         },
+        body: jsonEncode({
+          'address': address,
+        }),
       );
 
       httpErrorHandle(
@@ -37,8 +37,9 @@ class AddressServices{
         context: context,
         onSuccess: () {
           UserModel user = userProvider.user.copyWith(
-            address: jsonDecode(res.body)["address"],
+            address: jsonDecode(res.body)['address'],
           );
+
           userProvider.setUserFromModel(user);
         },
       );
@@ -47,33 +48,33 @@ class AddressServices{
     }
   }
 
+  // get all the products
   void placeOrder({
-    required BuildContext context, 
+    required BuildContext context,
     required String address,
-    required String totalSum,
+    required double totalSum,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-    
+
     try {
-      http.Response res = await http.post(
-        Uri.parse('$uri/api/order'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'x-auth-token': userProvider.user.token,
-        },
-        body: jsonEncode({
-          "cart": userProvider.user.cart,
-          "address" : address,
-          "totalPrice": totalSum,
-        })
-      );
+      http.Response res = await http.post(Uri.parse('$uri/api/order'),
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': userProvider.user.token,
+          },
+          body: jsonEncode({
+            'cart': userProvider.user.cart,
+            'address': address,
+            'totalPrice': totalSum,
+          }));
+
       httpErrorHandle(
         res: res,
         context: context,
         onSuccess: () {
-          Components.showSnackBar(context, "Your order has been placed!");
+          Components.showSnackBar(context, 'Your order has been placed!');
           UserModel user = userProvider.user.copyWith(
-            cart: jsonDecode(res.body)["cart"],
+            cart: [],
           );
           userProvider.setUserFromModel(user);
         },

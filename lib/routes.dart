@@ -1,4 +1,6 @@
 import 'package:amazon_flutter/features/address/screens/address_screen.dart';
+import 'package:amazon_flutter/features/order_details/screens/order_details.dart';
+import 'package:amazon_flutter/models/order.dart';
 
 import 'common/widgets/bottom_bar.dart';
 import 'features/admin/screens/add_product_screen.dart';
@@ -18,10 +20,12 @@ class Routers {
   static const String bottombar = '/bottom-bar';
   static const String home = '/home';
   static const String addProduct = '/add-products';
-  static const String categoryDeals = '/category-deals';
+  static const String categoryDeal = '/category-detail';
   static const String search = '/search';
   static const String productDetail = '/product-detail';
   static const String address = '/address';
+  static const String orderDetail = '/order-detail';
+
 
 }
 
@@ -44,7 +48,7 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: (context) => const AddProductScreen(),
         );
-        case Routers.categoryDeals:
+        case Routers.categoryDeal:
         String category = routeSettings.arguments as String; 
         return MaterialPageRoute(
           builder: (context) => CategoryDealsScreen(category: category),
@@ -63,6 +67,11 @@ class AppRoutes {
         String totalAmount = routeSettings.arguments as String; 
         return MaterialPageRoute(
           builder: (context) => AddressScreen(totalAmount: totalAmount),
+        );
+        case Routers.orderDetail:
+        OrderModel order = routeSettings.arguments as OrderModel; 
+        return MaterialPageRoute(
+          builder: (context) => OrderDetailScreen(order: order),
         );
       default:
         return undefinedRoute();
