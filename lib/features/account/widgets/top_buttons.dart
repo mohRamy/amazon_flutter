@@ -1,9 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:amazon_flutter/core/utils/dimensions.dart';
 
-import '../services/account_services.dart';
+import '../account_ctrl/account_ctrl.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
 import 'account_button.dart';
 
-class TopButtons extends StatelessWidget {
+class TopButtons extends GetView<AccountCtlr> {
   const TopButtons({Key? key}) : super(key: key);
 
   @override
@@ -22,12 +25,12 @@ class TopButtons extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 10),
+        SizedBox(height: Dimensions.height10),
         Row(
           children: [
             AccountButton(
               text: 'Log Out',
-              onTap: () => AccountServices().logOut(context),
+              onTap: () => controller.logOut(),
             ),
             AccountButton(
               text: 'Your Wish List',

@@ -41,15 +41,23 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_rating_bar: ^4.0.1
-  get_it: ^7.2.0
-  http: ^0.13.5
+  get: ^4.6.5
   image_picker: ^0.8.5+3
   internet_connection_checker: ^0.0.1+4
-  pay: ^1.0.11
-  provider: ^6.0.3
-  shared_preferences: null
   intl: ^0.17.0
-
+  pay: ^1.0.11
+  shared_preferences: 
+  http:
+  dots_indicator:
+  google_maps_flutter: ^2.2.1
+  geolocator: ^9.0.2
+  geocoding: ^2.0.5
+  flutter_typeahead: ^4.1.1
+  # google_maps_flutter_web: ^0.4.0+3
+  google_maps_webservice: ^0.0.19
+  flutter_google_places: ^0.3.0
+  google_api_headers: ^1.5.0
+  
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:

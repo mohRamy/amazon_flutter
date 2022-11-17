@@ -1,3 +1,4 @@
+import 'package:amazon_flutter/core/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 
 class SingleProduct extends StatelessWidget {
@@ -10,7 +11,7 @@ class SingleProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 5),
+      padding: EdgeInsets.symmetric(horizontal: Dimensions.width10 - 5),
       child: DecoratedBox(
         decoration: BoxDecoration(
           border: Border.all(
@@ -22,7 +23,7 @@ class SingleProduct extends StatelessWidget {
         ),
         child: Container(
           width: 180,
-          padding: const EdgeInsets.all(10),
+          padding: EdgeInsets.all(Dimensions.height10),
           child: Image.network(
             image,
             fit: BoxFit.cover,

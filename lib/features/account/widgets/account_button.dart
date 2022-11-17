@@ -1,3 +1,4 @@
+import 'package:amazon_flutter/core/utils/dimensions.dart';
 import 'package:flutter/material.dart';
 
 class AccountButton extends StatelessWidget {
@@ -13,18 +14,18 @@ class AccountButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10),
-        height: 40,
+        margin: EdgeInsets.symmetric(horizontal: Dimensions.width10),
+        height: Dimensions.height45 - 5,
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.white, width: 0.0),
-          borderRadius: BorderRadius.circular(50),
+          border: Border.all(color: Colors.white),
+          borderRadius: BorderRadius.circular(Dimensions.radius45 + 5),
           color: Colors.white,
         ),
         child: OutlinedButton(
           style: ElevatedButton.styleFrom(
             primary: Colors.black12.withOpacity(0.03),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50),
+              borderRadius: BorderRadius.circular(Dimensions.radius45 + 5),
             ),
           ),
           onPressed: onTap,

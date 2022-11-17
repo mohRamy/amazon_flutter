@@ -1,54 +1,55 @@
-import 'common/widgets/bottom_bar.dart';
-import 'features/auth/services/auth_service.dart';
-import 'provider/user_provider.dart';
+import 'package:amazon_flutter/core/utils/app_colors.dart';
+import 'package:amazon_flutter/features/cart/cart_repo/cart_repo.dart';
+import 'package:amazon_flutter/features/order/order_screen/order_screen.dart';
+
+import 'controller/user_controller.dart';
+import 'features/auth/auth_repo/auth_repo.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 
-import 'common/utils/constants/global_variables.dart';
-import 'features/admin/screens/admin_screen.dart';
-import 'features/auth/screen/auth_screen.dart';
-import 'routes.dart';
+import 'core/utils/app_strings.dart';
+import 'features/auth/auth_ctrl/auth_ctrl.dart';
 
-class Amazon extends StatefulWidget {
-  const Amazon({Key? key}) : super(key: key);
+import '../../../config/routes/app_pages.dart';
 
-  @override
-  State<Amazon> createState() => _AmazonState();
-}
+class ShoppingApp extends StatelessWidget {
+  ShoppingApp({
+    Key? key,
+  }) : super(key: key);
 
-class _AmazonState extends State<Amazon> {
-  final AuthService authService = AuthService();
+  AuthCtrl authCtrl = Get.find<AuthCtrl>();
+  AuthRepo authRepo = Get.find<AuthRepo>();
+  UserCtrl userctrl = Get.find<UserCtrl>();
 
-  @override
-  void initState() {
-    super.initState();
-    authService.getUserData(context);
+
+  String initRoute() {
+      if (authRepo.getUserType() == "admin") {
+        return Routes.NAV_ADMIN_SCREEN;
+      } else {
+        return Routes.NAV_HOME_SCREEN;
+      }
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    if (Get.find<AuthRepo>().userLoggedIn()) {
+      Get.find<AuthCtrl>().getUserData();
+    }
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Amazon Clone',
+      title: AppString.APP_NAME,
       theme: ThemeData(
-        scaffoldBackgroundColor: GlobalVariables.backgroundColor,
-        colorScheme: const ColorScheme.light(
-          primary: GlobalVariables.secondaryColor,
-        ),
+        primaryColor: AppColors.mainColor,
         appBarTheme: const AppBarTheme(
           elevation: 0,
           iconTheme: IconThemeData(
             color: Colors.black,
           ),
         ),
-        useMaterial3: true, // can remove this line
+        useMaterial3: true, 
       ),
-      onGenerateRoute: (settings) => AppRoutes.onGenerateroute(settings),
-      home: Provider.of<UserProvider>(context).user.token.isNotEmpty
-          ? Provider.of<UserProvider>(context).user.type == 'user'
-              ? const BottomBar()
-              : const AdminScreen()
-          : const AuthScreen(),
+      initialRoute: initRoute(),
+      getPages: AppPages.routes,
     );
   }
 }
