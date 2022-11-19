@@ -15,12 +15,15 @@ import '../../../models/cart_model.dart';
 import '../../../config/routes/app_pages.dart';
 import '../cart_ctrl/cart_ctrl.dart';
 
-class CartHistory extends GetView<CartCtrl>{
+class CartHistory extends GetView<CartCtrl> {
   const CartHistory({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<CartModel> cartHistoryList = Get.find<CartCtrl>().getCartHistoryList().reversed.toList();
+    CartCtrl cartCtrl = Get.find<CartCtrl>();
+    
+    List<CartModel> cartHistoryList =
+        cartCtrl.getCartHistoryList().reversed.toList();
 
     Map<String, int> cartItems = {};
 
@@ -83,164 +86,154 @@ class CartHistory extends GetView<CartCtrl>{
           ),
           //body
           // GetBuilder<CartCtrl>(
-          //   builder: (controller) => 
-            controller.getCartHistoryList().isNotEmpty
-                ? Expanded(
-                    child: Container(
-                      margin: EdgeInsets.only(
-                        top: Dimensions.height20,
-                        left: Dimensions.width20,
-                        right: Dimensions.width20,
-                      ),
-                      child: MediaQuery.removePadding(
-                        removeTop: true,
-                        context: context,
-                        child: ListView(
-                          physics: const BouncingScrollPhysics(),
-                          children: [
-                            for (int i = 0; i < itemsVal.length; i++)
-                              Container(
-                                height: Dimensions.height30 * 4,
-                                margin: EdgeInsets.only(
-                                    bottom: Dimensions.height20),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    timeWidget(listCounter),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Wrap(
-                                          direction: Axis.horizontal,
-                                          children: List.generate(itemsVal[i],
-                                              (index) {
-                                            if (listCounter <
-                                                cartHistoryList.length) {
-                                              listCounter++;
-                                            }
-                                            return index <= 2
-                                                ? Container(
-                                                    height:
-                                                        Dimensions.height20 * 4,
-                                                    width:
-                                                        Dimensions.height20 * 4,
-                                                    margin: EdgeInsets.only(
-                                                        right:
-                                                            Dimensions.width10 /
-                                                                2),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius
-                                                          .circular(Dimensions
-                                                                  .radius15 /
+          //   builder: (controller) =>
+          controller.getCartHistoryList().isNotEmpty
+              ? Expanded(
+                  child: Container(
+                    margin: EdgeInsets.only(
+                      top: Dimensions.height20,
+                      left: Dimensions.width20,
+                      right: Dimensions.width20,
+                    ),
+                    child: MediaQuery.removePadding(
+                      removeTop: true,
+                      context: context,
+                      child: ListView(
+                        physics: const BouncingScrollPhysics(),
+                        children: [
+                          for (int i = 0; i < itemsVal.length; i++)
+                            Container(
+                              height: Dimensions.height30 * 4,
+                              margin:
+                                  EdgeInsets.only(bottom: Dimensions.height20),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  timeWidget(listCounter),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Wrap(
+                                        direction: Axis.horizontal,
+                                        children:
+                                            List.generate(itemsVal[i], (index) {
+                                          if (listCounter <
+                                              cartHistoryList.length) {
+                                            listCounter++;
+                                          }
+                                          return index <= 2
+                                              ? Container(
+                                                  height:
+                                                      Dimensions.height20 * 4,
+                                                  width:
+                                                      Dimensions.height20 * 4,
+                                                  margin: EdgeInsets.only(
+                                                      right:
+                                                          Dimensions.width10 /
                                                               2),
-                                                      image: DecorationImage(
-                                                        fit: BoxFit.cover,
-                                                        image: NetworkImage(
-                                                          cartHistoryList[
-                                                                  listCounter -
-                                                                      1]
-                                                              .image!,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  )
-                                                : Container();
-                                          }),
-                                        ),
-                                        SizedBox(
-                                          height: Dimensions.height20 * 4,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              SmallText(
-                                                text: 'Total',
-                                                color: AppColors.titleColor,
-                                              ),
-                                              BigText(
-                                                text:
-                                                    '${itemsVal[i]} Items',
-                                                color: AppColors.titleColor,
-                                              ),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  List<String> orderTime =
-                                                      cartItemsKey();
-                                                  Map<String, CartModel>
-                                                      moreOrder = {};
-                                                  for (int j = 0;
-                                                      j <
-                                                          cartHistoryList
-                                                              .length;
-                                                      j++) {
-                                                    if (cartHistoryList[j]
-                                                            .time ==
-                                                        orderTime[i]) {
-                                                      moreOrder.putIfAbsent(
-                                                        cartHistoryList[j].id!,
-                                                        () =>
-                                                            CartModel.fromJson(
-                                                                jsonDecode(
-                                                                    jsonEncode(
-                                                          cartHistoryList[j],
-                                                        ))),
-                                                      );
-                                                    }
-                                                  }
-                                                  Get.find<CartCtrl>()
-                                                      .setItems = moreOrder;
-                                                  Get.find<CartCtrl>()
-                                                      .addToCartList();
-                                                  Get.toNamed(Routes.CART);
-                                                },
-                                                child: Container(
-                                                  padding: EdgeInsets.symmetric(
-                                                    horizontal:
-                                                        Dimensions.width10,
-                                                    vertical:
-                                                        Dimensions.height10 / 2,
-                                                  ),
                                                   decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             Dimensions
                                                                     .radius15 /
-                                                                3),
-                                                    border: Border.all(
-                                                      width: 1,
-                                                      color:
-                                                          AppColors.mainColor,
+                                                                2),
+                                                    image: DecorationImage(
+                                                      fit: BoxFit.cover,
+                                                      image: NetworkImage(
+                                                        cartHistoryList[
+                                                                listCounter - 1]
+                                                            .image!,
+                                                      ),
                                                     ),
                                                   ),
-                                                  child: SmallText(
-                                                    text: 'one more',
+                                                )
+                                              : Container();
+                                        }),
+                                      ),
+                                      SizedBox(
+                                        height: Dimensions.height20 * 4,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            SmallText(
+                                              text: 'Total',
+                                              color: AppColors.titleColor,
+                                            ),
+                                            BigText(
+                                              text: '${itemsVal[i]} Items',
+                                              color: AppColors.titleColor,
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {
+                                                List<String> orderTime =
+                                                    cartItemsKey();
+                                                Map<String, CartModel>
+                                                    moreOrder = {};
+                                                for (int j = 0;
+                                                    j < cartHistoryList.length;
+                                                    j++) {
+                                                  if (cartHistoryList[j].time ==
+                                                      orderTime[i]) {
+                                                    moreOrder.putIfAbsent(
+                                                      cartHistoryList[j].id!,
+                                                      () => CartModel.fromJson(
+                                                          jsonDecode(jsonEncode(
+                                                        cartHistoryList[j],
+                                                      ))),
+                                                    );
+                                                  }
+                                                }
+                                                cartCtrl.setItems = moreOrder;
+                                                cartCtrl.addToCartList();
+                                                Get.toNamed(Routes.CART);
+                                              },
+                                              child: Container(
+                                                padding: EdgeInsets.symmetric(
+                                                  horizontal:
+                                                      Dimensions.width10,
+                                                  vertical:
+                                                      Dimensions.height10 / 2,
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          Dimensions.radius15 /
+                                                              3),
+                                                  border: Border.all(
+                                                    width: 1,
                                                     color: AppColors.mainColor,
                                                   ),
                                                 ),
+                                                child: SmallText(
+                                                  text: 'one more',
+                                                  color: AppColors.mainColor,
+                                                ),
                                               ),
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
-                          ],
-                        ),
+                            ),
+                        ],
                       ),
                     ),
-                  )
-                : SizedBox(
-                    height: MediaQuery.of(context).size.height / 1.5,
-                    child: const  NoDataPage(
-                      text: 'Your cart history is empty',
-                      imgPath: AppString.ASSETS_EMPTY,
-                    ),
                   ),
+                )
+              : SizedBox(
+                  height: MediaQuery.of(context).size.height / 1.5,
+                  child: const NoDataPage(
+                    text: 'Your cart history is empty',
+                    imgPath: AppString.ASSETS_EMPTY,
+                  ),
+                ),
           // ),
         ],
       ),

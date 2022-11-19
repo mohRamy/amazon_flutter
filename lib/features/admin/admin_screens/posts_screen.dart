@@ -13,9 +13,7 @@ import 'package:flutter/material.dart';
 class PostsScreen extends GetView<AdminCtrl> {
   const PostsScreen({Key? key}) : super(key: key);
 
-  fetchAllProducts() async {
-    controller.products = await controller.fetchAllProducts();
-  }
+  
 
   void navigateToAddProduct() {
     Get.toNamed(Routes.ADD_PRODUCT);
@@ -23,15 +21,14 @@ class PostsScreen extends GetView<AdminCtrl> {
 
   @override
   Widget build(BuildContext context) {
-    fetchAllProducts();
     return Scaffold(
       body: GetBuilder<AdminCtrl>(builder: (adminC) {
         return ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: adminC.products?.length ?? 0,
+          itemCount: adminC.products.length,
           itemBuilder: (context, index) {
-            var product = adminC.products![index];
+            var product = adminC.products[index];
             return Column(
               children: [
                 SizedBox(height: Dimensions.height10),

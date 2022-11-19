@@ -10,7 +10,7 @@ class OrderModel {
   final String userId;
   final int orderedAt;
   final int status;
-  final double totalPrice;
+  final int totalPrice;
   OrderModel({
     required this.id,
     required this.products,
@@ -45,7 +45,7 @@ class OrderModel {
       userId: map['userId'] ?? '',
       orderedAt: map['orderedAt']?.toInt() ?? 0,
       status: map['status']?.toInt() ?? 0,
-      totalPrice: map['totalPrice']?.toDouble() ?? 0.0,
+      totalPrice: map['totalPrice']?.toInt() ?? 0,
     );
   }
 

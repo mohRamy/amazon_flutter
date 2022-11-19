@@ -335,7 +335,7 @@ class _CartScreenState extends State<CartScreen> {
                         buttomText: 'Check Out',
                         onPressed: () {
                           if (_isLogged) {
-                            if (userCtrl.user.address.isEmpty) {
+                            if (userCtrl.user.address.isEmpty && userCtrl.user.phone.isEmpty) {
                               Get.toNamed(Routes.ADDRESS);
                             } else {
                               Get.toNamed(Routes.USER_ORDER);

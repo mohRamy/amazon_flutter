@@ -15,7 +15,7 @@ class OrderRepo {
   });
 
   Future<http.Response> placeOrder({
-    required List<ProductModel> products,
+    required List<String> productsId,
     required List<int> userQuants,
     required int totalPrice,
     required String address,
@@ -23,7 +23,7 @@ class OrderRepo {
       return await apiClient.postData(
         '$uri/api/order',
         jsonEncode({
-          'products': products,
+          'productsId': productsId,
           'userQuants': userQuants,
           'totalPrice': totalPrice,
           'address': address,

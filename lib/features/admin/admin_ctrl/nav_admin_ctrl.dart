@@ -9,7 +9,7 @@ class NavAdminCtrl extends GetxController {
   final List<Widget> _pages = [
     const PostsScreen(),
     AnalyticsScreen(),
-    user(),
+    AdminOrderScreen(),
   ];
   List<Widget> get pages => _pages;
 

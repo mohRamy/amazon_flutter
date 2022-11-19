@@ -13,11 +13,6 @@ class TopCategories extends GetView<HomeCtrl> {
     Get.toNamed(Routes.CATEGORY_DETAIL, arguments: category);
   }
 
-  fetchCategoryProducts(String category) async {
-    controller.productCategory =
-        await controller.fetchCategoryProduct(category: category);
-  }
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -29,7 +24,7 @@ class TopCategories extends GetView<HomeCtrl> {
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
-              fetchCategoryProducts(GlobalVariables.categoryImages[index]['title']!,);
+              controller.fetchCategoryProduct(category: GlobalVariables.categoryImages[index]['title']!);
               navigateToCategoryPage(
               context,
               GlobalVariables.categoryImages[index]['title']!,

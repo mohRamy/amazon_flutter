@@ -1,5 +1,11 @@
 import 'package:amazon_flutter/core/utils/app_colors.dart';
+import 'package:amazon_flutter/core/widgets/big_text.dart';
 
+import '../../../core/utils/dimensions.dart';
+import '../../../core/utils/hex_color.dart';
+import '../../../core/widgets/app_icon.dart';
+import '../../../core/widgets/small_text.dart';
+import '../../../models/order_model.dart';
 import '../../admin/admin_ctrl/admin_ctrl.dart';
 import '../../../controller/user_controller.dart';
 import 'package:flutter/material.dart';
@@ -31,81 +37,17 @@ class OrderDetailScreen extends GetView<AdminCtrl> {
 
   @override
   Widget build(BuildContext context) {
-    currentStep = Get.arguments.status;
-    final user = Get.find<UserCtrl>().user;
+    OrderModel myOrder = Get.arguments;
+    currentStep = myOrder.status;
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(60),
-        child: AppBar(
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              color: AppColors.mainColor,
-            ),
-          ),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Container(
-                  height: 42,
-                  margin: const EdgeInsets.only(left: 15),
-                  child: Material(
-                    borderRadius: BorderRadius.circular(7),
-                    elevation: 1,
-                    child: TextFormField(
-                      onFieldSubmitted: navigateToSearchScreen,
-                      decoration: InputDecoration(
-                        prefixIcon: InkWell(
-                          onTap: () {},
-                          child: const Padding(
-                            padding: EdgeInsets.only(
-                              left: 6,
-                            ),
-                            child: Icon(
-                              Icons.search,
-                              color: Colors.black,
-                              size: 23,
-                            ),
-                          ),
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                        contentPadding: const EdgeInsets.only(top: 10),
-                        border: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(7),
-                          ),
-                          borderSide: BorderSide.none,
-                        ),
-                        enabledBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(7),
-                          ),
-                          borderSide: BorderSide(
-                            color: Colors.black38,
-                            width: 1,
-                          ),
-                        ),
-                        hintText: 'Search Amazon.in',
-                        hintStyle: const TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 17,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                color: Colors.transparent,
-                height: 42,
-                margin: const EdgeInsets.symmetric(horizontal: 10),
-                child: const Icon(Icons.mic, color: Colors.black, size: 25),
-              ),
-            ],
-          ),
+      backgroundColor: Colors.grey[100],
+      appBar: AppBar(
+        title: BigText(
+          text: 'Order Details',
+          color: Colors.white,
         ),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -120,27 +62,57 @@ class OrderDetailScreen extends GetView<AdminCtrl> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              SizedBox(height: Dimensions.height10),
               Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.black12,
+                  padding: EdgeInsets.only(
+                    right: Dimensions.width10,
+                    left: Dimensions.width20,
+                    top: Dimensions.width10,
+                    bottom: Dimensions.width10,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 1,
+                        offset: const Offset(0, 2),
+                        color: Colors.grey.withOpacity(0.2),
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('Order Date:'),
+                          Text(DateFormat().format(
+                            DateTime.fromMillisecondsSinceEpoch(
+                                myOrder.orderedAt),
+                          )),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('Order Id:'),
+                          Text(myOrder.id),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('Order Total:'),
+                          Text(myOrder.totalPrice.toString()),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Order Date:      ${DateFormat().format(
-                      DateTime.fromMillisecondsSinceEpoch(
-                          Get.arguments.orderedAt),
-                    )}'),
-                    Text('Order ID:          ${Get.arguments.id}'),
-                    Text('Order Total:      \$${Get.arguments.totalPrice}'),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 10),
+              
+              
+              SizedBox(height: Dimensions.height20),
               const Text(
                 'Purchase Details',
                 style: TextStyle(
@@ -148,39 +120,64 @@ class OrderDetailScreen extends GetView<AdminCtrl> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              SizedBox(height: Dimensions.height10),
               Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.black12,
+                padding: EdgeInsets.only(
+                    right: Dimensions.width10,
+                    left: Dimensions.width20,
+                    top: Dimensions.width10,
+                    bottom: Dimensions.width10,
                   ),
-                ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 1,
+                        offset: const Offset(0, 2),
+                        color: Colors.grey.withOpacity(0.2),
+                      ),
+                    ],
+                  ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    for (int i = 0; i < Get.arguments.products.length; i++)
+                    for (int i = 0; i < myOrder.products.length; i++)
                       Row(
                         children: [
-                          Image.network(
-                            Get.arguments.products[i].images[0],
-                            height: 120,
-                            width: 120,
-                          ),
+                          Container(
+                                          height: Dimensions.height20 * 4,
+                                          width: Dimensions.height20 * 4,
+                                          margin: EdgeInsets.only(
+                                              right: Dimensions.width10 / 2),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(
+                                                Dimensions.radius15 / 2),
+                                            image: DecorationImage(
+                                              fit: BoxFit.cover,
+                                              image: NetworkImage(
+                                                myOrder.products[i].images[0],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                          
                           const SizedBox(width: 5),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  Get.arguments.products[i].name,
-                                  style: const TextStyle(
-                                    fontSize: 17,
+                                  myOrder.products[i].name,
+                                  style: TextStyle(
+                                    fontSize: Dimensions.iconSize16 + 2,
                                     fontWeight: FontWeight.bold,
                                   ),
-                                  maxLines: 2,
+                                  maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 Text(
-                                  'Qty: ${Get.arguments.quantity[i]}',
+                                  'Qty: ${myOrder.quantity[i]}',
+                                  style: TextStyle(fontSize: Dimensions.iconSize16 + 2),
                                 ),
                               ],
                             ),
@@ -190,7 +187,7 @@ class OrderDetailScreen extends GetView<AdminCtrl> {
                   ],
                 ),
               ),
-              const SizedBox(height: 10),
+              SizedBox(height: Dimensions.height20),
               const Text(
                 'Tracking',
                 style: TextStyle(
@@ -198,12 +195,24 @@ class OrderDetailScreen extends GetView<AdminCtrl> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              SizedBox(height: Dimensions.height10),
               Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.black12,
+                padding: EdgeInsets.only(
+                    right: Dimensions.width10,
+                    left: Dimensions.width20,
+                    top: Dimensions.width10,
+                    bottom: Dimensions.width10,
                   ),
-                ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 1,
+                        offset: const Offset(0, 2),
+                        color: Colors.grey.withOpacity(0.2),
+                      ),
+                    ],
+                  ),
                 child: Stepper(
                   currentStep: currentStep,
                   controlsBuilder: (context, details) {

@@ -17,14 +17,13 @@ class HomeCtrl extends GetxController implements GetxService {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
-  List<ProductModel>? productCategory;
-  List<ProductModel>? productRating;
+  List<ProductModel>? productCategory = [];
+  List<ProductModel> productRating = [];
   // List<ProductModel>? productList;
-  
-  Future<List<ProductModel>> fetchCategoryProduct({
+
+  void fetchCategoryProduct({
     required String category,
   }) async {
-    List<ProductModel> productList = [];
     try {
       _isLoading = false;
       update();
@@ -35,7 +34,7 @@ class HomeCtrl extends GetxController implements GetxService {
         res: res,
         onSuccess: () {
           for (var i = 0; i < jsonDecode(res.body).length; i++) {
-            productList.add(
+            productCategory!.add(
               ProductModel.fromJson(
                 jsonEncode(
                   jsonDecode(res.body)[i],
@@ -45,43 +44,46 @@ class HomeCtrl extends GetxController implements GetxService {
           }
         },
       );
+    _isLoading = false;
+    update();
     } catch (e) {
       Get.snackbar('', e.toString());
     }
-    _isLoading = false;
-    update();
-    return productList;
   }
 
-  Future<List<ProductModel>> fetchRatingProduct() async {
-    List<ProductModel> productList = [];
-
+  void fetchRatingProduct() async {
     try {
       _isLoading = true;
-    update();
+      update();
       http.Response res = await homeRepo.fetchRatingProduct();
-      
+
       httpErrorHandle(
         res: res,
         onSuccess: () {
           for (var i = 0; i < jsonDecode(res.body).length; i++) {
-            productList.add(
+            productRating.add(
               ProductModel.fromJson(
                 jsonEncode(
-                  jsonDecode(res.body)[i],
+                  jsonDecode(
+                    res.body,
+                  )[i],
                 ),
               ),
             );
           }
         },
       );
-      
     } catch (e) {
       Get.snackbar('', '00000000000000');
     }
     _isLoading = false;
     update();
-    return productList;
+  }
+
+  @override
+  void onInit() {
+    fetchRatingProduct();
+    super.onInit();
   }
 
   // Future<List<ProductModel>> fetchAllProduct() async {

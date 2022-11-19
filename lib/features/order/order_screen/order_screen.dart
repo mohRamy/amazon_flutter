@@ -1,12 +1,14 @@
 import 'package:amazon_flutter/config/routes/app_pages.dart';
 import 'package:amazon_flutter/controller/user_controller.dart';
 import 'package:amazon_flutter/core/utils/app_colors.dart';
+import 'package:amazon_flutter/core/utils/components/components.dart';
 import 'package:amazon_flutter/core/utils/dimensions.dart';
 import 'package:amazon_flutter/core/utils/hex_color.dart';
 import 'package:amazon_flutter/core/widgets/custom_button.dart';
 import 'package:amazon_flutter/core/widgets/small_text.dart';
 import 'package:amazon_flutter/features/cart/cart_ctrl/cart_ctrl.dart';
 import 'package:amazon_flutter/features/order/order_widgets/radio_widget.dart';
+import 'package:amazon_flutter/features/profile/profile_widgets/profile_widget.dart';
 import 'package:amazon_flutter/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -34,11 +36,11 @@ class UserOrderScreen extends GetView<OrderCtrl> {
     Ordered? _order = Ordered.cashOnDelivery;
 
     List<int> userQuants = [];
-    List<ProductModel> products = [];
+    List<String> productsId = [];
 
     for (var i = 0; i < cartCtrl.getItems.length; i++) {
       userQuants.add(cartCtrl.getItems[i].quantity!);
-      products.add(cartCtrl.getItems[i].product!);
+      productsId.add(cartCtrl.getItems[i].product!.id!);
     }
 
     return Scaffold(
@@ -92,7 +94,7 @@ class UserOrderScreen extends GetView<OrderCtrl> {
               ),
               SizedBox(height: Dimensions.height10),
               GestureDetector(
-                onTap: () {},
+                onTap: () => Get.toNamed(Routes.ADDRESS),
                 child: Container(
                   padding: EdgeInsets.only(
                     right: Dimensions.width10,
@@ -137,6 +139,7 @@ class UserOrderScreen extends GetView<OrderCtrl> {
                           SizedBox(
                             width: Dimensions.width10 * 50,
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SmallText(
                                   overflow: TextOverflow.ellipsis,
@@ -230,13 +233,16 @@ class UserOrderScreen extends GetView<OrderCtrl> {
                 child: CustomButton(
                   buttomText: 'Apply',
                   onPressed: () {
-                    if (userCtrl.user.address.isNotEmpty || userCtrl.user.phone.isNotEmpty) {
+                    if (userCtrl.user.address.isNotEmpty) {
+                      print('00000000000000000${productsId[0]}');
                       controller.placeOrder(
-                      products: products,
+                      productsId: productsId,
                       userQuants: userQuants,
                       totalPrice: cartCtrl.totalAmount,
                       address: userCtrl.user.address,
                       );
+                    }else{
+                      Components.showCustomSnackBar('لاااااااا');
                     }
                   },
                 ),

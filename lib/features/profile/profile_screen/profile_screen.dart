@@ -63,7 +63,9 @@ class ProfileScreen extends GetView<UserCtrl> {
                               children: [
                                 //name
                                 AccountWidget(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Get.toNamed(Routes.ADDRESS);
+                                  },
                                   appIcon: AppIcon(
                                     onTap: () {},
                                     icon: Icons.person,
@@ -81,7 +83,9 @@ class ProfileScreen extends GetView<UserCtrl> {
                                 ),
                                 //phone
                                 AccountWidget(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Get.toNamed(Routes.ADDRESS);
+                                  },
                                   appIcon: AppIcon(
                                     onTap: () {},
                                     icon: Icons.phone,
@@ -99,7 +103,7 @@ class ProfileScreen extends GetView<UserCtrl> {
                                 ),
                                 //email
                                 AccountWidget(
-                                  onTap: () {},
+                                  onTap: (){},
                                   appIcon: AppIcon(
                                     onTap: () {},
                                     icon: Icons.email,

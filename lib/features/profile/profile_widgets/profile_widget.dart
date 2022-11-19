@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/utils/dimensions.dart';
-import '../../../core/widgets/app_icon.dart';
 import '../../../core/widgets/big_text.dart';
 
 class AccountWidget extends StatelessWidget {
-  AppIcon appIcon;
+  Widget appIcon;
   BigText bigText;
   Function() onTap;
   AccountWidget({

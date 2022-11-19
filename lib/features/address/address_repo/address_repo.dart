@@ -27,11 +27,13 @@ class AddressRepo {
   //   return sharedPreferences.getString(AppString.USER_ADDRESS) ?? '';
   // }
 
-  Future<http.Response> saveUserAddress(String address) async {
+  Future<http.Response> saveUserAddress(String address, String name, String phone) async {
     return await apiClient.postData(
       '$uri/api/save-user-address',
         jsonEncode({
         'address': address,
+        'name': name,
+        'phone': phone,
       }),
       
     );

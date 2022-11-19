@@ -20,7 +20,7 @@ class AdminDetailsScreen extends GetView<AdminCtrl> {
     controller.deleteProduct(
       product: product,
       onSuccess: () {
-        controller.products!.removeAt(index);
+        controller.products.removeAt(index);
       },
     );
   }

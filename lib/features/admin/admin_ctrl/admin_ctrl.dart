@@ -19,7 +19,8 @@ class AdminCtrl extends GetxController implements GetxService {
     required this.adminRepo,
   });
 
-  List<ProductModel>? products;
+  List<ProductModel> products = [];
+  List<OrderModel> orders = [];
 
   final TextEditingController productNameC = TextEditingController();
   final TextEditingController descriptionC = TextEditingController();
@@ -82,8 +83,7 @@ class AdminCtrl extends GetxController implements GetxService {
   }
 
   //get Product
-  Future<List<ProductModel>> fetchAllProducts() async {
-    List<ProductModel> productList = [];
+  void fetchAllProducts() async {
     try {
       http.Response res = await adminRepo.fetchAllProducts();
 
@@ -91,7 +91,7 @@ class AdminCtrl extends GetxController implements GetxService {
         res: res,
         onSuccess: () {
           for (var i = 0; i < jsonDecode(res.body).length; i++) {
-            productList.add(
+            products.add(
               ProductModel.fromJson(
                 jsonEncode(
                   jsonDecode(res.body)[i],
@@ -104,7 +104,6 @@ class AdminCtrl extends GetxController implements GetxService {
     } catch (e) {
       Get.snackbar('', e.toString());
     }
-    return productList;
   }
 
   // delete product
@@ -125,8 +124,7 @@ class AdminCtrl extends GetxController implements GetxService {
   }
 
   //get Orders
-  Future<List<OrderModel>> fetchAllOrders() async {
-    List<OrderModel> orderList = [];
+  void fetchAllOrders() async {
     try {
       http.Response res = await adminRepo.fetchAllOrders();
 
@@ -134,7 +132,7 @@ class AdminCtrl extends GetxController implements GetxService {
         res: res,
         onSuccess: () {
           for (var i = 0; i < jsonDecode(res.body).length; i++) {
-            orderList.add(
+            orders.add(
               OrderModel.fromJson(
                 jsonEncode(
                   jsonDecode(res.body)[i],
@@ -147,7 +145,6 @@ class AdminCtrl extends GetxController implements GetxService {
     } catch (e) {
       Get.snackbar('', e.toString());
     }
-    return orderList;
   }
 
   // change order status
@@ -196,5 +193,12 @@ class AdminCtrl extends GetxController implements GetxService {
       'sales': sales,
       'totalEarnings': totalEarning,
     };
+  }
+
+  @override
+  void onInit() {
+    fetchAllProducts();
+    fetchAllOrders();
+    super.onInit();
   }
 }

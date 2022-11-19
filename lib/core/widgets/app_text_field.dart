@@ -22,10 +22,10 @@ class AppTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(
-        left: Dimensions.height20,
-        right: Dimensions.height20,
-      ),
+      // margin: EdgeInsets.only(
+      //   left: Dimensions.height20,
+      //   right: Dimensions.height20,
+      // ),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(Dimensions.radius15),

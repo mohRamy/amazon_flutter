@@ -31,11 +31,6 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
   UserCtrl userCtrl = Get.find<UserCtrl>();
   AddressCtrl addressCtrl = Get.find<AddressCtrl>();
 
-  final TextEditingController _addressC =
-      TextEditingController(); // للتحكم بالعنوان
-  final TextEditingController _contactPersonName = TextEditingController();
-  final TextEditingController _contactPersonNumber = TextEditingController();
-
   late bool _isLogged; // للتأكد من تسجيل الدخول
 
   // late LatLng _initPosition = const LatLng(43.896236,
@@ -76,6 +71,12 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
     if (_isLogged && userCtrl.user == null) {
       authCtrl.getUserData();
     }
+    if (userCtrl.user.name.isNotEmpty) {
+      addressCtrl.nameC.text = userCtrl.user.name;
+    }
+    if (userCtrl.user.phone.isNotEmpty) {
+      addressCtrl.phoneC.text = userCtrl.user.phone;
+    }
     super.initState();
   }
 
@@ -88,16 +89,9 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
       ),
       body: GetBuilder<UserCtrl>(
         builder: (userCtrl) {
-          if (userCtrl.user != null && _contactPersonName.text.isEmpty) {
-            _contactPersonName.text = userCtrl.user.name;
-            _contactPersonNumber.text = userCtrl.user.phone;
-            if (userCtrl.user.address.isNotEmpty) {
-              _addressC.text = userCtrl.user.address;
-            }
-          }
           return GetBuilder<AddressCtrl>(
             builder: (addressCtrl) {
-              _addressC.text =
+              addressCtrl.addressC.text =
                   '${addressCtrl.placemark.value.administrativeArea ?? ''}${addressCtrl.placemark.value.locality ?? ''}${addressCtrl.placemark.value.street ?? ''}${addressCtrl.placemark.value.postalCode ?? ''}';
               return Column(
                 children: [
@@ -145,16 +139,16 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                         : Container(),
                   ),
                   Expanded(
-                    child: ListView(children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(
-                              left: Dimensions.width20,
-                              top: Dimensions.height20,
-                            ),
-                            child: SizedBox(
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        left: Dimensions.width20,
+                        right: Dimensions.width20,
+                      ),
+                      child: ListView(children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
                               height: Dimensions.height45 + 5,
                               child: ListView.builder(
                                   shrinkWrap: true,
@@ -198,27 +192,46 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                                     );
                                   }),
                             ),
-                          ),
-                          SizedBox(
-                            height: Dimensions.height20,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(left: Dimensions.width20),
-                            child: BigText(
-                              text: 'delivery Address',
+                            SizedBox(height: Dimensions.height20),
+                            BigText(
+                              text: 'Delivery Address',
                             ),
-                          ),
-                          SizedBox(
-                            height: Dimensions.height10,
-                          ),
-                          AppTextField(
-                            textContainer: _addressC,
-                            hintText: 'Your address',
-                            icon: Icons.map,
-                          ),
-                        ],
-                      ),
-                    ]),
+                            SizedBox(
+                              height: Dimensions.height10,
+                            ),
+                            AppTextField(
+                              textContainer: addressCtrl.addressC,
+                              hintText: 'Your address',
+                              icon: Icons.map,
+                            ),
+                            SizedBox(height: Dimensions.height20),
+                            BigText(
+                              text: 'Delivery Name',
+                            ),
+                            SizedBox(
+                              height: Dimensions.height10,
+                            ),
+                            AppTextField(
+                              textContainer: addressCtrl.nameC,
+                              hintText: 'Your name',
+                              icon: Icons.map,
+                            ),
+                            SizedBox(height: Dimensions.height20),
+                            BigText(
+                              text: 'Delivery Phone',
+                            ),
+                            SizedBox(
+                              height: Dimensions.height10,
+                            ),
+                            AppTextField(
+                              textContainer: addressCtrl.phoneC,
+                              hintText: 'Your Phone',
+                              icon: Icons.map,
+                            ),
+                          ],
+                        ),
+                      ]),
+                    ),
                   ),
                 ],
               );
@@ -226,8 +239,7 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
           );
         },
       ),
-      bottomNavigationBar:
-          GetBuilder<AddressCtrl>(builder: (locationController) {
+      bottomNavigationBar: GetBuilder<AddressCtrl>(builder: (addressCtrl) {
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -258,12 +270,14 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                     onPressed: addressCtrl.loading
                         ? null
                         : () {
-                            if (_addressC.text.isNotEmpty) {
-                              locationController
-                                  .saveUserAddress(_addressC.text);
-                                  Get.toNamed(Routes.USER_ORDER);
+                            if (addressCtrl.addressC.text.isNotEmpty) {
+                              addressCtrl.saveUserAddress(
+                                addressCtrl.addressC.text,
+                                addressCtrl.nameC.text,
+                                addressCtrl.phoneC.text,
+                              );
+                              Get.back();
                             }
-                            
                           },
                   ),
                 ],

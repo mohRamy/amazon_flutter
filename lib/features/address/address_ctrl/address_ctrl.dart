@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:amazon_flutter/core/utils/app_colors.dart';
+import 'package:flutter/material.dart';
 
 import '../../../core/utils/components/components.dart';
 import '../../../controller/user_controller.dart';
@@ -55,6 +56,21 @@ class AddressCtrl extends GetxController implements GetxService {
   // bool _udpateAddressData = true;
   // bool _changeAddress = true;
 
+  final TextEditingController _addressC = TextEditingController();
+  TextEditingController get addressC => _addressC;
+  final TextEditingController _nameC = TextEditingController();
+  TextEditingController get nameC => _nameC;
+  final TextEditingController _phoneC = TextEditingController();
+  TextEditingController get phoneC => _phoneC;
+
+  @override
+  void onClose() {
+    _addressC.dispose();
+    _nameC.dispose();
+    _phoneC.dispose();
+    super.onClose();
+  }
+
   void setMapController(GoogleMapController mapController) {
     _mapController = mapController;
   }
@@ -96,21 +112,23 @@ class AddressCtrl extends GetxController implements GetxService {
     update();
   }
 
-  void saveUserAddress(String address) async {
+  void saveUserAddress(String address, String name, String phone) async {
     UserCtrl userCtrl = Get.find<UserCtrl>();
     try {
-      http.Response res = await addressRepo.saveUserAddress(address);
+      http.Response res = await addressRepo.saveUserAddress(address, name, phone);
 
       httpErrorHandle(
         res: res,
         onSuccess: () {
           UserModel user = userCtrl.user.copyWith(
             address: jsonDecode(res.body)['address'],
+            name: jsonDecode(res.body)['name'],
+            phone: jsonDecode(res.body)['phone'],
           );
           userCtrl.setUserFromModel(user);
-          // Get.back();
           Components.showCustomSnackBar(
-            "Address Added Successfully",
+            "Update your Data Successfully",
+            title: 'Update information',
             color: AppColors.mainColor,
           );
         },

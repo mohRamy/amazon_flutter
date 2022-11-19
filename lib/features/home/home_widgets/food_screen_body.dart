@@ -25,29 +25,12 @@ class _FoodPageBodyState extends State<FoodPageBody> {
   var _currPageValue = 0.0;
   final double _scaleFactor = 0.8;
   final double _height = Dimensions.pageViewContainer;
-  List<ProductModel>? productRating = [];
 
-  fetchProductRating() async {
-    Get.find<HomeCtrl>().productRating =
-        await Get.find<HomeCtrl>().fetchRatingProduct();
-    for (var i = 0; i < Get.find<HomeCtrl>().productRating!.length; i++) {
-      productRating!.add(Get.find<HomeCtrl>().productRating![i]);
-    }
-  }
-
-  // fetchAllProduct()async{
-  //   Get.find<HomeCtrl>().productList =
-  //       await Get.find<HomeCtrl>().fetchProductRating();
-  //   for (var i = 0; i < Get.find<HomeCtrl>().productList!.length; i++) {
-  //     productList!.add(Get.find<HomeCtrl>().productList![i]);
-  //   }
-  // }
+  HomeCtrl homeCtrl = Get.find<HomeCtrl>();
 
   @override
   void initState() {
     super.initState();
-    fetchProductRating();
-    // fetchAllProduct();
     pageController.addListener(() {
       setState(() {
         _currPageValue = pageController.page!;
@@ -72,11 +55,11 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             child: PageView.builder(
               physics: const BouncingScrollPhysics(),
               controller: pageController,
-              itemCount: productRating?.length ?? 0,
+              itemCount: homeCtrl.productRating.length,
               itemBuilder: (context, position) {
                 return _buildPageItem(
                   position,
-                  productRating![position],
+                  homeCtrl.productRating[position],
                 );
               },
             ),
@@ -85,7 +68,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
         //dots
         GetBuilder<HomeCtrl>(builder: (popularProducts) {
           return DotsIndicator(
-            dotsCount: productRating!.isEmpty ? 1 : productRating!.length,
+            dotsCount: homeCtrl.productRating.isEmpty ? 1 : homeCtrl.productRating.length,
             position: _currPageValue,
             decorator: DotsDecorator(
               activeColor: Colors.blue,
@@ -122,14 +105,15 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           ),
         ),
         //list of food and images
-        GetBuilder<HomeCtrl>(builder: (homeC) {
+        GetBuilder<HomeCtrl>(
+          builder: (homeC) {
           return ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: productRating?.length ?? 0,
+            itemCount: homeCtrl.productRating.length,
             itemBuilder: (context, index) {
-              var product = productRating![index];
-              return GestureDetector(
+              var product = homeCtrl.productRating[index];
+              return product.quantity == 0 ? Container() : GestureDetector(
                 onTap: () => Get.toNamed(
                   Routes.NEWEST_PRODUCT,
                   arguments: {

@@ -40,9 +40,10 @@ class ShoppingApp extends StatelessWidget {
       title: AppString.APP_NAME,
       theme: ThemeData(
         primaryColor: AppColors.mainColor,
-        appBarTheme: const AppBarTheme(
+        appBarTheme: AppBarTheme(
           elevation: 0,
-          iconTheme: IconThemeData(
+          backgroundColor: AppColors.mainColor,
+          iconTheme: const IconThemeData(
             color: Colors.black,
           ),
         ),

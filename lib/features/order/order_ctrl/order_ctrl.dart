@@ -17,24 +17,24 @@ class OrderCtrl extends GetxController implements GetxService {
   });
 
   void placeOrder({
-    required List<ProductModel> products,
+    required List<String> productsId,
     required List<int> userQuants,
     required int totalPrice,
     required String address,
   }) async {
     try {
+      print(productsId[0]);
       http.Response res = await orderRepo.placeOrder(
-        products: products,
+        productsId: productsId,
         userQuants: userQuants,
         totalPrice: totalPrice,
         address: address,
       );
-      print('oooooo${products}ooooooo');
+      
 
       httpErrorHandle(
         res: res,
         onSuccess: () {
-          
           Get.find<CartRepo>().removeCart();
           Components.showCustomSnackBar(
             'add Order Successed',
