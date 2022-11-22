@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:isolate';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -153,4 +154,11 @@ class AuthCtrl extends GetxController implements GetxService {
     apiClient.updateHeaders('');
     return true;
   }
-}
+  
+  bool isObscure = true;
+
+  void changeObsure(){
+  isObscure = !isObscure;
+  update();
+  }
+  }

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../admin_screens/analtyics_screen.dart';
-import '../admin_screens/orders_screen.dart';
+import '../admin_screens/admin_order_screen.dart';
 import '../admin_screens/posts_screen.dart';
 
 class NavAdminCtrl extends GetxController {
   final List<Widget> _pages = [
     const PostsScreen(),
-    AnalyticsScreen(),
-    AdminOrderScreen(),
+    const AnalyticsScreen(),
+    const AdminOrderScreen(),
   ];
   List<Widget> get pages => _pages;
 

@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:amazon_flutter/config/routes/app_pages.dart';
+import 'package:amazon_flutter/core/utils/components/components.dart';
 import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -22,10 +24,18 @@ class AdminCtrl extends GetxController implements GetxService {
   List<ProductModel> products = [];
   List<OrderModel> orders = [];
 
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+
   final TextEditingController productNameC = TextEditingController();
   final TextEditingController descriptionC = TextEditingController();
   final TextEditingController priceC = TextEditingController();
   final TextEditingController quantityC = TextEditingController();
+
+  final TextEditingController nameUC = TextEditingController();
+  final TextEditingController descreptionUC = TextEditingController();
+  final TextEditingController priceUC = TextEditingController();
+  final TextEditingController quantityUC = TextEditingController();
 
   @override
   void dispose() {
@@ -34,6 +44,10 @@ class AdminCtrl extends GetxController implements GetxService {
     descriptionC.dispose();
     priceC.dispose();
     quantityC.dispose();
+    nameUC.dispose();
+    descreptionUC.dispose();
+    priceUC.dispose();
+    quantityUC.dispose();
   }
 
   void sellProduct({
@@ -77,14 +91,17 @@ class AdminCtrl extends GetxController implements GetxService {
           Get.back();
         },
       );
+      update();
     } catch (e) {
-      Get.snackbar('', e.toString());
+      Components.showCustomSnackBar(e.toString());
     }
   }
 
   //get Product
   void fetchAllProducts() async {
     try {
+      _isLoading = true;
+      update();
       http.Response res = await adminRepo.fetchAllProducts();
 
       httpErrorHandle(
@@ -101,8 +118,10 @@ class AdminCtrl extends GetxController implements GetxService {
           }
         },
       );
+      _isLoading = false;
+      update();
     } catch (e) {
-      Get.snackbar('', e.toString());
+      Components.showCustomSnackBar(e.toString());
     }
   }
 
@@ -118,14 +137,48 @@ class AdminCtrl extends GetxController implements GetxService {
         res: res,
         onSuccess: onSuccess,
       );
+      update();
     } catch (e) {
-      Get.snackbar('', e.toString());
+      Components.showCustomSnackBar(e.toString());
+    }
+  }
+
+  // update product
+  void updateProduct({
+    required String id,
+    required String name,
+    required String description,
+    required int price,
+    required int quantity,
+  }) async {
+    try {
+      http.Response res = await adminRepo.updateProduct(
+        id: id,
+        name: name,
+        description: description,
+        price: price,
+        quantity: quantity,
+      );
+      
+
+      httpErrorHandle(
+        res: res,
+        onSuccess: () {
+          Components.showCustomSnackBar('Update Seccessfully', title: 'Update');
+          Get.back();
+        },
+      );
+      update();
+    } catch (e) {
+      Components.showCustomSnackBar(e.toString());
     }
   }
 
   //get Orders
   void fetchAllOrders() async {
     try {
+      _isLoading = true;
+      update();
       http.Response res = await adminRepo.fetchAllOrders();
 
       httpErrorHandle(
@@ -142,16 +195,19 @@ class AdminCtrl extends GetxController implements GetxService {
           }
         },
       );
+      _isLoading = false;
+      update();
     } catch (e) {
-      Get.snackbar('', e.toString());
+      Components.showCustomSnackBar(e.toString());
     }
   }
+
+  int currentStep = 0;
 
   // change order status
   void changeOrderStatus({
     required int status,
     required OrderModel order,
-    required VoidCallback onSuccess,
   }) async {
     try {
       http.Response res =
@@ -159,10 +215,32 @@ class AdminCtrl extends GetxController implements GetxService {
 
       httpErrorHandle(
         res: res,
-        onSuccess: onSuccess,
+        onSuccess: (){
+          currentStep += 1;
+        },
       );
+      update();
     } catch (e) {
-      Get.snackbar('', e.toString());
+      Components.showCustomSnackBar(e.toString());
+    }
+  }
+
+  // delete order
+  void deleteOrder({
+    required OrderModel order,
+  }) async {
+    try {
+      http.Response res = await adminRepo.deleteOrder(order: order);
+
+      httpErrorHandle(
+        res: res,
+        onSuccess: (){
+          Get.toNamed(Routes.NAV_ADMIN_SCREEN);
+        },
+      );
+      update();
+    } catch (e) {
+      Components.showCustomSnackBar(e.toString());
     }
   }
 
@@ -186,8 +264,9 @@ class AdminCtrl extends GetxController implements GetxService {
           ];
         },
       );
+      update();
     } catch (e) {
-      Get.snackbar('', e.toString());
+      Components.showCustomSnackBar(e.toString());
     }
     return {
       'sales': sales,

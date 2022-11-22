@@ -64,18 +64,18 @@ class SignInScreen extends GetView<AuthCtrl> {
                     //app logo
                     SizedBox(
                       height: Dimensions.screenHeight * 0.25,
-                      child:  Center(
+                      child: Center(
                         child: CircleAvatar(
                           backgroundColor: Colors.white,
                           radius: 80,
                           child: AppIcon(
-                          onTap: () {},
-                          icon: Icons.person,
-                          backgroundColor: AppColors.mainColor,
-                          iconColor: Colors.white,
-                          iconSize: Dimensions.height45 + Dimensions.height30,
-                          size: Dimensions.height15 * 10,
-                        ),
+                            onTap: () {},
+                            icon: Icons.person,
+                            backgroundColor: AppColors.mainColor,
+                            iconColor: Colors.white,
+                            iconSize: Dimensions.height45 + Dimensions.height30,
+                            size: Dimensions.height15 * 10,
+                          ),
                         ),
                       ),
                     ),
@@ -118,12 +118,25 @@ class SignInScreen extends GetView<AuthCtrl> {
                       height: Dimensions.height20,
                     ),
                     //password
-                    AppTextField(
-                      textContainer: passwordC,
-                      hintText: 'Password',
-                      icon: Icons.password,
-                      isObscure: true,
-                    ),
+                    GetBuilder<AuthCtrl>(builder: (authCtrl) {
+                      return AppTextField(
+                        textContainer: passwordC,
+                        hintText: 'Password',
+                        icon: Icons.password,
+                        isObscure: authCtrl.isObscure,
+                        suffixIcon: InkWell(
+                          onTap: () {
+                            authCtrl.changeObsure();
+                          },
+                          child: Icon(
+                            authCtrl.isObscure
+                                ? Icons.visibility_outlined
+                                : Icons.visibility_off_outlined,
+                            color: AppColors.yellowColor,
+                          ),
+                        ),
+                      );
+                    }),
                     SizedBox(
                       height: Dimensions.height20,
                     ),

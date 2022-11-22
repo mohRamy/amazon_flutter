@@ -21,7 +21,7 @@ class CartHistory extends GetView<CartCtrl> {
   @override
   Widget build(BuildContext context) {
     CartCtrl cartCtrl = Get.find<CartCtrl>();
-    
+
     List<CartModel> cartHistoryList =
         cartCtrl.getCartHistoryList().reversed.toList();
 
@@ -67,10 +67,16 @@ class CartHistory extends GetView<CartCtrl> {
             color: AppColors.mainColor,
             width: double.maxFinite,
             height: Dimensions.height10 * 10,
-            padding: EdgeInsets.only(top: Dimensions.height45),
+            padding: EdgeInsets.only(
+              top: Dimensions.height45,
+              right: Dimensions.width20,
+            ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                Container(
+                  width: Dimensions.height45 + 5,
+                ),
                 BigText(
                   text: 'Cart History',
                   color: Colors.white,
@@ -78,7 +84,6 @@ class CartHistory extends GetView<CartCtrl> {
                 AppIcon(
                   onTap: () => Get.toNamed(Routes.CART),
                   icon: Icons.shopping_cart_outlined,
-                  iconColor: AppColors.mainColor,
                   backgroundColor: AppColors.yellowColor,
                 ),
               ],
@@ -227,14 +232,12 @@ class CartHistory extends GetView<CartCtrl> {
                     ),
                   ),
                 )
-              : SizedBox(
-                  height: MediaQuery.of(context).size.height / 1.5,
-                  child: const NoDataPage(
+              : const Expanded(
+                  child: NoDataPage(
                     text: 'Your cart history is empty',
                     imgPath: AppString.ASSETS_EMPTY,
                   ),
                 ),
-          // ),
         ],
       ),
     );

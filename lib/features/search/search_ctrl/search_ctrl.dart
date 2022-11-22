@@ -14,9 +14,14 @@ class SearchCtrl extends GetxController implements GetxService {
     required this.searchRepo,
   });
 
-  List<ProductModel>? products;
+  List<ProductModel> products = [];
 
-  void fetchSearchProducts(String query) async {
+  // void productsEmpty(){
+  //   products = [];
+  //   update();
+  // }
+
+  void changeSearchStatus(String query) async {
     if (query != '') {
       products = await fetchSearchProduct(
         searchQuery: query,
@@ -30,7 +35,7 @@ class SearchCtrl extends GetxController implements GetxService {
   Future<List<ProductModel>> fetchSearchProduct({
     required String searchQuery,
   }) async {
-    List<ProductModel> productList = [];
+    List<ProductModel> products = [];
     try {
       http.Response res =
           await searchRepo.fetchSearchProduct(searchQuery: searchQuery);
@@ -38,8 +43,9 @@ class SearchCtrl extends GetxController implements GetxService {
       httpErrorHandle(
         res: res,
         onSuccess: () {
-          for (var i = 0; i < jsonDecode(res.body).length; i++) {
-            productList.add(
+          
+            for (var i = 0; i < jsonDecode(res.body).length; i++) {
+            products.add(
               ProductModel.fromJson(
                 jsonEncode(
                   jsonDecode(res.body)[i],
@@ -47,12 +53,15 @@ class SearchCtrl extends GetxController implements GetxService {
               ),
             );
           }
+          
         },
       );
       update();
+      
     } catch (e) {
       Get.snackbar('', e.toString());
+      
     }
-    return productList;
+    return products;
   }
 }

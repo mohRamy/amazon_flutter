@@ -36,6 +36,28 @@ class AdminRepo {
     );
   }
 
+  // update product
+  Future<http.Response> updateProduct({
+    required String id,
+    required String name,
+    required String description,
+    required int price,
+    required int quantity,
+  }) async {
+    return await apiClient.postData(
+      '$uri/admin/update-product',
+      jsonEncode(
+        {
+          "id": id,
+          "name": name,
+          "description": description,
+          "price": price,
+          "quantity": quantity,
+        },
+      ),
+    );
+  }
+
 //get Orders
   Future<http.Response> fetchAllOrders() async {
     return await apiClient.getData('$uri/admin/get-orders');
@@ -52,6 +74,18 @@ class AdminRepo {
           "id": order.id,
           "status": status,
         }));
+  }
+
+  // delete product
+  Future<http.Response> deleteOrder({
+    required OrderModel order,
+  }) async {
+    return await apiClient.postData(
+      '$uri/admin/delete-order',
+      jsonEncode(
+        {"id": order.id},
+      ),
+    );
   }
 
   Future<http.Response> getEarnings() async {

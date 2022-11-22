@@ -1,10 +1,10 @@
 
-import 'package:amazon_flutter/features/address/address_screens/pick_address_map.dart';
-import 'package:amazon_flutter/features/order/order_screen/order_screen.dart';
+import 'package:amazon_flutter/features/update_profile/update_profile_screens/address.dart';
+import 'package:amazon_flutter/features/checkout/checkout_screen/checkout_screen.dart';
 
-import '../../features/address/address_screens/address_screen.dart';
+import '../../features/update_profile/update_profile_screens/update_profile_screen.dart';
 import '../../features/admin/admin_screens/add_product_screen.dart';
-import '../../features/admin/admin_screens/admin_details.dart';
+import '../../features/admin/admin_screens/admin_product_details.dart';
 import '../../features/admin/admin_screens/nav_admin_screen.dart';
 import '../../features/auth/auth_screen/signin_screen.dart';
 import '../../features/auth/auth_screen/signup_screen.dart';
@@ -13,7 +13,7 @@ import '../../features/home/home_screen/category_deals_screen.dart';
 import '../../features/home/home_screen/home_screen.dart';
 import '../../features/home/home_screen/nav_screen.dart';
 import '../../features/order_details/order_details_screens/order_details_screen.dart';
-import '../../features/product_details/product_details_screens/newest_product.dart';
+import '../../features/product_details/product_details_screens/newest_product_screen.dart';
 import '../../features/product_details/product_details_screens/rating_product_screen.dart';
 import '../../features/search/search_screens/search_screen.dart';
 import 'package:get/get.dart';
@@ -66,12 +66,12 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.ADDRESS,
-      page: () =>  const AddAddressScreen(),
+      page: () =>  const UpdateProfileScreen(),
       transition: Transition.fadeIn,
     ),
     GetPage(
       name: _Paths.PICK_ADDRESS,
-      page: () =>  const PickAddressMap(),
+      page: () =>  const AddressScreen(),
       transition: Transition.fadeIn,
     ),
     GetPage(
@@ -101,7 +101,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.USER_ORDER,
-      page: () =>  const UserOrderScreen(),
+      page: () =>  const CheckoutScreen(),
       transition: Transition.fadeIn,
     ),
   ];

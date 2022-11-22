@@ -1,3 +1,6 @@
+import 'package:amazon_flutter/core/widgets/custom_loader.dart';
+import 'package:amazon_flutter/features/home/home_ctrl/home_ctrl.dart';
+
 import '../../../core/utils/app_strings.dart';
 import '../../../controller/user_controller.dart';
 import '../home_widgets/top_categories.dart';
@@ -137,12 +140,12 @@ class HomeScreen extends StatelessWidget {
             right: Dimensions.width20,
           ),
           child: GetBuilder<UserCtrl>(
-            builder: (ctrl)=> Row(
+            builder: (ctrl) => Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ctrl.user.address.isNotEmpty
                     ? Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             AppString.APP_NAME,
@@ -175,7 +178,8 @@ class HomeScreen extends StatelessWidget {
                       width: Dimensions.height45,
                       height: Dimensions.height45,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(Dimensions.radius15),
+                        borderRadius:
+                            BorderRadius.circular(Dimensions.radius15),
                         color: AppColors.mainColor,
                       ),
                       child: Icon(
@@ -190,22 +194,16 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ),
-        
-        
-            Expanded(
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
-                child: Column(
-                  children: [
-                    const TopCategories(),
-                    SizedBox(height: Dimensions.height10),
-                    const FoodPageBody(),
-                  ],
-                ),
-              ),
-            ),
-          
-        
+        GetBuilder<HomeCtrl>(builder: (homeCtrl) {
+          return homeCtrl.productRating.isNotEmpty
+              ? const Expanded(
+                  child: SingleChildScrollView(
+                    physics: BouncingScrollPhysics(),
+                    child: FoodPageBody(),
+                  ),
+                )
+              : const Expanded(child: CustomLoader());
+        }),
       ],
     );
   }

@@ -120,12 +120,25 @@ class SignUpScreen extends StatelessWidget {
                       height: Dimensions.height20,
                     ),
                     //password
-                    AppTextField(
-                      textContainer: passwordC,
-                      hintText: 'Password',
-                      icon: Icons.password,
-                      isObscure: true,
-                    ),
+                    GetBuilder<AuthCtrl>(builder: (authCtrl) {
+                      return AppTextField(
+                        textContainer: passwordC,
+                        hintText: 'Password',
+                        icon: Icons.password,
+                        isObscure: authCtrl.isObscure,
+                        suffixIcon: InkWell(
+                          onTap: () {
+                            authCtrl.changeObsure();
+                          },
+                          child: Icon(
+                            authCtrl.isObscure
+                                ? Icons.visibility_outlined
+                                : Icons.visibility_off_outlined,
+                            color: AppColors.yellowColor,
+                          ),
+                        ),
+                      );
+                    }),
                     SizedBox(
                       height: Dimensions.height20,
                     ),

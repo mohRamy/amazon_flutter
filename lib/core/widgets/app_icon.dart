@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utils/hex_color.dart';
+
 class AppIcon extends StatelessWidget {
   final IconData icon;
   final Color backgroundColor;
@@ -11,7 +13,7 @@ class AppIcon extends StatelessWidget {
     Key? key,
     required this.onTap,
     required this.icon,
-    this.backgroundColor = const Color(0xFFfcf4e4),
+    this.backgroundColor =const Color(0xFFffd379),
     this.iconColor = const Color(0xFF756d54),
     this.size = 40,
     this.iconSize = 16,

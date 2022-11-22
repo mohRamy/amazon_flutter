@@ -1,3 +1,6 @@
+import 'package:amazon_flutter/features/home/home_widgets/top_categories.dart';
+
+import '../../../core/utils/constants/global_variables.dart';
 import '../home_ctrl/home_ctrl.dart';
 import '../../../models/product_model.dart';
 import 'package:dots_indicator/dots_indicator.dart';
@@ -68,7 +71,9 @@ class _FoodPageBodyState extends State<FoodPageBody> {
         //dots
         GetBuilder<HomeCtrl>(builder: (popularProducts) {
           return DotsIndicator(
-            dotsCount: homeCtrl.productRating.isEmpty ? 1 : homeCtrl.productRating.length,
+            dotsCount: homeCtrl.productRating.isEmpty
+                ? 1
+                : homeCtrl.productRating.length,
             position: _currPageValue,
             decorator: DotsDecorator(
               activeColor: Colors.blue,
@@ -79,8 +84,10 @@ class _FoodPageBodyState extends State<FoodPageBody> {
             ),
           );
         }),
+        SizedBox(height: Dimensions.height20),
+        const TopCategories(),
         //Popular text
-        SizedBox(height: Dimensions.height30),
+        SizedBox(height: Dimensions.height20),
         Container(
           margin: EdgeInsets.only(left: Dimensions.width30),
           child: Row(
@@ -105,119 +112,121 @@ class _FoodPageBodyState extends State<FoodPageBody> {
           ),
         ),
         //list of food and images
-        GetBuilder<HomeCtrl>(
-          builder: (homeC) {
+        GetBuilder<HomeCtrl>(builder: (homeC) {
           return ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             itemCount: homeCtrl.productRating.length,
             itemBuilder: (context, index) {
               var product = homeCtrl.productRating[index];
-              return product.quantity == 0 ? Container() : GestureDetector(
-                onTap: () => Get.toNamed(
-                  Routes.NEWEST_PRODUCT,
-                  arguments: {
-                    AppString.ARGUMENT_PRODUCT: product,
-                    AppString.ARGUMENT_RATINGS: product.rating,
-                  },
-                ),
-                child: Container(
-                  margin: EdgeInsets.only(
-                    left: Dimensions.width20,
-                    right: Dimensions.width20,
-                    bottom: Dimensions.height10,
-                  ),
-                  child: Row(
-                    children: [
-                      //image section
-                      Container(
-                        width: Dimensions.listViewImgSize,
-                        height: Dimensions.listViewImgSize,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                            Dimensions.radius20,
-                          ),
-                          color: Colors.white38,
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(
-                              product.images[0],
-                            ),
-                          ),
-                        ),
+              return product.quantity == 0
+                  ? Container()
+                  : GestureDetector(
+                      onTap: () => Get.toNamed(
+                        Routes.NEWEST_PRODUCT,
+                        arguments: {
+                          AppString.ARGUMENT_PRODUCT: product,
+                          AppString.ARGUMENT_RATINGS: product.rating,
+                        },
                       ),
+                      child: Container(
+                        margin: EdgeInsets.only(
+                          left: Dimensions.width20,
+                          right: Dimensions.width20,
+                          bottom: Dimensions.height10,
+                        ),
+                        child: Row(
+                          children: [
+                            //image section
+                            Container(
+                              width: Dimensions.listViewImgSize,
+                              height: Dimensions.listViewImgSize,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(
+                                  Dimensions.radius20,
+                                ),
+                                color: Colors.white38,
+                                image: DecorationImage(
+                                  fit: BoxFit.cover,
+                                  image: NetworkImage(
+                                    product.images[0],
+                                  ),
+                                ),
+                              ),
+                            ),
 
-                      //text container
-                      Expanded(
-                        child: Container(
-                          height: Dimensions.listViewTextConSize,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(
-                                Dimensions.radius20,
+                            //text container
+                            Expanded(
+                              child: Container(
+                                height: Dimensions.listViewTextConSize,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(
+                                      Dimensions.radius20,
+                                    ),
+                                    bottomRight: Radius.circular(
+                                      Dimensions.radius20,
+                                    ),
+                                  ),
+                                  color: Colors.white,
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                    left: Dimensions.width10,
+                                    right: Dimensions.width10,
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      BigText(
+                                        text: product.name,
+                                      ),
+                                      SizedBox(
+                                        height: Dimensions.height10,
+                                      ),
+                                      SmallText(
+                                        maxline: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        text: product.description,
+                                      ),
+                                      SizedBox(
+                                        height: Dimensions.height10,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          IconAndTextWidget(
+                                            icon: Icons.circle_sharp,
+                                            text: 'Normal',
+                                            iconColor: AppColors.iconColor1,
+                                          ),
+                                          IconAndTextWidget(
+                                            icon: Icons.location_on,
+                                            text: '1.7KM',
+                                            iconColor: AppColors.mainColor,
+                                          ),
+                                          IconAndTextWidget(
+                                            icon: Icons.access_time_rounded,
+                                            text: '23min',
+                                            iconColor: AppColors.iconColor2,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
-                              bottomRight: Radius.circular(
-                                Dimensions.radius20,
-                              ),
                             ),
-                            color: Colors.white,
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.only(
-                              left: Dimensions.width10,
-                              right: Dimensions.width10,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                BigText(
-                                  text: product.name,
-                                ),
-                                SizedBox(
-                                  height: Dimensions.height10,
-                                ),
-                                SmallText(
-                                  maxline: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  text: product.description,
-                                ),
-                                SizedBox(
-                                  height: Dimensions.height10,
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    IconAndTextWidget(
-                                      icon: Icons.circle_sharp,
-                                      text: 'Normal',
-                                      iconColor: AppColors.iconColor1,
-                                    ),
-                                    IconAndTextWidget(
-                                      icon: Icons.location_on,
-                                      text: '1.7KM',
-                                      iconColor: AppColors.mainColor,
-                                    ),
-                                    IconAndTextWidget(
-                                      icon: Icons.access_time_rounded,
-                                      text: '23min',
-                                      iconColor: AppColors.iconColor2,
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              );
+                    );
             },
           );
-        })
+        }),
       ],
     );
   }

@@ -8,11 +8,11 @@ class AppString {
 
   //assets
   static const String IMG_PATH = 'assets/images';
-  static const String ASSETS_MOBILES = '$IMG_PATH/mobiles.jpeg';
-  static const String ASSETS_ESSENTIALS = '$IMG_PATH/essentials.jpeg';
-  static const String ASSETS_APPLIANCES = '$IMG_PATH/appliances.jpeg';
-  static const String ASSETS_BOOKS = '$IMG_PATH/books.jpeg';
-  static const String ASSETS_FASHION = '$IMG_PATH/fashion.jpeg';
+  static const String ASSETS_MOBILES = '$IMG_PATH/mobiles.jpg';
+  static const String ASSETS_ESSENTIALS = '$IMG_PATH/essentials.jpg';
+  static const String ASSETS_APPLIANCES = '$IMG_PATH/appliances.jpg';
+  static const String ASSETS_BOOKS = '$IMG_PATH/books.jpg';
+  static const String ASSETS_FASHION = '$IMG_PATH/fashion.webp';
   static const String ASSETS_EMPTY = '$IMG_PATH/empty-box.png';
   static const String ASSETS_FOOD = '$IMG_PATH/food.png';
 

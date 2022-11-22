@@ -7,25 +7,24 @@ class AppTextField extends StatelessWidget {
   final TextEditingController textContainer;
   final String hintText;
   final IconData icon;
+  final Widget suffixIcon;
   final TextInputType keyboardType;
-
+  final int maxLines;
   bool isObscure;
   AppTextField({
     Key? key,
     required this.textContainer,
     required this.hintText,
     required this.icon,
-    this.keyboardType = TextInputType.name,
     this.isObscure = false,
+    this.suffixIcon = const SizedBox(),
+    this.keyboardType = TextInputType.name,
+    this.maxLines = 1,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      // margin: EdgeInsets.only(
-      //   left: Dimensions.height20,
-      //   right: Dimensions.height20,
-      // ),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(Dimensions.radius15),
@@ -39,6 +38,8 @@ class AppTextField extends StatelessWidget {
         ],
       ),
       child: TextField(
+        maxLines: maxLines,
+        minLines: 1,
         keyboardType: keyboardType,
         controller: textContainer,
         obscureText: isObscure ? true : false,
@@ -48,6 +49,7 @@ class AppTextField extends StatelessWidget {
             icon,
             color: AppColors.yellowColor,
           ),
+          suffixIcon: suffixIcon,
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(Dimensions.radius15),
             borderSide: const BorderSide(

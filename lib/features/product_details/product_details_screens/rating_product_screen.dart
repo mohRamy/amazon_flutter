@@ -263,6 +263,7 @@
 //   }
 // }
 
+import 'package:amazon_flutter/core/widgets/custom_button.dart';
 import 'package:amazon_flutter/features/cart/cart_ctrl/cart_ctrl.dart';
 import 'package:amazon_flutter/features/product_details/product_details_ctrl/product_details_ctrl.dart';
 import 'package:amazon_flutter/models/product_model.dart';
@@ -302,7 +303,6 @@ class RatingProductScreen extends GetView<ProductDetailsCtrl> {
     }
 
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Stack(
         children: [
           // image
@@ -330,7 +330,7 @@ class RatingProductScreen extends GetView<ProductDetailsCtrl> {
                 children: [
                   AppIcon(
                     onTap: () => Get.back(),
-                    icon: Icons.arrow_back_ios,
+                    icon: Icons.clear,
                   ),
                   GetBuilder<ProductDetailsCtrl>(
                     builder: (controller) => Stack(
@@ -358,8 +358,8 @@ class RatingProductScreen extends GetView<ProductDetailsCtrl> {
                             : Container(),
                         controller.totalItems != 0
                             ? Positioned(
-                                right: 3.0,
-                                top: 3.0,
+                                right: 6.0,
+                                top: 1.0,
                                 child: BigText(
                                   text: Get.find<ProductDetailsCtrl>()
                                       .totalItems
@@ -397,9 +397,9 @@ class RatingProductScreen extends GetView<ProductDetailsCtrl> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   AppColumn(
-                    text: product.name,
-                    avgRating: controller.avgRating.value,
-                  ),
+                      text: product.name,
+                      avgRating: controller.avgRating.value,
+                    ),
                   SizedBox(
                     height: Dimensions.height20,
                   ),
@@ -417,13 +417,7 @@ class RatingProductScreen extends GetView<ProductDetailsCtrl> {
                     ),
                   )),
                   SizedBox(height: Dimensions.height10),
-                  Container(
-                    color: Colors.black12,
-                    height: 2,
-                  ),
-                  SizedBox(
-                    height: Dimensions.height10 - 5,
-                  ),
+                  
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -455,6 +449,7 @@ class RatingProductScreen extends GetView<ProductDetailsCtrl> {
                       )
                     ],
                   ),
+                  SizedBox(height: Dimensions.height10),
                 ],
               ),
             ),
@@ -487,7 +482,7 @@ class RatingProductScreen extends GetView<ProductDetailsCtrl> {
                 right: Dimensions.width20,
               ),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Dimensions.radius20),
+                borderRadius: BorderRadius.circular(Dimensions.radius15),
                 color: Colors.white,
               ),
               child: Obx(
@@ -528,32 +523,14 @@ class RatingProductScreen extends GetView<ProductDetailsCtrl> {
                 ),
               ),
             ),
-            GestureDetector(
-              onTap: () {
-                controller.addItem(product);
-                // print(controller.quantity.value);
-                // controller.addToCart(
-                //   product: product,
-                //   ord: controller.quantity.value,
-                // );
-              },
-              child: Container(
-                padding: EdgeInsets.only(
-                  top: Dimensions.height15,
-                  bottom: Dimensions.height20,
-                  left: Dimensions.width20,
-                  right: Dimensions.width20,
-                ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(Dimensions.radius20),
-                  color: AppColors.mainColor,
-                ),
-                child: BigText(
-                  text: '\$${product.price} | Add to cart',
-                  color: Colors.white,
-                ),
+            CustomButton(
+              buttomText: '\$${product.price} | Add to cart',
+              onPressed: ()=> controller.addItem(product),
+                  width: 180,
+                  height: 80,
+                  radius: Dimensions.radius15,
+                  fontSize: Dimensions.font20,
               ),
-            ),
           ],
         ),
       ),

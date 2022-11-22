@@ -1,6 +1,8 @@
 import 'package:amazon_flutter/core/utils/app_colors.dart';
+import 'package:amazon_flutter/features/admin/admin_ctrl/admin_ctrl.dart';
 import 'package:amazon_flutter/features/cart/cart_repo/cart_repo.dart';
-import 'package:amazon_flutter/features/order/order_screen/order_screen.dart';
+import 'package:amazon_flutter/features/final_order/final_order_ctrl/final_order_ctrl.dart';
+import 'package:amazon_flutter/features/checkout/checkout_screen/checkout_screen.dart';
 
 import 'controller/user_controller.dart';
 import 'features/auth/auth_repo/auth_repo.dart';

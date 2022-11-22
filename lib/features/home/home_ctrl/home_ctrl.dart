@@ -25,7 +25,7 @@ class HomeCtrl extends GetxController implements GetxService {
     required String category,
   }) async {
     try {
-      _isLoading = false;
+      _isLoading = true;
       update();
       http.Response res =
           await homeRepo.fetchCategoryProduct(category: category);
@@ -73,11 +73,12 @@ class HomeCtrl extends GetxController implements GetxService {
           }
         },
       );
+      _isLoading = false;
+    update();
     } catch (e) {
       Get.snackbar('', '00000000000000');
     }
-    _isLoading = false;
-    update();
+    
   }
 
   @override
@@ -85,28 +86,4 @@ class HomeCtrl extends GetxController implements GetxService {
     fetchRatingProduct();
     super.onInit();
   }
-
-  // Future<List<ProductModel>> fetchAllProduct() async {
-  //   List<ProductModel> productList = [];
-  //   try {
-  //     http.Response res = await homeRepo.fetchAllProduct();
-
-  //     httpErrorHandle(
-  //         res: res,
-  //         onSuccess: () {
-  //           for (var i = 0; i < jsonDecode(res.body).length; i++) {
-  //             productList.add(
-  //               ProductModel.fromJson(
-  //                 jsonEncode(
-  //                   jsonDecode(res.body)[i],
-  //                 ),
-  //               ),
-  //             );
-  //           }
-  //         });
-  //   } catch (e) {
-  //     Get.snackbar('', e.toString());
-  //   }
-  //   return productList;
-  // }
 }
