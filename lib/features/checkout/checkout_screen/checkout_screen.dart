@@ -32,6 +32,7 @@ class CheckoutScreen extends StatefulWidget {
 
 class _CheckoutScreenState extends State<CheckoutScreen> {
   Ordered? _order = Ordered.visa;
+
   @override
   Widget build(BuildContext context) {
     UserCtrl userCtrl = Get.find<UserCtrl>();
@@ -42,7 +43,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
     for (var i = 0; i < cartCtrl.getItems.length; i++) {
       userQuants.add(cartCtrl.getItems[i].quantity!);
-      productsId.add(cartCtrl.getItems[i].product!.id!);
+      productsId.add(cartCtrl.getItems[i].id!);
     }
 
     return Scaffold(
@@ -218,7 +219,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           },
                         ),
                       ),
-                      
                       SizedBox(height: Dimensions.height20),
                       ItemsWidget(
                         txt: '${cartCtrl.getItems.length.toString()} Items',
@@ -240,10 +240,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                           BigText(
                             text: "\$15",
                             color: AppColors.yellowColor,
+                            size: 22,
                           ),
                         ],
                       ),
-                      SizedBox(height: Dimensions.height20),
+                      SizedBox(height: Dimensions.height30),
                       Container(
                         padding: EdgeInsets.only(
                           right: Dimensions.width20,
@@ -261,30 +262,29 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                             ),
                           ],
                         ),
-                        child: GetBuilder<CheckoutCtrl>(
-                          builder: (checkoutCtrl) {
-                            return CustomButton(
-                              buttomText: 'Apply',
-                              onPressed: () {
-                                if (userCtrl.user.address.isNotEmpty ||
-                                    userCtrl.user.phone.isNotEmpty) {
-                                      print(_order);
-                                  if (_order == Ordered.cashOnDelivery) {
-                                    checkoutCtrl.checkout(
-                                      productsId: productsId,
-                                      userQuants: userQuants,
-                                      totalPrice: cartCtrl.totalAmount,
-                                      address: userCtrl.user.address,
-                                    );
-                                  }
-                                } else {
-                                  Components.showCustomSnackBar(
-                                      'Your Data is not completed');
+                        child:
+                            GetBuilder<CheckoutCtrl>(builder: (checkoutCtrl) {
+                          return CustomButton(
+                            buttomText: 'Apply',
+                            onPressed: () {
+                              if (userCtrl.user.address.isNotEmpty ||
+                                  userCtrl.user.phone.isNotEmpty) {
+                                if (_order == Ordered.cashOnDelivery) {
+                                  checkoutCtrl.checkout(
+                                    productsId: productsId,
+                                    userQuants: userQuants,
+                                    totalPrice: cartCtrl.totalAmount,
+                                    address: userCtrl.user.address,
+                                  );
                                 }
-                              },
-                            );
-                          }
-                        ),
+                              } else {
+                                Components.showCustomSnackBar(
+                                  'Your Data is not completed',
+                                );
+                              }
+                            },
+                          );
+                        }),
                       ),
                     ],
                   )),

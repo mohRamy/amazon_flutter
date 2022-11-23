@@ -49,7 +49,7 @@ class AdminDetailsScreen extends GetView<AdminCtrl> {
       productDetailsCtrl.avgRating.value = totalRating / ratings.length;
     }
 
-    controller.nameUC.text = product.name;
+    controller.productNameUC.text = product.name;
     controller.descreptionUC.text = product.description;
     controller.priceUC.text = product.price.toString();
     controller.quantityUC.text = product.quantity.toString();
@@ -169,7 +169,7 @@ class AdminDetailsScreen extends GetView<AdminCtrl> {
                     height: Dimensions.height10,
                   ),
                   AppTextField(
-                    textContainer: controller.nameUC,
+                    textController: controller.productNameUC,
                     hintText: 'Product Name',
                     icon: Icons.person,
                   ),
@@ -181,7 +181,7 @@ class AdminDetailsScreen extends GetView<AdminCtrl> {
                     height: Dimensions.height10,
                   ),
                   AppTextField(
-                    textContainer: controller.descreptionUC,
+                    textController: controller.descreptionUC,
                     hintText: 'Product Descreption',
                     icon: Icons.description,
                     maxLines: 3,
@@ -194,7 +194,7 @@ class AdminDetailsScreen extends GetView<AdminCtrl> {
                     height: Dimensions.height10,
                   ),
                   AppTextField(
-                    textContainer: controller.priceUC,
+                    textController: controller.priceUC,
                     hintText: 'Product Price',
                     icon: Icons.price_change,
                   ),
@@ -206,7 +206,7 @@ class AdminDetailsScreen extends GetView<AdminCtrl> {
                     height: Dimensions.height10,
                   ),
                   AppTextField(
-                    textContainer: controller.quantityUC,
+                    textController: controller.quantityUC,
                     hintText: 'Product Quantity',
                     icon: Icons.production_quantity_limits,
                   ),
@@ -283,7 +283,7 @@ class AdminDetailsScreen extends GetView<AdminCtrl> {
                     onPressed: () {
                       adminCtrl.updateProduct(
                         id: product.id!,
-                        name: controller.nameUC.text,
+                        name: controller.productNameUC.text,
                         description: controller.descreptionUC.text,
                         price: int.parse(controller.priceUC.text),
                         quantity: int.parse(controller.quantityUC.text),

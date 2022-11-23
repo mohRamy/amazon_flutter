@@ -65,12 +65,12 @@ class AppPages {
       transition: Transition.fadeIn,
     ),
     GetPage(
-      name: _Paths.ADDRESS,
+      name: _Paths.UPDATE_PROFILE,
       page: () =>  const UpdateProfileScreen(),
       transition: Transition.fadeIn,
     ),
     GetPage(
-      name: _Paths.PICK_ADDRESS,
+      name: _Paths.ADDRESS,
       page: () =>  const AddressScreen(),
       transition: Transition.fadeIn,
     ),
@@ -81,7 +81,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.CART,
-      page: () =>   CartScreen(),
+      page: () =>   const CartScreen(),
       transition: Transition.fadeIn,
     ),
     GetPage(
@@ -100,7 +100,7 @@ class AppPages {
       transition: Transition.fadeIn,
     ),
     GetPage(
-      name: _Paths.USER_ORDER,
+      name: _Paths.CHECKOUT,
       page: () =>  const CheckoutScreen(),
       transition: Transition.fadeIn,
     ),

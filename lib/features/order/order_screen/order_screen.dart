@@ -1,7 +1,7 @@
 import 'package:amazon_flutter/config/routes/app_pages.dart';
 import 'package:amazon_flutter/core/widgets/custom_loader.dart';
 import 'package:amazon_flutter/core/widgets/small_text.dart';
-import 'package:amazon_flutter/features/final_order/final_order_ctrl/final_order_ctrl.dart';
+import 'package:amazon_flutter/features/order/order_ctrl/order_ctrl.dart';
 import 'package:amazon_flutter/models/order_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,12 +13,12 @@ import '../../../core/utils/dimensions.dart';
 import '../../../core/widgets/big_text.dart';
 import '../../../core/widgets/no_data_page.dart';
 
-class FinalOrderScreen extends GetView<FinalOrderCtrl> {
-  const FinalOrderScreen({super.key});
+class OrderScreen extends GetView<OrderCtrl> {
+  const OrderScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<FinalOrderCtrl>(builder: (ctrl) {
+    return GetBuilder<OrderCtrl>(builder: (ctrl) {
       return Column(
         children: [
           Container(

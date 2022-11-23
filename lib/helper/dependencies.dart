@@ -1,5 +1,5 @@
-import 'package:amazon_flutter/features/final_order/final_order_ctrl/final_order_ctrl.dart';
-import 'package:amazon_flutter/features/final_order/final_order_repo/final_order_repo.dart';
+import 'package:amazon_flutter/features/order/order_ctrl/order_ctrl.dart';
+import 'package:amazon_flutter/features/order/order_repo/order_repo.dart';
 import 'package:amazon_flutter/features/checkout/checkout_ctrl/checkout_ctrl.dart';
 import 'package:amazon_flutter/features/checkout/checkout_repo/checkout_repo.dart';
 import 'package:amazon_flutter/features/profile/profile_ctrl/profile_ctrl.dart';
@@ -45,7 +45,7 @@ Future<void> init() async {
   Get.lazyPut(() => ProductDetailsRepo(apiClient: Get.find()));
   Get.lazyPut(() => SearchRepo(apiClient: Get.find()));
   Get.lazyPut(() => CheckoutRepo(apiClient: Get.find()));
-  Get.lazyPut(() => FinalOrderRepo(apiClient: Get.find()));
+  Get.lazyPut(() => OrderRepo(apiClient: Get.find()));
 
   //controllers
   Get.lazyPut(() => UserCtrl());
@@ -59,6 +59,6 @@ Future<void> init() async {
   Get.lazyPut(() => ProductDetailsCtrl(productDetailsRepo: Get.find()));
   Get.lazyPut(() => SearchCtrl(searchRepo: Get.find()));
   Get.lazyPut(() => CheckoutCtrl(orderRepo: Get.find()));
-  Get.lazyPut(() => FinalOrderCtrl(finalOrderRepo: Get.find()));
+  Get.lazyPut(() => OrderCtrl(finalOrderRepo: Get.find()));
   Get.lazyPut(() => ProfileCtrl(sharedPreferences: Get.find()));
 }

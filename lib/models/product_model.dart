@@ -10,6 +10,7 @@ class ProductModel {
   final List<String> images;
   final String category;
   final int price;
+  final int oldPrice;
   final List<RatingModel>? rating;
   ProductModel({
     this.id,
@@ -19,6 +20,7 @@ class ProductModel {
     required this.images,
     required this.category,
     required this.price,
+    required this.oldPrice,
     this.rating,
   });
 
@@ -30,6 +32,7 @@ class ProductModel {
       'images': images,
       'category': category,
       'price': price,
+      'oldPrice': oldPrice,
       'id': id,
       'rating': rating,
     };
@@ -43,6 +46,7 @@ class ProductModel {
         images: List<String>.from(map['images']),
         category: map['category'] ?? '',
         price: map['price']?? 0,
+        oldPrice: map['oldPrice']?? 0,
         id: map['_id'],
         rating: map['ratings'] != null
             ? List<RatingModel>.from(

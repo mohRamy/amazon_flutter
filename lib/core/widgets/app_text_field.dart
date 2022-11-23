@@ -4,7 +4,7 @@ import '../utils/app_colors.dart';
 import '../utils/dimensions.dart';
 
 class AppTextField extends StatelessWidget {
-  final TextEditingController textContainer;
+  final TextEditingController textController;
   final String hintText;
   final IconData icon;
   final Widget suffixIcon;
@@ -13,7 +13,7 @@ class AppTextField extends StatelessWidget {
   bool isObscure;
   AppTextField({
     Key? key,
-    required this.textContainer,
+    required this.textController,
     required this.hintText,
     required this.icon,
     this.isObscure = false,
@@ -41,7 +41,7 @@ class AppTextField extends StatelessWidget {
         maxLines: maxLines,
         minLines: 1,
         keyboardType: keyboardType,
-        controller: textContainer,
+        controller: textController,
         obscureText: isObscure ? true : false,
         decoration: InputDecoration(
           hintText: hintText,

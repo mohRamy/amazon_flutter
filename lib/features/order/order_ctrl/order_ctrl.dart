@@ -6,11 +6,11 @@ import 'package:amazon_flutter/models/order_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:amazon_flutter/features/final_order/final_order_repo/final_order_repo.dart';
+import 'package:amazon_flutter/features/order/order_repo/order_repo.dart';
 
-class FinalOrderCtrl extends GetxController implements GetxService {
-  final FinalOrderRepo finalOrderRepo;
-  FinalOrderCtrl({
+class OrderCtrl extends GetxController implements GetxService {
+  final OrderRepo finalOrderRepo;
+  OrderCtrl({
     required this.finalOrderRepo,
   });
 

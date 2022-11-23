@@ -369,6 +369,52 @@ class RatingProductScreen extends GetView<ProductDetailsCtrl> {
                                 ),
                               )
                             : Container(),
+                        Positioned(
+                          bottom: Dimensions.height45,
+                          right: Dimensions.width20,
+                          child: controller.avgRating.value != 0.0
+                              ? Obx(() {
+                                  return Padding(
+                                    padding:
+                                        EdgeInsets.all(Dimensions.height10),
+                                    child: Container(
+                                      padding: EdgeInsets.all(
+                                        Dimensions.width10,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: AppColors.starColor,
+                                        borderRadius: BorderRadius.circular(
+                                            Dimensions.radius15),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurRadius: 1,
+                                            offset: const Offset(0, 2),
+                                            color: Colors.grey.withOpacity(0.2),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          const Icon(
+                                            Icons.star,
+                                            color: Colors.black,
+                                            size: 20,
+                                          ),
+                                          Text(
+                                            controller.avgRating.value
+                                                .toString(),
+                                            style: const TextStyle(
+                                              color: Colors.black,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                })
+                              : Container(),
+                        ),
                       ],
                     ),
                   ),
@@ -397,9 +443,11 @@ class RatingProductScreen extends GetView<ProductDetailsCtrl> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   AppColumn(
-                      text: product.name,
-                      avgRating: controller.avgRating.value,
-                    ),
+                    text: product.name,
+                    avgRating: controller.avgRating.value,
+                    price: product.price,
+                    oldPrice: product.oldPrice,
+                  ),
                   SizedBox(
                     height: Dimensions.height20,
                   ),
@@ -417,7 +465,6 @@ class RatingProductScreen extends GetView<ProductDetailsCtrl> {
                     ),
                   )),
                   SizedBox(height: Dimensions.height10),
-                  
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
@@ -525,12 +572,12 @@ class RatingProductScreen extends GetView<ProductDetailsCtrl> {
             ),
             CustomButton(
               buttomText: '\$${product.price} | Add to cart',
-              onPressed: ()=> controller.addItem(product),
-                  width: 180,
-                  height: 80,
-                  radius: Dimensions.radius15,
-                  fontSize: Dimensions.font20,
-              ),
+              onPressed: () => controller.addItem(product),
+              width: 210,
+              height: 80,
+              radius: Dimensions.radius15,
+              fontSize: Dimensions.font20,
+            ),
           ],
         ),
       ),

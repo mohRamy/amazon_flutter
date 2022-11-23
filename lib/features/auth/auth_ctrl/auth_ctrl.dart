@@ -41,16 +41,28 @@ class AuthCtrl extends GetxController implements GetxService {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
-  final TextEditingController emailC = TextEditingController();
-  final TextEditingController passwordC = TextEditingController();
-  final TextEditingController nameC = TextEditingController();
+  // final TextEditingController emailC = TextEditingController();
+  // final TextEditingController passwordC = TextEditingController();
+  // final TextEditingController nameC = TextEditingController();
+
+  TextEditingController emailIC = TextEditingController();
+  TextEditingController passwordIC = TextEditingController();
+
+  TextEditingController emailUC = TextEditingController();
+  TextEditingController passwordUC = TextEditingController();
+  TextEditingController nameUC = TextEditingController();
+  TextEditingController phoneUC = TextEditingController();
 
   @override
   void dispose() {
     super.dispose();
-    emailC.dispose();
-    passwordC.dispose();
-    nameC.dispose();
+    emailIC.dispose();
+    passwordIC.dispose();
+    
+    emailUC.dispose();
+    passwordUC.dispose();
+    nameUC.dispose();
+    phoneUC.dispose();
   }
 
   void signUpUser({

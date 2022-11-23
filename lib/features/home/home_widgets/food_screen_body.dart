@@ -340,6 +340,8 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                   child: AppColumn(
                     text: product.name,
                     avgRating: avgRating,
+                    price: product.price,
+                    oldPrice: product.oldPrice,
                   ),
                 ),
               ),

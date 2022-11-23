@@ -115,7 +115,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                             ),
                             onTap: (latLng) {
                               Get.toNamed(
-                                Routes.PICK_ADDRESS,
+                                Routes.ADDRESS,
                               );
                             },
                             myLocationEnabled: true,
@@ -201,7 +201,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                               height: Dimensions.height10,
                             ),
                             AppTextField(
-                              textContainer: addressCtrl.addressC,
+                              textController: addressCtrl.addressC,
                               hintText: 'Your address',
                               icon: Icons.map,
                             ),
@@ -213,7 +213,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                               height: Dimensions.height10,
                             ),
                             AppTextField(
-                              textContainer: addressCtrl.nameC,
+                              textController: addressCtrl.nameC,
                               hintText: 'Your name',
                               icon: Icons.person,
                             ),
@@ -225,7 +225,8 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                               height: Dimensions.height10,
                             ),
                             AppTextField(
-                              textContainer: addressCtrl.phoneC,
+                              keyboardType: TextInputType.phone,
+                              textController: addressCtrl.phoneC,
                               hintText: 'Your Phone',
                               icon: Icons.phone,
                             ),

@@ -102,41 +102,41 @@ class NewestProductScreen extends GetView<ProductDetailsCtrl> {
                   controller.avgRating.value != 0.0
                       ? Obx(() {
                           return Padding(
-                    padding: EdgeInsets.all(Dimensions.height10),
-                    child: Container(
-                      padding: EdgeInsets.all(
-                        Dimensions.width10,
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppColors.starColor,
-                        borderRadius:
-                            BorderRadius.circular(Dimensions.radius15),
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 1,
-                            offset: const Offset(0, 2),
-                            color: Colors.grey.withOpacity(0.2),
-                          ),
-                        ],
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(
-                            Icons.star,
-                            color: Colors.black,
-                            size: 20,
-                          ),
-                          Text(
-                            controller.avgRating.value.toString(),
-                            style: const TextStyle(
-                              color: Colors.black,
+                            padding: EdgeInsets.all(Dimensions.height10),
+                            child: Container(
+                              padding: EdgeInsets.all(
+                                Dimensions.width10,
+                              ),
+                              decoration: BoxDecoration(
+                                color: AppColors.starColor,
+                                borderRadius:
+                                    BorderRadius.circular(Dimensions.radius15),
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 1,
+                                    offset: const Offset(0, 2),
+                                    color: Colors.grey.withOpacity(0.2),
+                                  ),
+                                ],
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(
+                                    Icons.star,
+                                    color: Colors.black,
+                                    size: 20,
+                                  ),
+                                  Text(
+                                    controller.avgRating.value.toString(),
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
-                          )
-                        ],
-                      ),
-                    ),
-                  );
+                          );
                         })
                       : Container(),
                   Container(
@@ -179,12 +179,12 @@ class NewestProductScreen extends GetView<ProductDetailsCtrl> {
           ),
           SliverToBoxAdapter(
             child: Container(
-                  margin: EdgeInsets.only(
-                      left: Dimensions.width20, right: Dimensions.width20),
-                  child: ExpandableTextWidget(
-                    text: product.description,
-                  ),
-                ),
+              margin: EdgeInsets.only(
+                  left: Dimensions.width20, right: Dimensions.width20),
+              child: ExpandableTextWidget(
+                text: product.description,
+              ),
+            ),
           ),
         ],
       ),
@@ -304,12 +304,12 @@ class NewestProductScreen extends GetView<ProductDetailsCtrl> {
                 ),
                 CustomButton(
                   buttomText: '\$${product.price} | Add to cart',
-                  onPressed: ()=> controller.addItem(product),
-                  width: 180,
+                  onPressed: () => controller.addItem(product),
+                  width: 210,
                   height: 80,
                   radius: Dimensions.radius15,
                   fontSize: Dimensions.font20,
-                  ),
+                ),
               ],
             ),
           ),

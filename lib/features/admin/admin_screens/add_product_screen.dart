@@ -1,9 +1,12 @@
 import 'dart:io';
 
 import '../../../core/utils/app_colors.dart';
+import '../../../core/utils/components/components.dart';
 import '../../../core/utils/dimensions.dart';
 import '../../../core/widgets/app_icon.dart';
+import '../../../core/widgets/app_text_field.dart';
 import '../../../core/widgets/big_text.dart';
+import '../../../core/widgets/custom_button.dart';
 import '../admin_ctrl/admin_ctrl.dart';
 import 'package:get/get.dart';
 
@@ -12,10 +15,16 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/picker/picker.dart';
-import '../../../core/widgets/custom_textfield.dart';
 
-class AddProductScreen extends GetView<AdminCtrl> {
-  AddProductScreen({Key? key}) : super(key: key);
+class AddProductScreen extends StatefulWidget {
+  const AddProductScreen({Key? key}) : super(key: key);
+
+  @override
+  State<AddProductScreen> createState() => _AddProductScreenState();
+}
+
+class _AddProductScreenState extends State<AddProductScreen> {
+  AdminCtrl adminCtrl = Get.find<AdminCtrl>();
 
   String category = 'Mobiles';
   List<File> images = [];
@@ -29,13 +38,57 @@ class AddProductScreen extends GetView<AdminCtrl> {
     'Fashion'
   ];
 
+  void addProduct(AdminCtrl adminCtrl) {
+      String productName = adminCtrl.productNameC.text.trim();
+      String description = adminCtrl.descriptionC.text.trim();
+      String price = adminCtrl.priceC.text.trim();
+      String quantity = adminCtrl.quantityC.text.trim();
+      List<File> imageFile = images;
+      
+      if (imageFile.isEmpty) {
+        Components. showCustomSnackBar(
+          'Type in product image',
+          title: 'Image',
+        );
+      } else if (productName.isEmpty) {
+        Components. showCustomSnackBar(
+          'Type in product name',
+          title: 'Name',
+        );
+      } else if (description.isEmpty) {
+        Components.showCustomSnackBar(
+          'Type in product description',
+          title: 'Description',
+        );
+      } else if (price.isEmpty) {
+        Components.showCustomSnackBar(
+          'Type in product price',
+          title: 'Price',
+        );
+      } else if (quantity.isEmpty) {
+        Components.showCustomSnackBar(
+          'Type in product quantity',
+          title: 'Quantity',
+        );
+      } else {
+        adminCtrl.sellProduct(
+        name: adminCtrl.productNameC.text,
+        description: adminCtrl.descriptionC.text,
+        price: int.parse(adminCtrl.priceC.text),
+        quantity: int.parse(adminCtrl.quantityC.text),
+        category: category,
+        images: images,
+      );
+      }
+    }
+
   void sellProduct() {
-    if (_addProductFormKey.currentState!.validate() && images.isNotEmpty) {
-      controller.sellProduct(
-        name: controller.productNameC.text,
-        description: controller.descriptionC.text,
-        price: int.parse(controller.priceC.text),
-        quantity: int.parse(controller.quantityC.text),
+    if (_addProductFormKey.currentState!.validate() && images.isNotEmpty && adminCtrl.productNameC.text.isNotEmpty && adminCtrl.descriptionC.text.isNotEmpty && adminCtrl.priceC.text.isNotEmpty && adminCtrl.quantityC.text.isNotEmpty ) {
+      adminCtrl.sellProduct(
+        name: adminCtrl.productNameC.text,
+        description: adminCtrl.descriptionC.text,
+        price: int.parse(adminCtrl.priceC.text),
+        quantity: int.parse(adminCtrl.quantityC.text),
         category: category,
         images: images,
       );
@@ -44,7 +97,9 @@ class AddProductScreen extends GetView<AdminCtrl> {
 
   void selectImages() async {
     var res = await pickImagesFromGallery();
-    images = res;
+    setState(() {
+      images = res;
+    });
   }
 
   @override
@@ -86,6 +141,7 @@ class AddProductScreen extends GetView<AdminCtrl> {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: Dimensions.width10),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: Dimensions.height15),
                       images.isNotEmpty
@@ -142,25 +198,55 @@ class AddProductScreen extends GetView<AdminCtrl> {
                               ),
                             ),
                       SizedBox(height: Dimensions.height20),
-                      CustomTextField(
-                        controller: controller.productNameC,
+                      BigText(
+                        text: 'Product Name',
+                      ),
+                      SizedBox(
+                        height: Dimensions.height10,
+                      ),
+                      AppTextField(
+                        textController: adminCtrl.productNameC,
                         hintText: 'Product Name',
+                        icon: Icons.person,
                       ),
-                      SizedBox(height: Dimensions.height10),
-                      CustomTextField(
-                        controller: controller.descriptionC,
-                        hintText: 'Description',
-                        maxLines: 7,
+                      SizedBox(height: Dimensions.height20),
+                      BigText(
+                        text: 'Product Description',
                       ),
-                      SizedBox(height: Dimensions.height10),
-                      CustomTextField(
-                        controller: controller.priceC,
-                        hintText: 'Price',
+                      SizedBox(
+                        height: Dimensions.height10,
                       ),
-                      SizedBox(height: Dimensions.height10),
-                      CustomTextField(
-                        controller: controller.quantityC,
-                        hintText: 'Quantity',
+                      AppTextField(
+                        textController: adminCtrl.descriptionC,
+                        hintText: 'Product Description',
+                        icon: Icons.description,
+                        maxLines: 3,
+                      ),
+                      SizedBox(height: Dimensions.height20),
+                      BigText(
+                        text: 'Product Price',
+                      ),
+                      SizedBox(
+                        height: Dimensions.height10,
+                      ),
+                      AppTextField(
+                        keyboardType: TextInputType.number,
+                        textController: adminCtrl.priceC,
+                        hintText: 'Product Price',
+                        icon: Icons.money,
+                      ),
+                      SizedBox(height: Dimensions.height20),
+                      BigText(
+                        text: 'Product Quantity',
+                      ),
+                      SizedBox(
+                        height: Dimensions.height10,
+                      ),
+                      AppTextField(
+                        keyboardType: TextInputType.number,
+                        textController: adminCtrl.quantityC,
+                        hintText: 'Product Quantity',
+                        icon: Icons.production_quantity_limits,
                       ),
                       SizedBox(height: Dimensions.height10),
                       SizedBox(
@@ -190,17 +276,24 @@ class AddProductScreen extends GetView<AdminCtrl> {
                                 );
                               }).toList(),
                               onChanged: (String? newVal) {
-                                category = newVal!;
+                                setState(() {
+                                  category = newVal!;
+                                });
                               },
                             ),
                           ],
                         ),
                       ),
                       SizedBox(height: Dimensions.height10),
-                      // CustomButton(
-                      //   text: 'Sell',
-                      //   onTap: sellProduct,
-                      // ),
+                      GetBuilder<AdminCtrl>(
+                        builder: (adminCtr) {
+                          return CustomButton(
+                            buttomText: 'Add Product',
+                            onPressed: ()=> addProduct(adminCtr),
+                          );
+                        }
+                      ),
+                      SizedBox(height: Dimensions.height10),
                     ],
                   ),
                 ),

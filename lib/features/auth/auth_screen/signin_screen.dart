@@ -1,3 +1,5 @@
+import 'package:amazon_flutter/core/widgets/custom_button.dart';
+
 import '../../../core/utils/components/components.dart';
 import '../auth_ctrl/auth_ctrl.dart';
 import '../../../config/routes/app_pages.dart';
@@ -10,7 +12,6 @@ import '../../../core/utils/app_strings.dart';
 import '../../../core/utils/dimensions.dart';
 import '../../../core/widgets/app_icon.dart';
 import '../../../core/widgets/app_text_field.dart';
-import '../../../core/widgets/big_text.dart';
 import '../../../core/widgets/custom_loader.dart';
 
 class SignInScreen extends GetView<AuthCtrl> {
@@ -18,12 +19,11 @@ class SignInScreen extends GetView<AuthCtrl> {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController emailC = TextEditingController();
-    TextEditingController passwordC = TextEditingController();
+    
 
     void _login(AuthCtrl authCtrl) {
-      String email = emailC.text.trim();
-      String password = passwordC.text.trim();
+      String email = controller.emailIC.text.trim();
+      String password = controller.passwordIC.text.trim();
 
       if (email.isEmpty) {
         Components.showCustomSnackBar(
@@ -110,7 +110,7 @@ class SignInScreen extends GetView<AuthCtrl> {
                     //email
                     AppTextField(
                       keyboardType: TextInputType.emailAddress,
-                      textContainer: emailC,
+                      textController: controller.emailIC,
                       hintText: 'Email',
                       icon: Icons.email,
                     ),
@@ -120,7 +120,7 @@ class SignInScreen extends GetView<AuthCtrl> {
                     //password
                     GetBuilder<AuthCtrl>(builder: (authCtrl) {
                       return AppTextField(
-                        textContainer: passwordC,
+                        textController: controller.passwordIC,
                         hintText: 'Password',
                         icon: Icons.password,
                         isObscure: authCtrl.isObscure,
@@ -164,26 +164,15 @@ class SignInScreen extends GetView<AuthCtrl> {
                       height: Dimensions.screenHeight * 0.05,
                     ),
                     //sign in button
-                    GestureDetector(
-                      onTap: () {
+                    CustomButton(
+                      width: 150,
+                      height: 80,
+                      radius: Dimensions.radius15,
+                      fontSize: Dimensions.font20,
+                      buttomText: AppString.SIGN_IN,
+                      onPressed: () {
                         _login(authCtrl);
                       },
-                      child: Container(
-                        width: Dimensions.screenWidth / 2,
-                        height: Dimensions.screenHeight / 13,
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(Dimensions.radius30),
-                          color: AppColors.mainColor,
-                        ),
-                        child: Center(
-                          child: BigText(
-                            text: AppString.SIGN_IN,
-                            size: Dimensions.font20 + Dimensions.font20 / 2,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
                     ),
                     SizedBox(
                       height: Dimensions.screenHeight * 0.05,

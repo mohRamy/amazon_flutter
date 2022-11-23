@@ -1,3 +1,4 @@
+import 'package:amazon_flutter/features/profile/profile_screen/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,6 +11,7 @@ class NavAdminCtrl extends GetxController {
     const PostsScreen(),
     const AnalyticsScreen(),
     const AdminOrderScreen(),
+    const ProfileScreen(),
   ];
   List<Widget> get pages => _pages;
 
@@ -17,6 +19,7 @@ class NavAdminCtrl extends GetxController {
     'home': Icons.home_outlined,
     'analytics': Icons.analytics_outlined,
     'inbox': Icons.all_inbox_outlined,
+    'profile': Icons.person,
   };
   Map<String, IconData> get item => _items;
 

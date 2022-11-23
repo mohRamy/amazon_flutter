@@ -13,12 +13,12 @@ abstract class Routes {
   static const SEARCH = _Paths.SEARCH;
   static const RATING_PRODUCT = _Paths.RATING_PRODUCT;
   static const ADDRESS = _Paths.ADDRESS;
-  static const PICK_ADDRESS = _Paths.PICK_ADDRESS;
+  static const UPDATE_PROFILE = _Paths.UPDATE_PROFILE;
   static const ORDER_DETAIL = _Paths.ORDER_DETAIL;
   static const CART = _Paths.CART;
   static const NEWEST_PRODUCT = _Paths.NEWEST_PRODUCT;
   static const ADMIN_DETAIL = _Paths.ADMIN_DETAIL;
-  static const USER_ORDER = _Paths.USER_ORDER;
+  static const CHECKOUT = _Paths.CHECKOUT;
 }
 
 abstract class _Paths {
@@ -31,13 +31,13 @@ abstract class _Paths {
   static const CATEGORY_DETAIL = '/category-detail';
   static const SEARCH = '/search';
   static const ADDRESS = '/address';
-  static const PICK_ADDRESS = '/pick-address';
+  static const UPDATE_PROFILE = '/update-profile';
   static const ORDER_DETAIL = '/order-detail';
   static const CART = '/cart';
   static const RATING_PRODUCT = '/rating-product';
   static const NEWEST_PRODUCT = '/newest-product';
   static const ADMIN_DETAIL = '/admin-detail';
-  static const USER_ORDER = '/user-order';
+  static const CHECKOUT = '/checkout';
 
 
 

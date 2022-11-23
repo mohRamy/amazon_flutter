@@ -2,9 +2,9 @@ import 'package:amazon_flutter/core/api/api_client.dart';
 import 'package:amazon_flutter/core/utils/constants/global_variables.dart';
 import 'package:http/http.dart' as http;
 
-class FinalOrderRepo {
+class OrderRepo {
   final ApiClient apiClient;
-  FinalOrderRepo({
+  OrderRepo({
     required this.apiClient,
   });
 

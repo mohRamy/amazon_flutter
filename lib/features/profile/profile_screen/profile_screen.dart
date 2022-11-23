@@ -76,7 +76,7 @@ class ProfileScreen extends GetView<UserCtrl> {
                                         //name
                                         AccountWidget(
                                           onTap: () {
-                                            Get.toNamed(Routes.ADDRESS);
+                                            Get.toNamed(Routes.UPDATE_PROFILE);
                                           },
                                           appIcon: AppIcon(
                                             onTap: () {},
@@ -98,7 +98,7 @@ class ProfileScreen extends GetView<UserCtrl> {
                                         //phone
                                         AccountWidget(
                                           onTap: () {
-                                            Get.toNamed(Routes.ADDRESS);
+                                            Get.toNamed(Routes.UPDATE_PROFILE);
                                           },
                                           appIcon: AppIcon(
                                             onTap: () {},
@@ -140,7 +140,7 @@ class ProfileScreen extends GetView<UserCtrl> {
                                         //address
                                         AccountWidget(
                                           onTap: () {
-                                            Get.toNamed(Routes.ADDRESS);
+                                            Get.toNamed(Routes.UPDATE_PROFILE);
                                           },
                                           appIcon: AppIcon(
                                             onTap: () {},
@@ -219,6 +219,7 @@ class ProfileScreen extends GetView<UserCtrl> {
                       ))
                 : Expanded(
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
                         width: double.maxFinite,

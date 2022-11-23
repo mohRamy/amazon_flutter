@@ -32,7 +32,7 @@ class AdminCtrl extends GetxController implements GetxService {
   final TextEditingController priceC = TextEditingController();
   final TextEditingController quantityC = TextEditingController();
 
-  final TextEditingController nameUC = TextEditingController();
+  final TextEditingController productNameUC = TextEditingController();
   final TextEditingController descreptionUC = TextEditingController();
   final TextEditingController priceUC = TextEditingController();
   final TextEditingController quantityUC = TextEditingController();
@@ -44,7 +44,7 @@ class AdminCtrl extends GetxController implements GetxService {
     descriptionC.dispose();
     priceC.dispose();
     quantityC.dispose();
-    nameUC.dispose();
+    productNameUC.dispose();
     descreptionUC.dispose();
     priceUC.dispose();
     quantityUC.dispose();
@@ -78,6 +78,7 @@ class AdminCtrl extends GetxController implements GetxService {
         images: imageUrl,
         category: category,
         price: price,
+        oldPrice: 0,
       );
 
       http.Response res = await adminRepo.sellProduct(
@@ -87,7 +88,7 @@ class AdminCtrl extends GetxController implements GetxService {
       httpErrorHandle(
         res: res,
         onSuccess: () {
-          Get.snackbar('', 'Product Added Successfully!');
+          Get.snackbar('Product', 'Product Added Successfully!');
           Get.back();
         },
       );

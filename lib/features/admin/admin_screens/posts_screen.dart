@@ -74,122 +74,129 @@ class PostsScreen extends GetView<AdminCtrl> {
             MediaQuery.removePadding(
               removeTop: true,
               context: context,
-              child: ListView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: adminC.products.length,
-                itemBuilder: (context, index) {
-                  var product = adminC.products[index];
-                  return Column(
-                    children: [
-                      GestureDetector(
-                        onTap: () => Get.toNamed(
-                          Routes.ADMIN_DETAIL,
-                          arguments: {
-                            AppString.ARGUMENT_PRODUCT: product,
-                            AppString.ARGUMENT_RATINGS: product.rating,
-                            "index": index,
-                          },
-                        ),
-                        child: Container(
-                          margin: EdgeInsets.only(
-                            left: Dimensions.width20,
-                            right: Dimensions.width20,
-                            bottom: Dimensions.height10,
-                          ),
-                          child: Row(
-                            children: [
-                              //image section
-                              Container(
-                                width: Dimensions.listViewImgSize,
-                                height: Dimensions.listViewImgSize,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(
-                                    Dimensions.radius20,
-                                  ),
-                                  color: Colors.white38,
-                                  image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: NetworkImage(
-                                      product.images[0],
-                                    ),
-                                  ),
-                                ),
+              child: Expanded(
+                child: ListView(
+                  physics: const BouncingScrollPhysics(),
+                  children: [
+                    ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: adminC.products.length,
+                      itemBuilder: (context, index) {
+                        var product = adminC.products[index];
+                        return Column(
+                          children: [
+                            GestureDetector(
+                              onTap: () => Get.toNamed(
+                                Routes.ADMIN_DETAIL,
+                                arguments: {
+                                  AppString.ARGUMENT_PRODUCT: product,
+                                  AppString.ARGUMENT_RATINGS: product.rating,
+                                  "index": index,
+                                },
                               ),
-
-                              //text container
-                              Expanded(
-                                child: Container(
-                                  height: Dimensions.listViewTextConSize,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                      topRight: Radius.circular(
-                                        Dimensions.radius20,
-                                      ),
-                                      bottomRight: Radius.circular(
-                                        Dimensions.radius20,
+                              child: Container(
+                                margin: EdgeInsets.only(
+                                  left: Dimensions.width20,
+                                  right: Dimensions.width20,
+                                  bottom: Dimensions.height10,
+                                ),
+                                child: Row(
+                                  children: [
+                                    //image section
+                                    Container(
+                                      width: Dimensions.listViewImgSize,
+                                      height: Dimensions.listViewImgSize,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(
+                                          Dimensions.radius20,
+                                        ),
+                                        color: Colors.white38,
+                                        image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: NetworkImage(
+                                            product.images[0],
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                    color: Colors.white,
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                      left: Dimensions.width10,
-                                      right: Dimensions.width10,
+              
+                                    //text container
+                                    Expanded(
+                                      child: Container(
+                                        height: Dimensions.listViewTextConSize,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.only(
+                                            topRight: Radius.circular(
+                                              Dimensions.radius20,
+                                            ),
+                                            bottomRight: Radius.circular(
+                                              Dimensions.radius20,
+                                            ),
+                                          ),
+                                          color: Colors.white,
+                                        ),
+                                        child: Padding(
+                                          padding: EdgeInsets.only(
+                                            left: Dimensions.width10,
+                                            right: Dimensions.width10,
+                                          ),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              BigText(
+                                                text: product.name,
+                                              ),
+                                              SizedBox(
+                                                height: Dimensions.height10,
+                                              ),
+                                              SmallText(
+                                                maxline: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                text: product.description,
+                                              ),
+                                              SizedBox(
+                                                height: Dimensions.height10,
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  IconAndTextWidget(
+                                                    icon: Icons.circle_sharp,
+                                                    text: 'Normal',
+                                                    iconColor: AppColors.iconColor1,
+                                                  ),
+                                                  IconAndTextWidget(
+                                                    icon: Icons.location_on,
+                                                    text: '1.7KM',
+                                                    iconColor: AppColors.mainColor,
+                                                  ),
+                                                  IconAndTextWidget(
+                                                    icon: Icons.access_time_rounded,
+                                                    text: '23min',
+                                                    iconColor: AppColors.iconColor2,
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
                                     ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        BigText(
-                                          text: product.name,
-                                        ),
-                                        SizedBox(
-                                          height: Dimensions.height10,
-                                        ),
-                                        SmallText(
-                                          maxline: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          text: product.description,
-                                        ),
-                                        SizedBox(
-                                          height: Dimensions.height10,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            IconAndTextWidget(
-                                              icon: Icons.circle_sharp,
-                                              text: 'Normal',
-                                              iconColor: AppColors.iconColor1,
-                                            ),
-                                            IconAndTextWidget(
-                                              icon: Icons.location_on,
-                                              text: '1.7KM',
-                                              iconColor: AppColors.mainColor,
-                                            ),
-                                            IconAndTextWidget(
-                                              icon: Icons.access_time_rounded,
-                                              text: '23min',
-                                              iconColor: AppColors.iconColor2,
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                  ],
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  );
-                },
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ],

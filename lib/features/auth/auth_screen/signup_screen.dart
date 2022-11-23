@@ -1,4 +1,5 @@
 import '../../../core/utils/components/components.dart';
+import '../../../core/widgets/custom_button.dart';
 import '../auth_ctrl/auth_ctrl.dart';
 import '../../../config/routes/app_pages.dart';
 import 'package:flutter/gestures.dart';
@@ -10,25 +11,21 @@ import '../../../core/utils/app_strings.dart';
 import '../../../core/utils/dimensions.dart';
 import '../../../core/widgets/app_icon.dart';
 import '../../../core/widgets/app_text_field.dart';
-import '../../../core/widgets/big_text.dart';
 import '../../../core/widgets/custom_loader.dart';
 
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends GetView<AuthCtrl> {
   const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController emailC = TextEditingController();
-    TextEditingController passwordC = TextEditingController();
-    TextEditingController nameC = TextEditingController();
-    TextEditingController phoneC = TextEditingController();
+    
 
     void _registration(AuthCtrl authCtrl) {
-      String email = emailC.text.trim();
-      String password = passwordC.text.trim();
-      String name = nameC.text.trim();
-      String phone = phoneC.text.trim();
+      String email = controller.emailUC.text.trim();
+      String password = controller.passwordUC.text.trim();
+      String name = controller.nameUC.text.trim();
+      String phone = controller.phoneUC.text.trim();
 
       if (email.isEmpty) {
         Components. showCustomSnackBar(
@@ -102,7 +99,7 @@ class SignUpScreen extends StatelessWidget {
                     ),
                     //name
                     AppTextField(
-                      textContainer: nameC,
+                      textController: controller.nameUC,
                       hintText: 'Name',
                       icon: Icons.person,
                     ),
@@ -112,7 +109,7 @@ class SignUpScreen extends StatelessWidget {
                     //email
                     AppTextField(
                       keyboardType: TextInputType.emailAddress,
-                      textContainer: emailC,
+                      textController: controller.emailUC,
                       hintText: 'Email',
                       icon: Icons.email,
                     ),
@@ -122,7 +119,7 @@ class SignUpScreen extends StatelessWidget {
                     //password
                     GetBuilder<AuthCtrl>(builder: (authCtrl) {
                       return AppTextField(
-                        textContainer: passwordC,
+                        textController: controller.passwordUC,
                         hintText: 'Password',
                         icon: Icons.password,
                         isObscure: authCtrl.isObscure,
@@ -144,7 +141,7 @@ class SignUpScreen extends StatelessWidget {
                     ),
                     //phone
                     AppTextField(
-                      textContainer: phoneC,
+                      textController: controller.phoneUC,
                       hintText: 'Phone',
                       icon: Icons.phone,
                     ),
@@ -152,27 +149,37 @@ class SignUpScreen extends StatelessWidget {
                       height: Dimensions.height20,
                     ),
                     //sign up button
-                    GestureDetector(
-                      onTap: () {
+                    CustomButton(
+                      width: 150,
+                      height: 80,
+                      radius: Dimensions.radius15,
+                      fontSize: Dimensions.font20,
+                      buttomText: AppString.SIGN_IN,
+                      onPressed: () {
                         _registration(_authController);
                       },
-                      child: Container(
-                        width: Dimensions.screenWidth / 2,
-                        height: Dimensions.screenHeight / 13,
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(Dimensions.radius30),
-                          color: AppColors.mainColor,
-                        ),
-                        child: Center(
-                          child: BigText(
-                            text: AppString.SIGN_UP,
-                            size: Dimensions.font20 + Dimensions.font20 / 2,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
                     ),
+                    // GestureDetector(
+                    //   onTap: () {
+                    //     _registration(_authController);
+                    //   },
+                    //   child: Container(
+                    //     width: Dimensions.screenWidth / 2,
+                    //     height: Dimensions.screenHeight / 13,
+                    //     decoration: BoxDecoration(
+                    //       borderRadius:
+                    //           BorderRadius.circular(Dimensions.radius30),
+                    //       color: AppColors.mainColor,
+                    //     ),
+                    //     child: Center(
+                    //       child: BigText(
+                    //         text: AppString.SIGN_UP,
+                    //         size: Dimensions.font20 + Dimensions.font20 / 2,
+                    //         color: Colors.white,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                     SizedBox(
                       height: Dimensions.height10,
                     ),
