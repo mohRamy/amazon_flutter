@@ -6,6 +6,7 @@ import 'package:amazon_flutter/features/checkout/checkout_screen/checkout_screen
 
 import '../../../core/utils/components/components.dart';
 import '../../../controller/user_controller.dart';
+import '../../../core/widgets/app_text_button.dart';
 import '../../../core/widgets/custom_button.dart';
 import '../../auth/auth_ctrl/auth_ctrl.dart';
 import 'package:flutter/material.dart';
@@ -248,7 +249,6 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
           children: [
             Container(
               height: Dimensions.height20 * 7,
-              
               decoration: BoxDecoration(
                 color: AppColors.buttonBackgroundColor,
                 borderRadius: BorderRadius.only(
@@ -259,24 +259,37 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CustomButton(
-                    width: 150,
-                    height: 70,
-                    radius: Dimensions.radius15,
-                    fontSize: Dimensions.font20,
-                    buttomText: 'Save Data',
-                    onPressed: addressCtrl.loading
-                        ? null
-                        : () {
-                            if (addressCtrl.addressC.text.isNotEmpty) {
-                              addressCtrl.saveUserData(
-                                addressCtrl.addressC.text,
-                                addressCtrl.nameC.text,
-                                addressCtrl.phoneC.text,
-                              );
-                              Get.back();
-                            }
-                          },
+                  // CustomButton(
+                  //   width: 150,
+                  //   height: 70,
+                  //   radius: Dimensions.radius15,
+                  //   fontSize: Dimensions.font20,
+                  //   buttomText: 'Save Data',
+                  //   onPressed: addressCtrl.loading
+                  //       ? null
+                  //       : () {
+                  //           if (addressCtrl.addressC.text.isNotEmpty) {
+                  //             addressCtrl.saveUserData(
+                  //               addressCtrl.addressC.text,
+                  //               addressCtrl.nameC.text,
+                  //               addressCtrl.phoneC.text,
+                  //             );
+                  //             Get.back();
+                  //           }
+                  //         },
+                  // ),
+                  AppTextButton(
+                    txt: 'Add to Cart',
+                    onTap: () {
+                      if (addressCtrl.addressC.text.isNotEmpty) {
+                        addressCtrl.saveUserData(
+                          addressCtrl.addressC.text,
+                          addressCtrl.nameC.text,
+                          addressCtrl.phoneC.text,
+                        );
+                        Get.back();
+                      }
+                    },
                   ),
                 ],
               ),

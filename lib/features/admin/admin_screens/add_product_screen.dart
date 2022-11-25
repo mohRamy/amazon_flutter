@@ -287,7 +287,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
                       SizedBox(height: Dimensions.height10),
                       GetBuilder<AdminCtrl>(
                         builder: (adminCtr) {
-                          return CustomButton(
+                          return 
+                          CustomButton(
                             buttomText: 'Add Product',
                             onPressed: ()=> addProduct(adminCtr),
                           );

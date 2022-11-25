@@ -4,18 +4,16 @@ import '../utils/app_colors.dart';
 import '../utils/dimensions.dart';
 import 'big_text.dart';
 import 'icon_text_widget.dart';
-import 'small_text.dart';
-import 'stars.dart';
 
 class AppColumn extends StatelessWidget {
   final String text;
-  final double avgRating;
+  final String category;
   final int price;
   final int oldPrice;
   const AppColumn({
     Key? key,
     required this.text,
-    required this.avgRating,
+    required this.category,
     required this.price,
     required this.oldPrice,
   }) : super(key: key);
@@ -35,39 +33,52 @@ class AppColumn extends StatelessWidget {
         ),
         Row(
           children: [
-            Stars(
-              rating: avgRating,
-            ),
-            const SizedBox(
-              width: 10.0,
-            ),
-            SmallText(
-              text: avgRating.toString(),
-            ),
-            const SizedBox(
-              width: 10.0,
-            ),
             BigText(
-              text: price.toString(),
-              color: AppColors.yellowColor,
+              text: '\$${price.toString()}',
+              color: Colors.black,
+              size: Dimensions.font20,
             ),
             const SizedBox(
               width: 10.0,
             ),
-            Text(
-              oldPrice.toString(),
-              style: const TextStyle(
+            oldPrice != 0 ? Text(
+              '\$${oldPrice.toString()}',
+              style: TextStyle(
                 color: Colors.grey,
+                fontSize: Dimensions.font16 + 2,
                 decoration: TextDecoration.lineThrough,
               ),
-            ),
-            SmallText(
-              text: oldPrice.toString(),
+            ) : Container(),
+            const Spacer(),
+            Container(
+                padding: EdgeInsets.all(
+                  Dimensions.width10,
+                ),
+                decoration: BoxDecoration(
+                  color: AppColors.mainColor,
+                  borderRadius: BorderRadius.circular(Dimensions.radius15),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(
+                      Icons.category,
+                      color: Colors.black,
+                      size: 20,
+                    ),
+                    Text(
+                      category,
+                      style: const TextStyle(
+                        color: Colors.black,
+                      ),
+                    )
+                  ],
+                ),
             ),
           ],
         ),
         SizedBox(
-          height: Dimensions.height20,
+          height: Dimensions.height15,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

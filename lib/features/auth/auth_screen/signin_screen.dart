@@ -1,6 +1,7 @@
 import 'package:amazon_flutter/core/widgets/custom_button.dart';
 
 import '../../../core/utils/components/components.dart';
+import '../../../core/widgets/app_text_button.dart';
 import '../auth_ctrl/auth_ctrl.dart';
 import '../../../config/routes/app_pages.dart';
 import 'package:flutter/gestures.dart';
@@ -107,36 +108,43 @@ class SignInScreen extends GetView<AuthCtrl> {
                     SizedBox(
                       height: Dimensions.height20,
                     ),
-                    //email
+                    Padding(
+                    padding: EdgeInsets.symmetric(horizontal: Dimensions.width20),
+                    child: //email
                     AppTextField(
+                      
                       keyboardType: TextInputType.emailAddress,
                       textController: controller.emailIC,
                       hintText: 'Email',
                       icon: Icons.email,
                     ),
+                    ),
                     SizedBox(
                       height: Dimensions.height20,
                     ),
                     //password
-                    GetBuilder<AuthCtrl>(builder: (authCtrl) {
-                      return AppTextField(
-                        textController: controller.passwordIC,
-                        hintText: 'Password',
-                        icon: Icons.password,
-                        isObscure: authCtrl.isObscure,
-                        suffixIcon: InkWell(
-                          onTap: () {
-                            authCtrl.changeObsure();
-                          },
-                          child: Icon(
-                            authCtrl.isObscure
-                                ? Icons.visibility_outlined
-                                : Icons.visibility_off_outlined,
-                            color: AppColors.yellowColor,
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: Dimensions.width20),
+                      child: GetBuilder<AuthCtrl>(builder: (authCtrl) {
+                        return AppTextField(
+                          textController: controller.passwordIC,
+                          hintText: 'Password',
+                          icon: Icons.password,
+                          isObscure: authCtrl.isObscure,
+                          suffixIcon: InkWell(
+                            onTap: () {
+                              authCtrl.changeObsure();
+                            },
+                            child: Icon(
+                              authCtrl.isObscure
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined,
+                              color: AppColors.yellowColor,
+                            ),
                           ),
-                        ),
-                      );
-                    }),
+                        );
+                      }),
+                    ),
                     SizedBox(
                       height: Dimensions.height20,
                     ),
@@ -164,16 +172,22 @@ class SignInScreen extends GetView<AuthCtrl> {
                       height: Dimensions.screenHeight * 0.05,
                     ),
                     //sign in button
-                    CustomButton(
-                      width: 150,
-                      height: 80,
-                      radius: Dimensions.radius15,
-                      fontSize: Dimensions.font20,
-                      buttomText: AppString.SIGN_IN,
-                      onPressed: () {
-                        _login(authCtrl);
-                      },
-                    ),
+                    // CustomButton(
+                    //   width: 150,
+                    //   height: 80,
+                    //   radius: Dimensions.radius15,
+                    //   fontSize: Dimensions.font20,
+                    //   buttomText: AppString.SIGN_IN,
+                    //   onPressed: () {
+                    //     _login(authCtrl);
+                    //   },
+                    // ),
+                    AppTextButton(
+                        txt: AppString.SIGN_IN,
+                        onTap: () {
+                          _login(authCtrl);
+                        },
+                      ),
                     SizedBox(
                       height: Dimensions.screenHeight * 0.05,
                     ),

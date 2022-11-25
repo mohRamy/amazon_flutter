@@ -268,6 +268,8 @@ import 'package:amazon_flutter/features/cart/cart_ctrl/cart_ctrl.dart';
 import 'package:amazon_flutter/features/product_details/product_details_ctrl/product_details_ctrl.dart';
 import 'package:amazon_flutter/models/product_model.dart';
 import 'package:amazon_flutter/models/rating_model.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
@@ -277,49 +279,128 @@ import '../../../core/utils/app_strings.dart';
 import '../../../core/widgets/app_column.dart';
 import '../../../core/widgets/app_icon.dart';
 import '../../../core/utils/dimensions.dart';
+import '../../../core/widgets/app_text_button.dart';
 import '../../../core/widgets/big_text.dart';
 import '../../../core/widgets/expandable_text_widget.dart';
 import '../../../controller/user_controller.dart';
 import '../../../config/routes/app_pages.dart';
 
-class RatingProductScreen extends GetView<ProductDetailsCtrl> {
+class RatingProductScreen extends StatefulWidget {
   const RatingProductScreen({super.key});
 
   @override
+  State<RatingProductScreen> createState() => _RatingProductScreenState();
+}
+
+class _RatingProductScreenState extends State<RatingProductScreen> {
+  double _currPageValue = 0.0;
+  PageController pageController = PageController();
+  final double _height = Dimensions.pageView;
+  final double _scaleFactor = 0.8;
+
+  @override
+  void initState() {
+    super.initState();
+    pageController.addListener(() {
+      setState(() {
+        _currPageValue = pageController.page!;
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    ProductDetailsCtrl productDetailsCtrl = Get.find<ProductDetailsCtrl>();
     ProductModel product = Get.arguments[AppString.ARGUMENT_PRODUCT];
     List<RatingModel> ratings = Get.arguments[AppString.ARGUMENT_RATINGS];
-    controller.initProduct(product, Get.find<CartCtrl>());
+    productDetailsCtrl.initProduct(product, Get.find<CartCtrl>());
     double totalRating = 0;
     for (int i = 0; i < ratings.length; i++) {
       totalRating += ratings[i].rating;
       if (ratings[i].userId == Get.find<UserCtrl>().user.id) {
-        controller.myRating.value = ratings[i].rating;
+        productDetailsCtrl.myRating.value = ratings[i].rating;
       }
     }
 
     if (totalRating != 0) {
-      controller.avgRating.value = totalRating / ratings.length;
+      productDetailsCtrl.avgRating.value = totalRating / ratings.length;
     }
 
     return Scaffold(
       body: Stack(
         children: [
-          // image
-          Positioned(
-            left: 0.0,
-            right: 0.0,
-            child: Container(
-              width: double.maxFinite,
-              height: Dimensions.ratingProductImgSize,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(product.images[0]),
+          product.images.length > 1
+              ? Positioned(
+                  left: 0.0,
+                  right: 0.0,
+                  child: Container(
+                    height: Dimensions.pageView,
+                    color: Colors.grey[100],
+                    child: PageView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      controller: pageController,
+                      itemCount: product.images.length,
+                      itemBuilder: (context, position) {
+                        return _buildPageItem(
+                          position,
+                          product.images[position],
+                        );
+                      },
+                    ),
+                  ),
+                )
+              : Positioned(
+                  left: 0.0,
+                  right: 0.0,
+                  child: Container(
+                    width: double.maxFinite,
+                    height: Dimensions.ratingProductImgSize,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(product.images[0]),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
+          //product.images.length > 1
+          //     ? Positioned(
+          //         left: 0.0,
+          //         right: 0.0,
+          //         child: CarouselSlider(
+          //           items: product.images.map(
+          //             (i) {
+          //               return Container(
+          //                 width: double.maxFinite,
+          //                 decoration: BoxDecoration(
+          //                   image: DecorationImage(
+          //                     fit: BoxFit.cover,
+          //                     image: NetworkImage(i),
+          //                   ),
+          //                 ),
+          //               );
+          //             },
+          //           ).toList(),
+          //           options: CarouselOptions(
+          //             viewportFraction: 1,
+          //             height: Dimensions.ratingProductImgSize,
+          //           ),
+          //         ),
+          //       )
+          //     : Positioned(
+          //         left: 0.0,
+          //         right: 0.0,
+          //         child: Container(
+          //           width: double.maxFinite,
+          //           height: Dimensions.ratingProductImgSize,
+          //           decoration: BoxDecoration(
+          //             image: DecorationImage(
+          //               fit: BoxFit.cover,
+          //               image: NetworkImage(product.images[0]),
+          //             ),
+          //           ),
+          //         ),
+          //       ),
           // icons
           Positioned(
               top: Dimensions.height45,
@@ -369,60 +450,78 @@ class RatingProductScreen extends GetView<ProductDetailsCtrl> {
                                 ),
                               )
                             : Container(),
-                        Positioned(
-                          bottom: Dimensions.height45,
-                          right: Dimensions.width20,
-                          child: controller.avgRating.value != 0.0
-                              ? Obx(() {
-                                  return Padding(
-                                    padding:
-                                        EdgeInsets.all(Dimensions.height10),
-                                    child: Container(
-                                      padding: EdgeInsets.all(
-                                        Dimensions.width10,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: AppColors.starColor,
-                                        borderRadius: BorderRadius.circular(
-                                            Dimensions.radius15),
-                                        boxShadow: [
-                                          BoxShadow(
-                                            blurRadius: 1,
-                                            offset: const Offset(0, 2),
-                                            color: Colors.grey.withOpacity(0.2),
-                                          ),
-                                        ],
-                                      ),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          const Icon(
-                                            Icons.star,
-                                            color: Colors.black,
-                                            size: 20,
-                                          ),
-                                          Text(
-                                            controller.avgRating.value
-                                                .toString(),
-                                            style: const TextStyle(
-                                              color: Colors.black,
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                })
-                              : Container(),
-                        ),
                       ],
                     ),
                   ),
                 ],
               )),
+          productDetailsCtrl.avgRating.value != 0.0
+              ? Positioned(
+                  top: Dimensions.height10 * 26,
+                  right: Dimensions.width20,
+                  child: Obx(
+                    () {
+                      return Container(
+                        padding: EdgeInsets.all(
+                          Dimensions.width10,
+                        ),
+                        decoration: BoxDecoration(
+                          color: AppColors.starColor,
+                          borderRadius:
+                              BorderRadius.circular(Dimensions.radius15),
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 1,
+                              offset: const Offset(0, 2),
+                              color: Colors.grey.withOpacity(0.2),
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(
+                              Icons.star,
+                              color: Colors.black,
+                              size: 20,
+                            ),
+                            Text(
+                              productDetailsCtrl.avgRating.value.toString(),
+                              style: const TextStyle(
+                                color: Colors.black,
+                              ),
+                            )
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                )
+              : Container(),
+
+          product.images.length > 1
+              ? Positioned(
+                  top: Dimensions.height10 * 26,
+                  right: 0.0,
+                  left: 0.0,
+                  child: DotsIndicator(
+                    dotsCount:
+                        product.images.isEmpty ? 1 : product.images.length,
+                    position: _currPageValue,
+                    decorator: DotsDecorator(
+                      activeColor: Colors.blue,
+                      size: const Size.square(9.0),
+                      activeSize: const Size(18.0, 9.0),
+                      activeShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0)),
+                    ),
+                  ),
+                )
+              : Container(),
+
           // body
           Positioned(
-            top: Dimensions.ratingProductImgSize - 20,
+            top: Dimensions.ratingProductImgSize - 50,
             bottom: 0,
             left: 0.0,
             right: 0.0,
@@ -444,7 +543,7 @@ class RatingProductScreen extends GetView<ProductDetailsCtrl> {
                 children: [
                   AppColumn(
                     text: product.name,
-                    avgRating: controller.avgRating.value,
+                    category: product.category,
                     price: product.price,
                     oldPrice: product.oldPrice,
                   ),
@@ -465,37 +564,40 @@ class RatingProductScreen extends GetView<ProductDetailsCtrl> {
                     ),
                   )),
                   SizedBox(height: Dimensions.height10),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Text(
-                        'Rate The Product:',
-                        style: TextStyle(
-                          fontSize: Dimensions.font16,
-                          fontWeight: FontWeight.bold,
+                  GetBuilder<ProductDetailsCtrl>(builder: (productDetailsCtrl) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          'Rate The Product:',
+                          style: TextStyle(
+                            fontSize: Dimensions.font16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      RatingBar.builder(
-                        itemSize: 20,
-                        initialRating: controller.myRating.value,
-                        minRating: 1,
-                        direction: Axis.horizontal,
-                        allowHalfRating: true,
-                        itemCount: 5,
-                        itemPadding: const EdgeInsets.symmetric(horizontal: 4),
-                        itemBuilder: (context, _) => Icon(
-                          Icons.star,
-                          color: AppColors.starColor,
-                        ),
-                        onRatingUpdate: (rating) {
-                          controller.rateProduct(
-                            product: product,
-                            rating: rating,
-                          );
-                        },
-                      )
-                    ],
-                  ),
+                        RatingBar.builder(
+                          itemSize: 20,
+                          initialRating: productDetailsCtrl.myRating.value,
+                          minRating: 1,
+                          direction: Axis.horizontal,
+                          allowHalfRating: true,
+                          itemCount: 5,
+                          itemPadding:
+                              const EdgeInsets.symmetric(horizontal: 4),
+                          itemBuilder: (context, _) => Icon(
+                            Icons.star,
+                            color: AppColors.starColor,
+                          ),
+                          onRatingUpdate: (rating) {
+                            productDetailsCtrl.rateProduct(
+                              product: product,
+                              rating: rating,
+                            );
+                          },
+                        )
+                      ],
+                    );
+                  }),
                   SizedBox(height: Dimensions.height10),
                 ],
               ),
@@ -537,7 +639,7 @@ class RatingProductScreen extends GetView<ProductDetailsCtrl> {
                   children: [
                     InkWell(
                       onTap: () {
-                        controller.setQuantity(
+                        productDetailsCtrl.setQuantity(
                           false,
                           product.quantity,
                         );
@@ -550,13 +652,13 @@ class RatingProductScreen extends GetView<ProductDetailsCtrl> {
                     SizedBox(
                       width: Dimensions.width10 / 2,
                     ),
-                    BigText(text: controller.quantity.toString()),
+                    BigText(text: productDetailsCtrl.quantity.toString()),
                     SizedBox(
                       width: Dimensions.width10 / 2,
                     ),
                     InkWell(
                       onTap: () {
-                        controller.setQuantity(
+                        productDetailsCtrl.setQuantity(
                           true,
                           product.quantity,
                         );
@@ -570,16 +672,77 @@ class RatingProductScreen extends GetView<ProductDetailsCtrl> {
                 ),
               ),
             ),
-            CustomButton(
-              buttomText: '\$${product.price} | Add to cart',
-              onPressed: () => controller.addItem(product),
-              width: 210,
-              height: 80,
-              radius: Dimensions.radius15,
-              fontSize: Dimensions.font20,
+            //     CustomButton(
+            //       buttomText: '\$${product.price} | Add to cart',
+            //       onPressed: () => productDetailsCtrl.addItem(product),
+            //       width: 210,
+            //       height: 80,
+            //       radius: Dimensions.radius15,
+            //       fontSize: Dimensions.font20,
+            //     ),
+            //   ],
+            // ),
+            AppTextButton(
+              txt: 'Add to Cart',
+              onTap: ()=>productDetailsCtrl.addItem(product),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildPageItem(
+    int index,
+    String image,
+  ) {
+    Matrix4 matrix = Matrix4.identity();
+    if (index == _currPageValue.floor()) {
+      var currScale = 1 - (_currPageValue - index) * (1 - _scaleFactor);
+      var currtrans = _height * (1 - currScale) / 2;
+      matrix = Matrix4.diagonal3Values(1, currScale, 1)
+        ..setTranslationRaw(0, currtrans, 0);
+    } else if (index == _currPageValue.floor() + 1) {
+      var currScale =
+          _scaleFactor + (_currPageValue - index + 1) * (1 - _scaleFactor);
+      var currtrans = _height * (1 - currScale) / 2;
+
+      matrix = Matrix4.diagonal3Values(1, currScale, 1);
+      matrix = Matrix4.diagonal3Values(1, currScale, 1)
+        ..setTranslationRaw(0, currtrans, 0);
+    } else if (index == _currPageValue.floor() - 1) {
+      var currScale = 1 - (_currPageValue - index) * (1 - _scaleFactor);
+      var currtrans = _height * (1 - currScale) / 2;
+      matrix = Matrix4.diagonal3Values(1, currScale, 1);
+      matrix = Matrix4.diagonal3Values(1, currScale, 1)
+        ..setTranslationRaw(0, currtrans, 0);
+    } else {
+      var currScale = 0.8;
+      matrix = Matrix4.diagonal3Values(1, currScale, 1)
+        ..setTranslationRaw(
+          0,
+          _height * (1 - _scaleFactor) / 2,
+          1,
+        );
+    }
+    return Transform(
+      transform: matrix,
+      child: Stack(
+        children: [
+          Container(
+            height: Dimensions.pageView,
+            decoration: BoxDecoration(
+              // borderRadius: BorderRadius.circular(Dimensions.radius15),
+              color: index.isEven
+                  ? const Color(0xFF69c5df)
+                  : const Color(0xFF9294cc),
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: NetworkImage(image),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

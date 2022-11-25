@@ -76,7 +76,7 @@ class HomeCtrl extends GetxController implements GetxService {
       _isLoading = false;
     update();
     } catch (e) {
-      Get.snackbar('', '00000000000000');
+      Get.snackbar('', e.toString());
     }
     
   }

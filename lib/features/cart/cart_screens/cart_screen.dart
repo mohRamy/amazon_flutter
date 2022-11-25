@@ -1,5 +1,6 @@
 import 'package:amazon_flutter/controller/user_controller.dart';
 
+import '../../../core/widgets/app_text_button.dart';
 import '../../../core/widgets/custom_button.dart';
 import '../../auth/auth_ctrl/auth_ctrl.dart';
 import 'package:flutter/material.dart';
@@ -26,8 +27,6 @@ class _CartScreenState extends State<CartScreen> {
   final bool _isLogged = Get.find<AuthCtrl>().userLoggedIn();
   CartCtrl cartCtrl = Get.find<CartCtrl>();
   UserCtrl userCtrl = Get.find<UserCtrl>();
-
-  
 
   //double heightNav = Dimensions.bottomHeightBar + 130;
 
@@ -74,6 +73,7 @@ class _CartScreenState extends State<CartScreen> {
                   context: context,
                   child: Expanded(
                     child: ListView(
+                      physics: const BouncingScrollPhysics(),
                       children: [
                         ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
@@ -82,185 +82,157 @@ class _CartScreenState extends State<CartScreen> {
                           itemBuilder: (_, index) {
                             var product = cartCtrl.getItems[index];
                             cartCtrl.quantity.value = product.quantity!;
-                            return GetBuilder<CartCtrl>(
-                                builder: (cont) => GestureDetector(
-                                      onTap: () {
-                                        Get.toNamed(
-                                          Routes.RATING_PRODUCT,
-                                          arguments: {
-                                            AppString.ARGUMENT_PRODUCT:
-                                                product.product,
-                                            AppString.ARGUMENT_RATINGS:
-                                                product.rating,
-                                          },
-                                        );
-                                      },
-                                      child: Card(
-                                        child: Row(
-                                          children: [
-                                            //image
-                                            Container(
-                                              width: Dimensions.height20 * 5,
-                                              height: Dimensions.height20 * 5,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                image: DecorationImage(
-                                                  fit: BoxFit.cover,
-                                                  image: NetworkImage(
-                                                    product.image!,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: Dimensions.width10,
-                                            ),
-                                            Expanded(
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                children: [
-                                                  BigText(
-                                                    text: product.name!,
-                                                    color: Colors.black54,
-                                                    overflow: TextOverflow.clip,
-                                                  ),
-                                                  // SmallText(
-                                                  //   text: listData.price.toString(),
-                                                  // ),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      BigText(
-                                                        text:
-                                                            '\$ ${product.price.toString()}',
-                                                        color: Colors.redAccent,
-                                                      ),
-                                                      Container(
-                                                        margin: EdgeInsets.only(
-                                                            right: Dimensions
-                                                                .width10),
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                          top: Dimensions
-                                                              .height10,
-                                                          bottom: Dimensions
-                                                              .height10,
-                                                          left: Dimensions
-                                                              .width10,
-                                                          right: Dimensions
-                                                              .width10,
-                                                        ),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius.circular(
-                                                                  Dimensions
-                                                                      .radius20),
-                                                          color:
-                                                              Colors.grey[100],
-                                                        ),
-                                                        child: GetBuilder<
-                                                                CartCtrl>(
-                                                            builder:
-                                                                (controller) {
-                                                          return Row(
-                                                            children: [
-                                                              InkWell(
-                                                                onTap: () {
-                                                                  controller
-                                                                      .setQuantity(
-                                                                    false,
-                                                                    product
-                                                                        .product!
-                                                                        .quantity,
-                                                                  );
-                                                                  if (controller
-                                                                      .isValid
-                                                                      .value) {
-                                                                    controller
-                                                                        .addItem(
-                                                                      product
-                                                                          .id,
-                                                                      product
-                                                                          .product!,
-                                                                      product.quantity! -
-                                                                          1,
-                                                                    );
-                                                                  }
-                                                                  setState(
-                                                                      () {});
-                                                                },
-                                                                child: Icon(
-                                                                  Icons.remove,
-                                                                  color: AppColors
-                                                                      .signColor,
-                                                                ),
-                                                              ),
-                                                              SizedBox(
-                                                                width: Dimensions
-                                                                        .width10 /
-                                                                    2,
-                                                              ),
-                                                              BigText(
-                                                                text: controller
-                                                                    .quantity
-                                                                    .toString(),
-                                                              ),
-                                                              SizedBox(
-                                                                width: Dimensions
-                                                                        .width10 /
-                                                                    2,
-                                                              ),
-                                                              InkWell(
-                                                                onTap: () {
-                                                                  controller
-                                                                      .setQuantity(
-                                                                    true,
-                                                                    product
-                                                                        .product!
-                                                                        .quantity,
-                                                                  );
-                                                                  if (controller
-                                                                      .isValid
-                                                                      .value) {
-                                                                    controller
-                                                                        .addItem(
-                                                                      product
-                                                                          .id,
-                                                                      product
-                                                                          .product!,
-                                                                      product.quantity! +
-                                                                          1,
-                                                                    );
-                                                                  }
-                                                                  setState(
-                                                                      () {});
-                                                                },
-                                                                child: Icon(
-                                                                  Icons.add,
-                                                                  color: AppColors
-                                                                      .signColor,
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          );
-                                                        }),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
+                            return GestureDetector(
+                              onTap: () {
+                                Get.toNamed(
+                                  Routes.RATING_PRODUCT,
+                                  arguments: {
+                                    AppString.ARGUMENT_PRODUCT: product.product,
+                                    AppString.ARGUMENT_RATINGS: product.rating,
+                                  },
+                                );
+                              },
+                              child: Card(
+                                child: Row(
+                                  children: [
+                                    //image
+                                    Container(
+                                      width: Dimensions.height20 * 5,
+                                      height: Dimensions.height20 * 5,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        image: DecorationImage(
+                                          fit: BoxFit.cover,
+                                          image: NetworkImage(
+                                            product.image!,
+                                          ),
                                         ),
                                       ),
-                                    ));
+                                    ),
+                                    SizedBox(
+                                      width: Dimensions.width10,
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          BigText(
+                                            text: product.name!,
+                                            color: Colors.black54,
+                                            overflow: TextOverflow.clip,
+                                          ),
+                                          // SmallText(
+                                          //   text: listData.price.toString(),
+                                          // ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              BigText(
+                                                text:
+                                                    '\$ ${product.price.toString()}',
+                                                color: Colors.redAccent,
+                                              ),
+                                              Container(
+                                                margin: EdgeInsets.only(
+                                                    right: Dimensions.width10),
+                                                padding: EdgeInsets.only(
+                                                  top: Dimensions.height10,
+                                                  bottom: Dimensions.height10,
+                                                  left: Dimensions.width10,
+                                                  right: Dimensions.width10,
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          Dimensions.radius20),
+                                                  color: Colors.grey[100],
+                                                ),
+                                                child: GetBuilder<CartCtrl>(
+                                                    builder: (controller) {
+                                                  return Row(
+                                                    children: [
+                                                      InkWell(
+                                                        onTap: () {
+                                                          controller
+                                                              .setQuantity(
+                                                            false,
+                                                            product.product!
+                                                                .quantity,
+                                                          );
+                                                          if (controller
+                                                              .isValid.value) {
+                                                            controller.addItem(
+                                                              product.id,
+                                                              product.product!,
+                                                              product.quantity! -
+                                                                  1,
+                                                            );
+                                                          }
+                                                          setState(() {});
+                                                        },
+                                                        child: Icon(
+                                                          Icons.remove,
+                                                          color: AppColors
+                                                              .signColor,
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        width:
+                                                            Dimensions.width10 /
+                                                                2,
+                                                      ),
+                                                      BigText(
+                                                        text: controller
+                                                            .quantity
+                                                            .toString(),
+                                                      ),
+                                                      SizedBox(
+                                                        width:
+                                                            Dimensions.width10 /
+                                                                2,
+                                                      ),
+                                                      InkWell(
+                                                        onTap: () {
+                                                          controller
+                                                              .setQuantity(
+                                                            true,
+                                                            product.product!
+                                                                .quantity,
+                                                          );
+                                                          if (controller
+                                                              .isValid.value) {
+                                                            controller.addItem(
+                                                              product.id,
+                                                              product.product!,
+                                                              product.quantity! +
+                                                                  1,
+                                                            );
+                                                          }
+                                                          setState(() {});
+                                                        },
+                                                        child: Icon(
+                                                          Icons.add,
+                                                          color: AppColors
+                                                              .signColor,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  );
+                                                }),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
                           },
                         ),
                       ],
@@ -296,11 +268,9 @@ class _CartScreenState extends State<CartScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    width: 150,
-                    height: 80,
-                    alignment: Alignment.center,
+                    padding: EdgeInsets.all(Dimensions.height20 - 5),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(Dimensions.radius15),
+                      borderRadius: BorderRadius.circular(Dimensions.radius15 - 5),
                       color: Colors.white,
                     ),
                     child:
@@ -309,15 +279,22 @@ class _CartScreenState extends State<CartScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      CustomButton(
-                        width: 150,
-                        height: 80,
-                        radius: Dimensions.radius15,
-                        fontSize: Dimensions.font20,
-                        buttomText: 'Save',
-                        onPressed: () {
+                      // CustomButton(
+                      //   width: 150,
+                      //   height: 80,
+                      //   radius: Dimensions.radius15,
+                      //   fontSize: Dimensions.font20,
+                      //   buttomText: 'Save',
+                      //   onPressed: () {
+                      //     cartCtrl.addToCartHistoryList();
+                      //     Get.toNamed(Routes.NAV_HOME_SCREEN);
+                      //   },
+                      // ),
+                      AppTextButton(
+                        txt: 'Save Cart',
+                        onTap: () {
                           cartCtrl.addToCartHistoryList();
-                          Get.back();
+                          Get.toNamed(Routes.NAV_HOME_SCREEN);
                         },
                       ),
                       SizedBox(
@@ -327,13 +304,9 @@ class _CartScreenState extends State<CartScreen> {
                       SizedBox(
                         width: Dimensions.width10,
                       ),
-                      CustomButton(
-                        width: 150,
-                        height: 80,
-                        radius: Dimensions.radius15,
-                        fontSize: Dimensions.font20,
-                        buttomText: 'Check Out',
-                        onPressed: () {
+                      AppTextButton(
+                        txt: 'Check Out',
+                        onTap: () {
                           if (_isLogged) {
                             if (userCtrl.user.address.isEmpty &&
                                 userCtrl.user.phone.isEmpty) {

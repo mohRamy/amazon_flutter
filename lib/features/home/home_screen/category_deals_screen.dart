@@ -1,3 +1,4 @@
+import '../../../core/widgets/app_icon.dart';
 import '../../../core/widgets/custom_loader.dart';
 import '../../../core/widgets/no_data_page.dart';
 import '../home_ctrl/home_ctrl.dart';
@@ -17,151 +18,208 @@ class CategoryDealsScreen extends GetView<HomeCtrl> {
     Key? key,
   }) : super(key: key);
 
-  
-
   @override
   Widget build(BuildContext context) {
+    controller.productCategory = [];
     return Scaffold(
       backgroundColor: Colors.grey[100],
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(50),
-        child: AppBar(
-          flexibleSpace: Container(
+      body: //list of food and images
+          Column(
+        children: [
+          Container(
             color: AppColors.mainColor,
-          ),
-          title: Text(
-            Get.arguments,
-            style: const TextStyle(
-              color: Colors.black,
+            width: double.maxFinite,
+            height: Dimensions.height10 * 10,
+            padding: EdgeInsets.only(
+              top: Dimensions.height45,
+              left: Dimensions.width20,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                AppIcon(
+                  onTap: () => Get.back(),
+                  icon: Icons.arrow_back_ios,
+                  backgroundColor: AppColors.yellowColor,
+                ),
+                BigText(
+                  text: 'Cart',
+                  color: Colors.white,
+                ),
+                Container(
+                  width: Dimensions.height45,
+                ),
+              ],
             ),
           ),
-        ),
-      ),
-      body: //list of food and images
-          GetBuilder<HomeCtrl>(
-        builder: (homeCtrl) {
-          return controller.productCategory != null ? 
-          controller.isLoading == true ?
-          const CustomLoader() :
-            ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: controller.productCategory?.length ?? 0,
-              itemBuilder: (context, index) {
-                var product = controller.productCategory![index];
-                return Column(
-                  children: [
-                    SizedBox(
-                      height: Dimensions.height15,
-                    ),
-                    GestureDetector(
-                      onTap: () => Get.toNamed(
-                        Routes.RATING_PRODUCT,
-                        arguments: {
-                          AppString.ARGUMENT_PRODUCT: product,
-                          AppString.ARGUMENT_RATINGS: product.rating,
-                        },
-                      ),
-                      child: Container(
-                        margin: EdgeInsets.only(
-                          left: Dimensions.width20,
-                          right: Dimensions.width20,
-                          bottom: Dimensions.height10,
-                        ),
-                        child: Row(
-                          children: [
-                            //image section
-                            Container(
-                              width: Dimensions.listViewImgSize,
-                              height: Dimensions.listViewImgSize,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(
-                                  Dimensions.radius20,
-                                ),
-                                color: Colors.white38,
-                                image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: NetworkImage(
-                                    product.images[0],
-                                  ),
-                                ),
-                              ),
-                            ),
+          GetBuilder<HomeCtrl>(builder: (homeCtrl) {
+            return controller.productCategory != null
+                ? controller.isLoading != true
+                    ? MediaQuery.removePadding(
+                        removeTop: true,
+                        context: context,
+                        child: Expanded(
+                          child: ListView(
+                            physics: const BouncingScrollPhysics(),
+                            children: [
+                              ListView.builder(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount:
+                                      controller.productCategory?.length ?? 0,
+                                  itemBuilder: (context, index) {
+                                    var product =
+                                        controller.productCategory![index];
+                                    return Column(
+                                      children: [
+                                        SizedBox(
+                                          height: Dimensions.height15,
+                                        ),
+                                        GestureDetector(
+                                          onTap: () => Get.toNamed(
+                                            Routes.RATING_PRODUCT,
+                                            arguments: {
+                                              AppString.ARGUMENT_PRODUCT:
+                                                  product,
+                                              AppString.ARGUMENT_RATINGS:
+                                                  product.rating,
+                                            },
+                                          ),
+                                          child: Container(
+                                            margin: EdgeInsets.only(
+                                              left: Dimensions.width20,
+                                              right: Dimensions.width20,
+                                              bottom: Dimensions.height10,
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                //image section
+                                                Container(
+                                                  width: Dimensions
+                                                      .listViewImgSize,
+                                                  height: Dimensions
+                                                      .listViewImgSize,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                      Dimensions.radius20,
+                                                    ),
+                                                    color: Colors.white38,
+                                                    image: DecorationImage(
+                                                      fit: BoxFit.cover,
+                                                      image: NetworkImage(
+                                                        product.images[0],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
 
-                            //text container
-                            Expanded(
-                              child: Container(
-                                height: Dimensions.listViewTextConSize,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(
-                                      Dimensions.radius20,
-                                    ),
-                                    bottomRight: Radius.circular(
-                                      Dimensions.radius20,
-                                    ),
-                                  ),
-                                  color: Colors.white,
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                    left: Dimensions.width10,
-                                    right: Dimensions.width10,
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      BigText(
-                                        text: product.name,
-                                      ),
-                                      SizedBox(
-                                        height: Dimensions.height10,
-                                      ),
-                                      SmallText(
-                                        maxline: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                        text: product.name,
-                                      ),
-                                      SizedBox(
-                                        height: Dimensions.height10,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          IconAndTextWidget(
-                                            icon: Icons.circle_sharp,
-                                            text: 'Normal',
-                                            iconColor: AppColors.iconColor1,
+                                                //text container
+                                                Expanded(
+                                                  child: Container(
+                                                    height: Dimensions
+                                                        .listViewTextConSize,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                        topRight:
+                                                            Radius.circular(
+                                                          Dimensions.radius20,
+                                                        ),
+                                                        bottomRight:
+                                                            Radius.circular(
+                                                          Dimensions.radius20,
+                                                        ),
+                                                      ),
+                                                      color: Colors.white,
+                                                    ),
+                                                    child: Padding(
+                                                      padding: EdgeInsets.only(
+                                                        left:
+                                                            Dimensions.width10,
+                                                        right:
+                                                            Dimensions.width10,
+                                                      ),
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          BigText(
+                                                            text: product.name,
+                                                          ),
+                                                          SizedBox(
+                                                            height: Dimensions
+                                                                .height10,
+                                                          ),
+                                                          SmallText(
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                            text: product
+                                                                .description,
+                                                          ),
+                                                          SizedBox(
+                                                            height: Dimensions
+                                                                .height10,
+                                                          ),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceBetween,
+                                                            children: [
+                                                              IconAndTextWidget(
+                                                                icon: Icons
+                                                                    .circle_sharp,
+                                                                text: 'Normal',
+                                                                iconColor: AppColors
+                                                                    .iconColor1,
+                                                              ),
+                                                              IconAndTextWidget(
+                                                                icon: Icons
+                                                                    .location_on,
+                                                                text: '1.7KM',
+                                                                iconColor:
+                                                                    AppColors
+                                                                        .mainColor,
+                                                              ),
+                                                              IconAndTextWidget(
+                                                                icon: Icons
+                                                                    .access_time_rounded,
+                                                                text: '23min',
+                                                                iconColor: AppColors
+                                                                    .iconColor2,
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                          IconAndTextWidget(
-                                            icon: Icons.location_on,
-                                            text: '1.7KM',
-                                            iconColor: AppColors.mainColor,
-                                          ),
-                                          IconAndTextWidget(
-                                            icon: Icons.access_time_rounded,
-                                            text: '23min',
-                                            iconColor: AppColors.iconColor2,
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                                        ),
+                                      ],
+                                    );
+                                  }),
+                            ],
+                          ),
                         ),
-                      ),
+                      )
+                    : const Expanded(child: CustomLoader())
+                : const Expanded(
+                  child: NoDataPage(
+                      text: "That's Category is Empty",
+                      imgPath: AppString.ASSETS_EMPTY,
                     ),
-                  ],
                 );
-              }
-              ): const NoDataPage(text: "That's Category is Empty", imgPath: AppString.ASSETS_EMPTY);
-        }
+          }),
+        ],
       ),
     );
   }

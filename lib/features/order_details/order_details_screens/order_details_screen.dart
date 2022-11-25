@@ -15,7 +15,7 @@ import 'package:intl/intl.dart';
 import '../../../config/routes/app_pages.dart';
 
 class OrderDetailScreen extends GetView<AdminCtrl> {
-  OrderDetailScreen({
+  const OrderDetailScreen({
     Key? key,
   }) : super(key: key);
 
@@ -273,8 +273,10 @@ class OrderDetailScreen extends GetView<AdminCtrl> {
                                 steps: [
                                   Step(
                                     title: const Text('Pending'),
-                                    content: const Text(
-                                      'Your order is yet to be delivered',
+                                    content: Text(
+                                      userCtrl.user.type == 'admin'?
+                                      'Order is yet to be delivered'
+                                      :'Your order is yet to be delivered',
                                     ),
                                     isActive: adminCtrl.currentStep > 0,
                                     state: adminCtrl.currentStep > 0
@@ -285,7 +287,7 @@ class OrderDetailScreen extends GetView<AdminCtrl> {
                                     title: const Text('Completed'),
                                     content: Text(
                                       userCtrl.user.type == 'admin'
-                                          ? 'Order has been delivered, you are yet to sign.'
+                                          ? 'Order has been delivered, Custom are yet to sign.'
                                           : 'Your order has been delivered, you are yet to sign.',
                                     ),
                                     isActive: adminCtrl.currentStep > 1,

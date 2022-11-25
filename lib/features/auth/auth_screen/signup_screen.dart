@@ -1,4 +1,5 @@
 import '../../../core/utils/components/components.dart';
+import '../../../core/widgets/app_text_button.dart';
 import '../../../core/widgets/custom_button.dart';
 import '../auth_ctrl/auth_ctrl.dart';
 import '../../../config/routes/app_pages.dart';
@@ -13,14 +14,11 @@ import '../../../core/widgets/app_icon.dart';
 import '../../../core/widgets/app_text_field.dart';
 import '../../../core/widgets/custom_loader.dart';
 
-
 class SignUpScreen extends GetView<AuthCtrl> {
   const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    
-
     void _registration(AuthCtrl authCtrl) {
       String email = controller.emailUC.text.trim();
       String password = controller.passwordUC.text.trim();
@@ -28,7 +26,7 @@ class SignUpScreen extends GetView<AuthCtrl> {
       String phone = controller.phoneUC.text.trim();
 
       if (email.isEmpty) {
-        Components. showCustomSnackBar(
+        Components.showCustomSnackBar(
           'Type in your email address',
           title: 'Email address',
         );
@@ -64,7 +62,6 @@ class SignUpScreen extends GetView<AuthCtrl> {
           password: password,
           phone: phone,
         );
-        
       }
     }
 
@@ -87,78 +84,92 @@ class SignUpScreen extends GetView<AuthCtrl> {
                           backgroundColor: Colors.white,
                           radius: 80,
                           child: AppIcon(
-                          onTap: () {},
-                          icon: Icons.person,
-                          backgroundColor: AppColors.mainColor,
-                          iconColor: Colors.white,
-                          iconSize: Dimensions.height45 + Dimensions.height30,
-                          size: Dimensions.height15 * 10,
-                        ),
+                            onTap: () {},
+                            icon: Icons.person,
+                            backgroundColor: AppColors.mainColor,
+                            iconColor: Colors.white,
+                            iconSize: Dimensions.height45 + Dimensions.height30,
+                            size: Dimensions.height15 * 10,
+                          ),
                         ),
                       ),
                     ),
-                    //name
-                    AppTextField(
-                      textController: controller.nameUC,
-                      hintText: 'Name',
-                      icon: Icons.person,
-                    ),
-                    SizedBox(
-                      height: Dimensions.height20,
-                    ),
-                    //email
-                    AppTextField(
-                      keyboardType: TextInputType.emailAddress,
-                      textController: controller.emailUC,
-                      hintText: 'Email',
-                      icon: Icons.email,
-                    ),
-                    SizedBox(
-                      height: Dimensions.height20,
-                    ),
-                    //password
-                    GetBuilder<AuthCtrl>(builder: (authCtrl) {
-                      return AppTextField(
-                        textController: controller.passwordUC,
-                        hintText: 'Password',
-                        icon: Icons.password,
-                        isObscure: authCtrl.isObscure,
-                        suffixIcon: InkWell(
-                          onTap: () {
-                            authCtrl.changeObsure();
-                          },
-                          child: Icon(
-                            authCtrl.isObscure
-                                ? Icons.visibility_outlined
-                                : Icons.visibility_off_outlined,
-                            color: AppColors.yellowColor,
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: Dimensions.width20),
+                      child: Column(
+                        children: [
+                          //name
+                          AppTextField(
+                            textController: controller.nameUC,
+                            hintText: 'Name',
+                            icon: Icons.person,
                           ),
-                        ),
-                      );
-                    }),
-                    SizedBox(
-                      height: Dimensions.height20,
-                    ),
-                    //phone
-                    AppTextField(
-                      textController: controller.phoneUC,
-                      hintText: 'Phone',
-                      icon: Icons.phone,
+                          SizedBox(
+                            height: Dimensions.height20,
+                          ),
+                          //email
+                          AppTextField(
+                            keyboardType: TextInputType.emailAddress,
+                            textController: controller.emailUC,
+                            hintText: 'Email',
+                            icon: Icons.email,
+                          ),
+                          SizedBox(
+                            height: Dimensions.height20,
+                          ),
+                          //password
+                          GetBuilder<AuthCtrl>(builder: (authCtrl) {
+                            return AppTextField(
+                              textController: controller.passwordUC,
+                              hintText: 'Password',
+                              icon: Icons.password,
+                              isObscure: authCtrl.isObscure,
+                              suffixIcon: InkWell(
+                                onTap: () {
+                                  authCtrl.changeObsure();
+                                },
+                                child: Icon(
+                                  authCtrl.isObscure
+                                      ? Icons.visibility_outlined
+                                      : Icons.visibility_off_outlined,
+                                  color: AppColors.yellowColor,
+                                ),
+                              ),
+                            );
+                          }),
+                          SizedBox(
+                            height: Dimensions.height20,
+                          ),
+                          //phone
+                          AppTextField(
+                            textController: controller.phoneUC,
+                            hintText: 'Phone',
+                            icon: Icons.phone,
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(
                       height: Dimensions.height20,
                     ),
                     //sign up button
-                    CustomButton(
-                      width: 150,
-                      height: 80,
-                      radius: Dimensions.radius15,
-                      fontSize: Dimensions.font20,
-                      buttomText: AppString.SIGN_IN,
-                      onPressed: () {
-                        _registration(_authController);
-                      },
-                    ),
+                    // CustomButton(
+                    //   width: 150,
+                    //   height: 80,
+                    //   radius: Dimensions.radius15,
+                    //   fontSize: Dimensions.font20,
+                    //   buttomText: AppString.SIGN_IN,
+                    //   onPressed: () {
+                    //     _registration(_authController);
+                    //   },
+                    // ),
+                    AppTextButton(
+                        txt: AppString.SIGN_UP,
+                        onTap: () {
+                          _registration(_authController);
+                        },
+                      ),
                     // GestureDetector(
                     //   onTap: () {
                     //     _registration(_authController);

@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import '../../cart/cart_ctrl/cart_ctrl.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +8,7 @@ import '../product_details_repo/product_details_repo.dart';
 
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/constants/error_handling.dart';
-import '../../../controller/user_controller.dart';
 import '../../../models/product_model.dart';
-import '../../../models/user_model.dart';
 
 class ProductDetailsCtrl extends GetxController implements GetxService {
   final ProductDetailsRepo productDetailsRepo;
@@ -38,7 +35,7 @@ class ProductDetailsCtrl extends GetxController implements GetxService {
       );
       update();
     } catch (e) {
-      Get.snackbar('', '222222222222222222');
+      Get.snackbar('', e.toString());
     }
   }
 

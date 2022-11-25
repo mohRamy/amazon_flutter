@@ -2,6 +2,7 @@ import 'package:amazon_flutter/config/routes/app_pages.dart';
 import 'package:dotted_border/dotted_border.dart';
 
 import '../../../core/utils/components/components.dart';
+import '../../../core/widgets/app_text_button.dart';
 import '../../../core/widgets/app_text_field.dart';
 import '../../../core/widgets/custom_button.dart';
 import '../admin_ctrl/admin_ctrl.dart';
@@ -279,8 +280,25 @@ class AdminDetailsScreen extends GetView<AdminCtrl> {
                       ),
                     ),
                   ),
-                  CustomButton(
-                    onPressed: () {
+                  // CustomButton(
+                  //   onPressed: () {
+                  //     adminCtrl.updateProduct(
+                  //       id: product.id!,
+                  //       name: controller.productNameUC.text,
+                  //       description: controller.descreptionUC.text,
+                  //       price: int.parse(controller.priceUC.text),
+                  //       quantity: int.parse(controller.quantityUC.text),
+                  //     );
+                  //   },
+                  //   width: 150,
+                  //   height: 80,
+                  //   radius: Dimensions.radius20,
+                  //   fontSize: Dimensions.font20,
+                  //   buttomText: 'Save',
+                  // ),
+                  AppTextButton(
+                    txt: AppString.SIGN_UP,
+                    onTap: () {
                       adminCtrl.updateProduct(
                         id: product.id!,
                         name: controller.productNameUC.text,
@@ -289,11 +307,6 @@ class AdminDetailsScreen extends GetView<AdminCtrl> {
                         quantity: int.parse(controller.quantityUC.text),
                       );
                     },
-                    width: 150,
-                    height: 80,
-                    radius: Dimensions.radius20,
-                    fontSize: Dimensions.font20,
-                    buttomText: 'Save',
                   ),
                 ],
               ),

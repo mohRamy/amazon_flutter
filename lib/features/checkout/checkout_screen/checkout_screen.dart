@@ -14,6 +14,7 @@ import 'package:get/get.dart';
 
 import '../../../core/widgets/app_icon.dart';
 import '../../../core/widgets/big_text.dart';
+import '../../../models/cart_model.dart';
 import '../checkout_widgets/items_widget.dart';
 
 enum Ordered {
@@ -37,13 +38,15 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   Widget build(BuildContext context) {
     UserCtrl userCtrl = Get.find<UserCtrl>();
     CartCtrl cartCtrl = Get.find<CartCtrl>();
+    List<CartModel> getItems = cartCtrl.getItems;
 
     List<int> userQuants = [];
     List<String> productsId = [];
 
-    for (var i = 0; i < cartCtrl.getItems.length; i++) {
-      userQuants.add(cartCtrl.getItems[i].quantity!);
-      productsId.add(cartCtrl.getItems[i].id!);
+
+    for (var i = 0; i < getItems.length; i++) {
+      userQuants.add(getItems[i].quantity!);
+      productsId.add(getItems[i].id!);
     }
 
     return Scaffold(
@@ -221,24 +224,25 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       ),
                       SizedBox(height: Dimensions.height20),
                       ItemsWidget(
-                        txt: '${cartCtrl.getItems.length.toString()} Items',
+                        txt: '${getItems.length.toString()} Items',
                         account: '\$ ${cartCtrl.totalAmount.toString()}',
                       ),
                       const ItemsWidget(
                         txt: 'ShippingFee',
-                        account: '\$20',
+                        account: '\$ 100',
                       ),
-                      const ItemsWidget(
+                      cartCtrl.totalOldAmount != 0 ?
+                      ItemsWidget(
                         txt: 'Discount',
-                        account: '\$385',
-                      ),
+                        account: '\$ ${cartCtrl.totalOldAmount}',
+                      ) : Container(),
                       const Divider(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           BigText(text: "Total"),
                           BigText(
-                            text: "\$15",
+                            text: '\$ ${cartCtrl.totalAmount + 100}',
                             color: AppColors.yellowColor,
                             size: 22,
                           ),

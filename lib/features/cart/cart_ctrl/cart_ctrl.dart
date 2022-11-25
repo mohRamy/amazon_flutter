@@ -131,23 +131,18 @@ class CartCtrl extends GetxController implements GetxService {
     return total;
   }
 
+  int get totalOldAmount {
+    int totalOld = 0;
+    _items.forEach((key, value) {
+      totalOld += value.quantity! * value.product!.oldPrice;
+    });
+    return totalOld;
+  }
+
   void addToCartList() {
     cartRepo.addToCartList(getItems);
     update();
   }
-
-  // List<CartModel> get getCartList {
-  //   setCart = cartRepo.getCartList();
-  //   return storageItems;
-  // }
-
-  // set setCart(List<CartModel> items) {
-  //   storageItems = items;
-  //   for (int i = 0; i < storageItems.length; i++) {
-  //     _items.putIfAbsent(storageItems[i].id!, () => storageItems[i]);
-  //   }
-  //   update();
-  // }
 
   List<CartModel> getCartList() {
     setCart = cartRepo.getCartList();
