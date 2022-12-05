@@ -93,7 +93,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       ),
                       SizedBox(height: Dimensions.height10),
                       GestureDetector(
-                        onTap: () => Get.toNamed(Routes.ADDRESS),
+                        onTap: () => Get.toNamed(Routes.UPDATE_PROFILE),
                         child: Container(
                           padding: EdgeInsets.only(
                             right: Dimensions.width10,
@@ -234,7 +234,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                       cartCtrl.totalOldAmount != 0 ?
                       ItemsWidget(
                         txt: 'Discount',
-                        account: '\$ ${cartCtrl.totalOldAmount}',
+                        account: '\$ ${cartCtrl.totalOldAmount - cartCtrl.totalAmount}',
                       ) : Container(),
                       const Divider(),
                       Row(

@@ -18,6 +18,7 @@ class HomeCtrl extends GetxController implements GetxService {
   bool get isLoading => _isLoading;
 
   List<ProductModel>? productCategory = [];
+  List<ProductModel> productNew = [];
   List<ProductModel> productRating = [];
   // List<ProductModel>? productList;
 
@@ -51,7 +52,7 @@ class HomeCtrl extends GetxController implements GetxService {
     }
   }
 
-  void fetchRatingProduct() async {
+  Future<void> fetchRatingProduct() async {
     try {
       _isLoading = true;
       update();
@@ -81,8 +82,39 @@ class HomeCtrl extends GetxController implements GetxService {
     
   }
 
+  Future<void> fetchAllProduct() async {
+    try {
+      _isLoading = true;
+      update();
+      http.Response res = await homeRepo.fetchAllProduct();
+
+      httpErrorHandle(
+        res: res,
+        onSuccess: () {
+          for (var i = 0; i < jsonDecode(res.body).length; i++) {
+            productNew.add(
+              ProductModel.fromJson(
+                jsonEncode(
+                  jsonDecode(
+                    res.body,
+                  )[i],
+                ),
+              ),
+            );
+          }
+        },
+      );
+      _isLoading = false;
+    update();
+    } catch (e) {
+      Get.snackbar('', e.toString());
+    }
+    
+  }
+
   @override
   void onInit() {
+    fetchAllProduct();
     fetchRatingProduct();
     super.onInit();
   }

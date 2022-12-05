@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/utils/app_colors.dart';
-import '../admin_ctrl/nav_admin_ctrl.dart';
+import '../nav_ctrl/nav_admin_ctrl.dart';
 
 class NavAdminScreen extends GetView<NavAdminCtrl> {
   const NavAdminScreen({super.key});

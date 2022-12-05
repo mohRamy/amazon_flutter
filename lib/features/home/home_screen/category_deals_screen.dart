@@ -43,7 +43,7 @@ class CategoryDealsScreen extends GetView<HomeCtrl> {
                   backgroundColor: AppColors.yellowColor,
                 ),
                 BigText(
-                  text: 'Cart',
+                  text: Get.arguments,
                   color: Colors.white,
                 ),
                 Container(
@@ -159,6 +159,7 @@ class CategoryDealsScreen extends GetView<HomeCtrl> {
                                                             overflow:
                                                                 TextOverflow
                                                                     .ellipsis,
+                                                                    maxline: 1,
                                                             text: product
                                                                 .description,
                                                           ),
@@ -213,11 +214,11 @@ class CategoryDealsScreen extends GetView<HomeCtrl> {
                       )
                     : const Expanded(child: CustomLoader())
                 : const Expanded(
-                  child: NoDataPage(
+                    child: NoDataPage(
                       text: "That's Category is Empty",
                       imgPath: AppString.ASSETS_EMPTY,
                     ),
-                );
+                  );
           }),
         ],
       ),

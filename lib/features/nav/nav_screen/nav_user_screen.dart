@@ -1,13 +1,13 @@
 
-import '../home_ctrl/nav_home_ctrl.dart';
+import '../nav_ctrl/nav_user_ctrl.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../core/utils/app_colors.dart';
 
 
-class NavScreen extends GetView<NavHomeCtrl> {
-  const NavScreen({super.key});
+class NavUserScreen extends GetView<NavUserCtrl> {
+  const NavUserScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

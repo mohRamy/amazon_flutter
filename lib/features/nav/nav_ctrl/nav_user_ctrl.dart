@@ -2,13 +2,13 @@ import 'package:amazon_flutter/features/cart/cart_screens/cart_history.dart';
 import 'package:amazon_flutter/features/order/order_screen/order_screen.dart';
 
 import '../../cart/cart_screens/cart_screen.dart';
-import '../home_screen/home_screen.dart';
+import '../../home/home_screen/home_screen.dart';
 import '../../profile/profile_screen/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 
-class NavHomeCtrl extends GetxController {
+class NavUserCtrl extends GetxController {
   final List<Widget> _pages = [
     const HomeScreen(),
     const OrderScreen(),

@@ -6,6 +6,7 @@ import 'package:amazon_flutter/features/checkout/checkout_screen/checkout_screen
 
 import '../../../core/utils/components/components.dart';
 import '../../../controller/user_controller.dart';
+import '../../../core/widgets/app_icon.dart';
 import '../../../core/widgets/app_text_button.dart';
 import '../../../core/widgets/custom_button.dart';
 import '../../auth/auth_ctrl/auth_ctrl.dart';
@@ -84,163 +85,193 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Address'),
-        backgroundColor: AppColors.mainColor,
-      ),
-      body: GetBuilder<UserCtrl>(
-        builder: (userCtrl) {
-          return GetBuilder<UpdateProfileCtrl>(
+      body: Column(
+        children: [
+          Container(
+            color: AppColors.mainColor,
+            width: double.maxFinite,
+            height: Dimensions.height10 * 10,
+            padding: EdgeInsets.only(
+              top: Dimensions.height45,
+              left: Dimensions.width20,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                AppIcon(
+                  onTap: () => Get.back(),
+                  icon: Icons.arrow_back_ios,
+                  backgroundColor: AppColors.yellowColor,
+                ),
+                BigText(
+                  text: 'Modify profile',
+                  color: Colors.white,
+                ),
+                Container(
+                  width: Dimensions.height45,
+                ),
+              ],
+            ),
+          ),
+          GetBuilder<UpdateProfileCtrl>(
             builder: (addressCtrl) {
               addressCtrl.addressC.text =
                   '${addressCtrl.placemark.value.administrativeArea ?? ''}${addressCtrl.placemark.value.locality ?? ''}${addressCtrl.placemark.value.street ?? ''}${addressCtrl.placemark.value.postalCode ?? ''}';
-              return Column(
-                children: [
-                  Container(
-                    height: 160,
-                    width: Dimensions.screenWidth,
-                    margin: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      border: Border.all(
-                        width: 2,
-                        color: AppColors.mainColor,
-                      ),
-                    ),
-                    child: _isPosition != false
-                        ? GoogleMap(
-                            mapType: MapType.hybrid,
-                            initialCameraPosition: CameraPosition(
-                              target: addressCtrl.initPosition,
-                              zoom: 17.0,
-                            ),
-                            onTap: (latLng) {
-                              Get.toNamed(
-                                Routes.ADDRESS,
-                              );
-                            },
-                            myLocationEnabled: true,
-                            onMapCreated: (GoogleMapController controller) =>
-                                addressCtrl.setMapController(controller),
-                            zoomControlsEnabled: false,
-                            compassEnabled: false,
-                            indoorViewEnabled: true,
-                            mapToolbarEnabled: false,
-                            onCameraMove: ((position) {
-                              addressCtrl.initPosition = LatLng(
-                                position.target.latitude,
-                                position.target.longitude,
-                              );
-                            }),
-                            onCameraIdle: () {
-                              addressCtrl
-                                  .updatePosition(addressCtrl.initPosition);
-                            },
-                          )
-                        : Container(),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.only(
-                        left: Dimensions.width20,
-                        right: Dimensions.width20,
-                      ),
-                      child: ListView(children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(height: Dimensions.height10 - 5),
-                            SizedBox(
-                              height: Dimensions.height45 + 5,
-                              child: ListView.builder(
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: addressCtrl.addressTypeList.length,
-                                  itemBuilder: (context, index) {
-                                    return InkWell(
-                                      onTap: () {
-                                        addressCtrl.setAddressTypeIndex(index);
-                                      },
-                                      child: Container(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: Dimensions.width30,
-                                            vertical: Dimensions.height10),
-                                        margin: EdgeInsets.only(
-                                            right: Dimensions.width10),
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(
-                                              Dimensions.radius20 / 4),
-                                          color: Theme.of(context).cardColor,
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.grey[200]!,
-                                              spreadRadius: 1,
-                                              blurRadius: 5,
-                                            ),
-                                          ],
-                                        ),
-                                        child: Icon(
-                                          index == 0
-                                              ? Icons.home_filled
-                                              : index == 1
-                                                  ? Icons.work
-                                                  : Icons.location_on,
-                                          color: addressCtrl.addressTypeIndex ==
-                                                  index
-                                              ? AppColors.mainColor
-                                              : Theme.of(context).disabledColor,
-                                        ),
-                                      ),
-                                    );
-                                  }),
-                            ),
-                            SizedBox(height: Dimensions.height20),
-                            BigText(
-                              text: 'Delivery Address',
-                            ),
-                            SizedBox(
-                              height: Dimensions.height10,
-                            ),
-                            AppTextField(
-                              textController: addressCtrl.addressC,
-                              hintText: 'Your address',
-                              icon: Icons.map,
-                            ),
-                            SizedBox(height: Dimensions.height20),
-                            BigText(
-                              text: 'Delivery Name',
-                            ),
-                            SizedBox(
-                              height: Dimensions.height10,
-                            ),
-                            AppTextField(
-                              textController: addressCtrl.nameC,
-                              hintText: 'Your name',
-                              icon: Icons.person,
-                            ),
-                            SizedBox(height: Dimensions.height20),
-                            BigText(
-                              text: 'Delivery Phone',
-                            ),
-                            SizedBox(
-                              height: Dimensions.height10,
-                            ),
-                            AppTextField(
-                              keyboardType: TextInputType.phone,
-                              textController: addressCtrl.phoneC,
-                              hintText: 'Your Phone',
-                              icon: Icons.phone,
-                            ),
-                          ],
+              return MediaQuery.removePadding(
+                context: context,
+                removeTop: true,
+                child: Expanded(
+                  child: ListView(
+                    children: [
+                      Container(
+                        height: 160,
+                        width: Dimensions.screenWidth,
+                        margin: const EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(
+                            width: 2,
+                            color: AppColors.mainColor,
+                          ),
                         ),
-                      ]),
-                    ),
+                        child: _isPosition != false
+                            ? GoogleMap(
+                                mapType: MapType.hybrid,
+                                initialCameraPosition: CameraPosition(
+                                  target: addressCtrl.initPosition,
+                                  zoom: 17.0,
+                                ),
+                                onTap: (latLng) {
+                                  Get.toNamed(
+                                    Routes.ADDRESS,
+                                  );
+                                },
+                                myLocationEnabled: true,
+                                onMapCreated: (GoogleMapController controller) =>
+                                    addressCtrl.setMapController(controller),
+                                zoomControlsEnabled: false,
+                                compassEnabled: false,
+                                indoorViewEnabled: true,
+                                mapToolbarEnabled: false,
+                                onCameraMove: ((position) {
+                                  addressCtrl.initPosition = LatLng(
+                                    position.target.latitude,
+                                    position.target.longitude,
+                                  );
+                                }),
+                                onCameraIdle: () {
+                                  addressCtrl.updatePosition(addressCtrl.initPosition);
+                                },
+                              )
+                            : Container(),
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            left: Dimensions.width20,
+                            right: Dimensions.width20,
+                          ),
+                          child: ListView(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(height: Dimensions.height10 - 5),
+                                SizedBox(
+                                  height: Dimensions.height45 + 5,
+                                  child: ListView.builder(
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: addressCtrl.addressTypeList.length,
+                                      itemBuilder: (context, index) {
+                                        return InkWell(
+                                          onTap: () {
+                                            addressCtrl.setAddressTypeIndex(index);
+                                          },
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: Dimensions.width30,
+                                                vertical: Dimensions.height10),
+                                            margin: EdgeInsets.only(
+                                                right: Dimensions.width10),
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(
+                                                  Dimensions.radius20 / 4),
+                                              color: Theme.of(context).cardColor,
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.grey[200]!,
+                                                  spreadRadius: 1,
+                                                  blurRadius: 5,
+                                                ),
+                                              ],
+                                            ),
+                                            child: Icon(
+                                              index == 0
+                                                  ? Icons.home_filled
+                                                  : index == 1
+                                                      ? Icons.work
+                                                      : Icons.location_on,
+                                              color:
+                                                  addressCtrl.addressTypeIndex == index
+                                                      ? AppColors.mainColor
+                                                      : Theme.of(context).disabledColor,
+                                            ),
+                                          ),
+                                        );
+                                      }),
+                                ),
+                                SizedBox(height: Dimensions.height20),
+                                BigText(
+                                  text: 'Delivery Address',
+                                ),
+                                SizedBox(
+                                  height: Dimensions.height10,
+                                ),
+                                AppTextField(
+                                  textController: addressCtrl.addressC,
+                                  hintText: 'Your address',
+                                  icon: Icons.map,
+                                ),
+                                SizedBox(height: Dimensions.height20),
+                                BigText(
+                                  text: 'Delivery Name',
+                                ),
+                                SizedBox(
+                                  height: Dimensions.height10,
+                                ),
+                                AppTextField(
+                                  textController: addressCtrl.nameC,
+                                  hintText: 'Your name',
+                                  icon: Icons.person,
+                                ),
+                                SizedBox(height: Dimensions.height20),
+                                BigText(
+                                  text: 'Delivery Phone',
+                                ),
+                                SizedBox(
+                                  height: Dimensions.height10,
+                                ),
+                                AppTextField(
+                                  keyboardType: TextInputType.phone,
+                                  textController: addressCtrl.phoneC,
+                                  hintText: 'Your Phone',
+                                  icon: Icons.phone,
+                                ),
+                              ],
+                            ),
+                          ]),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               );
             },
-          );
-        },
+          ),
+        ],
       ),
       bottomNavigationBar:
           GetBuilder<UpdateProfileCtrl>(builder: (addressCtrl) {
@@ -279,7 +310,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                   //         },
                   // ),
                   AppTextButton(
-                    txt: 'Add to Cart',
+                    txt: 'Save modifications',
                     onTap: () {
                       if (addressCtrl.addressC.text.isNotEmpty) {
                         addressCtrl.saveUserData(

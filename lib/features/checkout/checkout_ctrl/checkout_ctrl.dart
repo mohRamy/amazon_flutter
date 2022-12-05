@@ -44,7 +44,7 @@ class CheckoutCtrl extends GetxController implements GetxService {
             title: 'Order',
             color: AppColors.mainColor,
           );
-          Get.toNamed(Routes.NAV_HOME_SCREEN);
+          Get.toNamed(Routes.NAV_USER_SCREEN);
         },
       );
       _isLoading = false;

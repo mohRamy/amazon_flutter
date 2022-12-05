@@ -118,9 +118,9 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               childAspectRatio: 1 / 1.6,
               crossAxisSpacing: Dimensions.height10,
             ),
-            itemCount: homeCtrl.productRating.length,
+            itemCount: homeCtrl.productNew.length,
             itemBuilder: (context, index) {
-              var product = homeCtrl.productRating[index];
+              var product = homeCtrl.productNew[index];
               double totalRating = 0;
               double avgRating = 0;
 
@@ -131,6 +131,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
               if (totalRating != 0) {
                 avgRating = totalRating / product.rating!.length;
               }
+              double docs = product.price / product.oldPrice * 100;
               return product.quantity == 0
                   ? Container()
                   : GestureDetector(
@@ -188,7 +189,7 @@ class _FoodPageBodyState extends State<FoodPageBody> {
                                         child: Row(
                                           children: [
                                             Text(
-                                              'Disc %${product.price / product.oldPrice * 100}',
+                                              'Disc %${docs.round()}',
                                               style: TextStyle(
                                                 color: Colors.black,
                                                 fontSize: Dimensions.font16 + 2,

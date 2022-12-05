@@ -121,7 +121,7 @@ class OrderScreen extends GetView<OrderCtrl> {
                                                     SizedBox(width: Dimensions.width10),
                                                     BigText(
                                                       text:
-                                                          myOrder.totalPrice.toString(),
+                                                          '\$${myOrder.totalPrice.toString()}',
                                                       size: 16,
                                                       color: AppColors.titleColor,
                                                     ),

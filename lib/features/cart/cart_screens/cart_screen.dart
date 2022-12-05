@@ -64,9 +64,6 @@ class _CartScreenState extends State<CartScreen> {
               ],
             ),
           ),
-          // body
-          // GetBuilder<CartCtrl>(
-          //   builder: (contr) =>
           cartCtrl.getItems.isNotEmpty
               ? MediaQuery.removePadding(
                   removeTop: true,
@@ -151,21 +148,23 @@ class _CartScreenState extends State<CartScreen> {
                                                           Dimensions.radius20),
                                                   color: Colors.grey[100],
                                                 ),
-                                                child: GetBuilder<CartCtrl>(
-                                                    builder: (controller) {
-                                                  return Row(
+                                                child: 
+                                                // GetBuilder<CartCtrl>(
+                                                //     builder: (controller) {
+                                                //   return 
+                                                  Row(
                                                     children: [
                                                       InkWell(
                                                         onTap: () {
-                                                          controller
+                                                          cartCtrl
                                                               .setQuantity(
                                                             false,
                                                             product.product!
                                                                 .quantity,
                                                           );
-                                                          if (controller
+                                                          if (cartCtrl
                                                               .isValid.value) {
-                                                            controller.addItem(
+                                                            cartCtrl.addItem(
                                                               product.id,
                                                               product.product!,
                                                               product.quantity! -
@@ -186,7 +185,7 @@ class _CartScreenState extends State<CartScreen> {
                                                                 2,
                                                       ),
                                                       BigText(
-                                                        text: controller
+                                                        text: cartCtrl
                                                             .quantity
                                                             .toString(),
                                                       ),
@@ -197,15 +196,15 @@ class _CartScreenState extends State<CartScreen> {
                                                       ),
                                                       InkWell(
                                                         onTap: () {
-                                                          controller
+                                                          cartCtrl
                                                               .setQuantity(
                                                             true,
                                                             product.product!
                                                                 .quantity,
                                                           );
-                                                          if (controller
+                                                          if (cartCtrl
                                                               .isValid.value) {
-                                                            controller.addItem(
+                                                            cartCtrl.addItem(
                                                               product.id,
                                                               product.product!,
                                                               product.quantity! +
@@ -221,8 +220,8 @@ class _CartScreenState extends State<CartScreen> {
                                                         ),
                                                       ),
                                                     ],
-                                                  );
-                                                }),
+                                                  ),
+                                                // }),
                                               ),
                                             ],
                                           ),
@@ -265,7 +264,8 @@ class _CartScreenState extends State<CartScreen> {
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.end,
+                
                 children: [
                   Container(
                     padding: EdgeInsets.all(Dimensions.height20 - 5),
@@ -276,25 +276,16 @@ class _CartScreenState extends State<CartScreen> {
                     child:
                         BigText(text: '\$ ${cartCtrl.totalAmount.toString()}'),
                   ),
+                  SizedBox(height: Dimensions.height15),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // CustomButton(
-                      //   width: 150,
-                      //   height: 80,
-                      //   radius: Dimensions.radius15,
-                      //   fontSize: Dimensions.font20,
-                      //   buttomText: 'Save',
-                      //   onPressed: () {
-                      //     cartCtrl.addToCartHistoryList();
-                      //     Get.toNamed(Routes.NAV_HOME_SCREEN);
-                      //   },
-                      // ),
+                      
                       AppTextButton(
                         txt: 'Save Cart',
                         onTap: () {
                           cartCtrl.addToCartHistoryList();
-                          Get.toNamed(Routes.NAV_HOME_SCREEN);
+                          Get.toNamed(Routes.NAV_USER_SCREEN);
                         },
                       ),
                       SizedBox(

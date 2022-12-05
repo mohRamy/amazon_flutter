@@ -134,7 +134,7 @@ class AdminDetailsScreen extends GetView<AdminCtrl> {
                           left: Dimensions.width20, right: Dimensions.width20),
                       child: BigText(
                         size: Dimensions.font26,
-                        text: 'Update Product',
+                        text: ' Modify product',
                         overflow: TextOverflow.clip,
                       ),
                     )),
@@ -297,7 +297,7 @@ class AdminDetailsScreen extends GetView<AdminCtrl> {
                   //   buttomText: 'Save',
                   // ),
                   AppTextButton(
-                    txt: AppString.SIGN_UP,
+                    txt: 'Save modifications',
                     onTap: () {
                       adminCtrl.updateProduct(
                         id: product.id!,

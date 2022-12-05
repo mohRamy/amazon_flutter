@@ -114,7 +114,7 @@ class AuthCtrl extends GetxController implements GetxService {
           sharedPreferences.setString(AppString.TYPE_KEY, jsonDecode(res.body)['type']);
 
           if (Get.find<UserCtrl>().user.type == 'user') {
-            Get.offNamedUntil(Routes.NAV_HOME_SCREEN, (route) => false);
+            Get.offNamedUntil(Routes.NAV_USER_SCREEN, (route) => false);
           } else {
             Get.offNamedUntil(Routes.NAV_ADMIN_SCREEN, (route) => false);
           }

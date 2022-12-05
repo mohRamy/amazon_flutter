@@ -28,7 +28,7 @@ class ShoppingApp extends StatelessWidget {
       if (authRepo.getUserType() == "admin") {
         return Routes.NAV_ADMIN_SCREEN;
       } else {
-        return Routes.NAV_HOME_SCREEN;
+        return Routes.NAV_USER_SCREEN;
       }
   }
 

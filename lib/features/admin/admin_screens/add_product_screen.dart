@@ -82,19 +82,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
       }
     }
 
-  void sellProduct() {
-    if (_addProductFormKey.currentState!.validate() && images.isNotEmpty && adminCtrl.productNameC.text.isNotEmpty && adminCtrl.descriptionC.text.isNotEmpty && adminCtrl.priceC.text.isNotEmpty && adminCtrl.quantityC.text.isNotEmpty ) {
-      adminCtrl.sellProduct(
-        name: adminCtrl.productNameC.text,
-        description: adminCtrl.descriptionC.text,
-        price: int.parse(adminCtrl.priceC.text),
-        quantity: int.parse(adminCtrl.quantityC.text),
-        category: category,
-        images: images,
-      );
-    }
-  }
-
   void selectImages() async {
     var res = await pickImagesFromGallery();
     setState(() {

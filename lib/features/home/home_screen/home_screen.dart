@@ -126,6 +126,11 @@ class HomeScreen extends StatelessWidget {
     Get.toNamed(Routes.SEARCH);
   }
 
+  Future<void> _loadResources() async {
+    await Get.find<HomeCtrl>().fetchAllProduct();
+    await Get.find<HomeCtrl>().fetchRatingProduct();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -196,10 +201,15 @@ class HomeScreen extends StatelessWidget {
         ),
         GetBuilder<HomeCtrl>(builder: (homeCtrl) {
           return homeCtrl.productRating.isNotEmpty
-              ? const Expanded(
-                  child: SingleChildScrollView(
-                    physics: BouncingScrollPhysics(),
-                    child: FoodPageBody(),
+              ? Expanded(
+                  child: RefreshIndicator(
+                    onRefresh: () async {
+                      await _loadResources();
+                    },
+                    child: const SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      child: FoodPageBody(),
+                    ),
                   ),
                 )
               : const Expanded(child: CustomLoader());

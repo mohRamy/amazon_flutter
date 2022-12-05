@@ -6,7 +6,7 @@ abstract class Routes {
   static const SIGN_IN = _Paths.SIGN_IN;
   static const SIGN_UP = _Paths.SIGN_UP;
   static const NAV_ADMIN_SCREEN = _Paths.NAV_ADMIN_SCREEN;
-  static const NAV_HOME_SCREEN = _Paths.NAV_HOME_SCREEN;
+  static const NAV_USER_SCREEN = _Paths.NAV_USER_SCREEN;
   static const HOME = _Paths.HOME;
   static const ADD_PRODUCT = _Paths.ADD_PRODUCT;
   static const CATEGORY_DETAIL = _Paths.CATEGORY_DETAIL;
@@ -25,7 +25,7 @@ abstract class _Paths {
   static const SIGN_IN = '/sign-in';
   static const SIGN_UP = '/sign-UP';
   static const NAV_ADMIN_SCREEN = '/nav-admin';
-  static const NAV_HOME_SCREEN = '/nav-home';
+  static const NAV_USER_SCREEN = '/nav-user';
   static const HOME = '/HOME';
   static const ADD_PRODUCT = '/add-product';
   static const CATEGORY_DETAIL = '/category-detail';

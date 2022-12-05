@@ -5,13 +5,13 @@ import 'package:amazon_flutter/features/checkout/checkout_screen/checkout_screen
 import '../../features/update_profile/update_profile_screens/update_profile_screen.dart';
 import '../../features/admin/admin_screens/add_product_screen.dart';
 import '../../features/admin/admin_screens/admin_product_details.dart';
-import '../../features/admin/admin_screens/nav_admin_screen.dart';
+import '../../features/nav/nav_screen/nav_admin_screen.dart';
 import '../../features/auth/auth_screen/signin_screen.dart';
 import '../../features/auth/auth_screen/signup_screen.dart';
 import '../../features/cart/cart_screens/cart_screen.dart';
 import '../../features/home/home_screen/category_deals_screen.dart';
 import '../../features/home/home_screen/home_screen.dart';
-import '../../features/home/home_screen/nav_screen.dart';
+import '../../features/nav/nav_screen/nav_user_screen.dart';
 import '../../features/order_details/order_details_screens/order_details_screen.dart';
 import '../../features/product_details/product_details_screens/newest_product_screen.dart';
 import '../../features/product_details/product_details_screens/rating_product_screen.dart';
@@ -40,8 +40,8 @@ class AppPages {
       transition: Transition.fadeIn,
     ),
     GetPage(
-      name: _Paths.NAV_HOME_SCREEN,
-      page: () => const NavScreen(),
+      name: _Paths.NAV_USER_SCREEN,
+      page: () => const NavUserScreen(),
       transition: Transition.fadeIn,
     ),
     GetPage(

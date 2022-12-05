@@ -1,5 +1,4 @@
 import 'package:amazon_flutter/core/widgets/app_text_button.dart';
-import 'package:amazon_flutter/core/widgets/custom_button.dart';
 import 'package:amazon_flutter/models/rating_model.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 

@@ -12,7 +12,7 @@ import '../features/auth/auth_ctrl/auth_ctrl.dart';
 import '../features/auth/auth_repo/auth_repo.dart';
 import '../features/cart/cart_repo/cart_repo.dart';
 import '../features/home/home_ctrl/home_ctrl.dart';
-import '../features/home/home_ctrl/nav_home_ctrl.dart';
+import '../features/nav/nav_ctrl/nav_user_ctrl.dart';
 import '../features/home/home_repo/home_repo.dart';
 import '../features/product_details/product_details_ctrl/product_details_ctrl.dart';
 import '../features/product_details/product_details_repo/product_details_repo.dart';
@@ -23,7 +23,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/api/api_client.dart';
 import '../controller/user_controller.dart';
-import '../features/admin/admin_ctrl/nav_admin_ctrl.dart';
+import '../features/nav/nav_ctrl/nav_admin_ctrl.dart';
 import '../features/cart/cart_ctrl/cart_ctrl.dart';
 
 
@@ -50,7 +50,7 @@ Future<void> init() async {
   //controllers
   Get.lazyPut(() => UserCtrl());
   Get.lazyPut(() => AuthCtrl(apiClient: Get.find(), authRepo: Get.find(), sharedPreferences: sharedPreferences));
-  Get.lazyPut(() => NavHomeCtrl());
+  Get.lazyPut(() => NavUserCtrl());
   Get.lazyPut(() => NavAdminCtrl());
   Get.lazyPut(() => UpdateProfileCtrl(addressRepo: Get.find()));
   Get.lazyPut(() => AdminCtrl(adminRepo: Get.find()));
