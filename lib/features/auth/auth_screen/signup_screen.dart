@@ -68,7 +68,7 @@ class SignUpScreen extends GetView<AuthCtrl> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: GetBuilder<AuthCtrl>(
-        builder: (_authController) => !_authController.isLoading
+        builder: (authCtrl) => !authCtrl.isLoading
             ? SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
                 child: Column(
@@ -153,44 +153,14 @@ class SignUpScreen extends GetView<AuthCtrl> {
                     SizedBox(
                       height: Dimensions.height20,
                     ),
-                    //sign up button
-                    // CustomButton(
-                    //   width: 150,
-                    //   height: 80,
-                    //   radius: Dimensions.radius15,
-                    //   fontSize: Dimensions.font20,
-                    //   buttomText: AppString.SIGN_IN,
-                    //   onPressed: () {
-                    //     _registration(_authController);
-                    //   },
-                    // ),
+                    
                     AppTextButton(
                         txt: AppString.SIGN_UP,
                         onTap: () {
-                          _registration(_authController);
+                          _registration(authCtrl);
                         },
                       ),
-                    // GestureDetector(
-                    //   onTap: () {
-                    //     _registration(_authController);
-                    //   },
-                    //   child: Container(
-                    //     width: Dimensions.screenWidth / 2,
-                    //     height: Dimensions.screenHeight / 13,
-                    //     decoration: BoxDecoration(
-                    //       borderRadius:
-                    //           BorderRadius.circular(Dimensions.radius30),
-                    //       color: AppColors.mainColor,
-                    //     ),
-                    //     child: Center(
-                    //       child: BigText(
-                    //         text: AppString.SIGN_UP,
-                    //         size: Dimensions.font20 + Dimensions.font20 / 2,
-                    //         color: Colors.white,
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
+                    
                     SizedBox(
                       height: Dimensions.height10,
                     ),

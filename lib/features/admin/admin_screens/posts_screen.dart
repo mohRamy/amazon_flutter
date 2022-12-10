@@ -1,4 +1,4 @@
-import '../../../controller/user_controller.dart';
+import '../../../controller/user_ctrl.dart';
 import '../admin_ctrl/admin_ctrl.dart';
 import 'package:get/get.dart';
 

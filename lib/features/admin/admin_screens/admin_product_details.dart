@@ -15,7 +15,7 @@ import '../../../core/utils/app_strings.dart';
 import '../../../core/utils/dimensions.dart';
 import '../../../core/widgets/app_icon.dart';
 import '../../../core/widgets/big_text.dart';
-import '../../../controller/user_controller.dart';
+import '../../../controller/user_ctrl.dart';
 import '../../../models/product_model.dart';
 
 class AdminDetailsScreen extends GetView<AdminCtrl> {

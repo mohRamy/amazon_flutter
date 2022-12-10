@@ -32,7 +32,6 @@ class AuthRepo {
       address: '',
       type: '',
       token: '',
-      cart: [],
     );
 
     return await apiClient.postData('$uri/api/signup', user.toJson());

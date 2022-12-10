@@ -1,4 +1,4 @@
-import 'package:amazon_flutter/controller/user_controller.dart';
+import 'package:amazon_flutter/controller/user_ctrl.dart';
 
 import '../../../core/widgets/app_text_button.dart';
 import '../../../core/widgets/custom_button.dart';

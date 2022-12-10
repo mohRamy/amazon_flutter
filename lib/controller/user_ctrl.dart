@@ -11,7 +11,6 @@ class UserCtrl extends GetxController{
     address: '',
     type: '',
     token: '',
-    cart: [],
   );
 
   UserModel get user => _user;

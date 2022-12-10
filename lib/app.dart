@@ -4,7 +4,7 @@ import 'package:amazon_flutter/features/cart/cart_repo/cart_repo.dart';
 import 'package:amazon_flutter/features/order/order_ctrl/order_ctrl.dart';
 import 'package:amazon_flutter/features/checkout/checkout_screen/checkout_screen.dart';
 
-import 'controller/user_controller.dart';
+import 'controller/user_ctrl.dart';
 import 'features/auth/auth_repo/auth_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

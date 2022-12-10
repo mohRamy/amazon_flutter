@@ -1,24 +1,19 @@
 import 'dart:convert';
-import 'dart:isolate';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../core/utils/components/components.dart';
 import '../auth_repo/auth_repo.dart';
 
 import '../../../core/api/api_client.dart';
 import '../../../core/utils/app_strings.dart';
 import '../../../core/utils/constants/error_handling.dart';
-import '../../../controller/user_controller.dart';
+import '../../../controller/user_ctrl.dart';
 import '../../../config/routes/app_pages.dart';
 import '../../../helper/dependencies.dart' as dep;
-
-enum Auth {
-  signin,
-  signup,
-}
 
 class AuthCtrl extends GetxController implements GetxService {
   final ApiClient apiClient;
@@ -30,20 +25,8 @@ class AuthCtrl extends GetxController implements GetxService {
     required this.sharedPreferences,
   });
 
-  final Rx<Auth> _auth = Rx(Auth.signup);
-  Rx<Auth> get auth => _auth;
-
-  void onChanged(Auth? val) {
-    _auth.value = val!;
-    update();
-  }
-
   bool _isLoading = false;
   bool get isLoading => _isLoading;
-
-  // final TextEditingController emailC = TextEditingController();
-  // final TextEditingController passwordC = TextEditingController();
-  // final TextEditingController nameC = TextEditingController();
 
   TextEditingController emailIC = TextEditingController();
   TextEditingController passwordIC = TextEditingController();
@@ -58,7 +41,7 @@ class AuthCtrl extends GetxController implements GetxService {
     super.dispose();
     emailIC.dispose();
     passwordIC.dispose();
-    
+
     emailUC.dispose();
     passwordUC.dispose();
     nameUC.dispose();
@@ -84,11 +67,12 @@ class AuthCtrl extends GetxController implements GetxService {
       httpErrorHandle(
         res: res,
         onSuccess: () {
-          Get.snackbar('', 'Account created! Login with the same credentials!');
+          Components.showCustomSnackBar(
+              title: '', 'Account created! Login with the same credentials!');
         },
       );
     } catch (e) {
-      Get.snackbar('', e.toString());
+      Components.showCustomSnackBar(e.toString());
     }
     _isLoading = false;
     update();
@@ -111,7 +95,8 @@ class AuthCtrl extends GetxController implements GetxService {
 
           Get.find<UserCtrl>().setUserFromJson(res.body);
 
-          sharedPreferences.setString(AppString.TYPE_KEY, jsonDecode(res.body)['type']);
+          sharedPreferences.setString(
+              AppString.TYPE_KEY, jsonDecode(res.body)['type']);
 
           if (Get.find<UserCtrl>().user.type == 'user') {
             Get.offNamedUntil(Routes.NAV_USER_SCREEN, (route) => false);
@@ -121,7 +106,7 @@ class AuthCtrl extends GetxController implements GetxService {
         },
       );
     } catch (e) {
-      Get.snackbar('', '2');
+      Components.showCustomSnackBar(e.toString());
     }
     _isLoading = false;
     update();
@@ -148,7 +133,7 @@ class AuthCtrl extends GetxController implements GetxService {
         userController.setUserFromJson(userRes.body);
       }
     } catch (e) {
-      Get.snackbar('', e.toString());
+      Components.showCustomSnackBar(e.toString());
     }
     _isLoading = false;
     update();
@@ -166,11 +151,11 @@ class AuthCtrl extends GetxController implements GetxService {
     apiClient.updateHeaders('');
     return true;
   }
-  
+
   bool isObscure = true;
 
-  void changeObsure(){
-  isObscure = !isObscure;
-  update();
+  void changeObsure() {
+    isObscure = !isObscure;
+    update();
   }
-  }
+}

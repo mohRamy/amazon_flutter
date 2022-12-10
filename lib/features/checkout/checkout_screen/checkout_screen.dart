@@ -1,5 +1,5 @@
 import 'package:amazon_flutter/config/routes/app_pages.dart';
-import 'package:amazon_flutter/controller/user_controller.dart';
+import 'package:amazon_flutter/controller/user_ctrl.dart';
 import 'package:amazon_flutter/core/utils/app_colors.dart';
 import 'package:amazon_flutter/core/utils/components/components.dart';
 import 'package:amazon_flutter/core/utils/dimensions.dart';

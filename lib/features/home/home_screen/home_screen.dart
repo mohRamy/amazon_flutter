@@ -2,7 +2,7 @@ import 'package:amazon_flutter/core/widgets/custom_loader.dart';
 import 'package:amazon_flutter/features/home/home_ctrl/home_ctrl.dart';
 
 import '../../../core/utils/app_strings.dart';
-import '../../../controller/user_controller.dart';
+import '../../../controller/user_ctrl.dart';
 import '../home_widgets/top_categories.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

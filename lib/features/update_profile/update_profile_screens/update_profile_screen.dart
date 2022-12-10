@@ -5,7 +5,7 @@ import 'package:amazon_flutter/features/admin/admin_screens/admin_order_screen.d
 import 'package:amazon_flutter/features/checkout/checkout_screen/checkout_screen.dart';
 
 import '../../../core/utils/components/components.dart';
-import '../../../controller/user_controller.dart';
+import '../../../controller/user_ctrl.dart';
 import '../../../core/widgets/app_icon.dart';
 import '../../../core/widgets/app_text_button.dart';
 import '../../../core/widgets/custom_button.dart';

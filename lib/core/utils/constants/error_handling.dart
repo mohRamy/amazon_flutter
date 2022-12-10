@@ -18,12 +18,10 @@ void httpErrorHandle({
     Components.showCustomSnackBar(jsonDecode(res.body)['msg']);
     break;
     case 500:
-    //Components.showSnackBar(context, jsonDecode(res.body)['error']);
     Components.showCustomSnackBar(jsonDecode(res.body)['error']);
     break;
     default:
-    //Components.showSnackBar(context, res.body);
-    Get.snackbar('successfull', res.body);
+    Components.showCustomSnackBar(title: 'successfull',jsonDecode(res.body)['error']);
   }
 }
 

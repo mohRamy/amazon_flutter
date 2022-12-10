@@ -4,7 +4,7 @@ import 'package:amazon_flutter/core/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/utils/components/components.dart';
-import '../../../controller/user_controller.dart';
+import '../../../controller/user_ctrl.dart';
 import '../../../models/user_model.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';

@@ -8,7 +8,7 @@ import '../cart_repo/cart_repo.dart';
 
 import '../../../core/utils/app_colors.dart';
 import '../../../core/utils/constants/error_handling.dart';
-import '../../../controller/user_controller.dart';
+import '../../../controller/user_ctrl.dart';
 import '../../../models/cart_model.dart';
 import '../../../models/product_model.dart';
 import '../../../models/user_model.dart';
@@ -34,9 +34,9 @@ class CartCtrl extends GetxController implements GetxService {
       httpErrorHandle(
         res: res,
         onSuccess: () {
-          UserModel user =
-              userController.user.copyWith(cart: jsonDecode(res.body)['cart']);
-          userController.setUserFromModel(user);
+          // UserModel user =
+          //     userController.user.copyWith(cart: jsonDecode(res.body)['cart']);
+          // userController.setUserFromModel(user);
         },
       );
       update();

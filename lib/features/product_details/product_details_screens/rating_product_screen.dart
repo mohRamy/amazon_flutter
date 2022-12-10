@@ -282,7 +282,7 @@ import '../../../core/utils/dimensions.dart';
 import '../../../core/widgets/app_text_button.dart';
 import '../../../core/widgets/big_text.dart';
 import '../../../core/widgets/expandable_text_widget.dart';
-import '../../../controller/user_controller.dart';
+import '../../../controller/user_ctrl.dart';
 import '../../../config/routes/app_pages.dart';
 
 class RatingProductScreen extends StatefulWidget {

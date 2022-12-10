@@ -22,7 +22,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/api/api_client.dart';
-import '../controller/user_controller.dart';
+import '../controller/user_ctrl.dart';
 import '../features/nav/nav_ctrl/nav_admin_ctrl.dart';
 import '../features/cart/cart_ctrl/cart_ctrl.dart';
 

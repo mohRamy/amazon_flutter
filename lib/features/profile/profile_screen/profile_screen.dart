@@ -1,4 +1,4 @@
-import '../../../controller/user_controller.dart';
+import '../../../controller/user_ctrl.dart';
 import '../../auth/auth_ctrl/auth_ctrl.dart';
 import '../../cart/cart_ctrl/cart_ctrl.dart';
 import 'package:flutter/material.dart';

@@ -9,7 +9,6 @@ class UserModel {
   final String address;
   final String type;
   final String token;
-  final List<dynamic> cart;
 
   UserModel({
     required this.id,
@@ -20,7 +19,6 @@ class UserModel {
     required this.address,
     required this.type,
     required this.token,
-    required this.cart,
   });
 
   Map<String, dynamic> toMap() {
@@ -33,7 +31,6 @@ class UserModel {
       'address': address,
       'type': type,
       'token': token,
-      'cart': cart,
     };
   }
 
@@ -47,11 +44,6 @@ class UserModel {
       address: map['address'] ?? '',
       type: map['type'] ?? '',
       token: map['token'] ?? '',
-      cart: List<Map<String, dynamic>>.from(
-        map['cart']?.map(
-          (x) => Map<String, dynamic>.from(x),
-        ),
-      ),
     );
   }
 
@@ -68,7 +60,6 @@ class UserModel {
     String? address,
     String? type,
     String? token,
-    List<dynamic>? cart,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -79,7 +70,6 @@ class UserModel {
       address: address ?? this.address,
       type: type ?? this.type,
       token: token ?? this.token,
-      cart: cart ?? this.cart,
     );
   }
 }
